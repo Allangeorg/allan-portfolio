@@ -332,8 +332,11 @@
 
   <!-- BEGIN: Hero Section -->
   <main class="relative max-w-[1400px] mx-auto px-6 md:px-14 pt-6 md:pt-12 pb-20 overflow-hidden" data-purpose="hero-section" id="home">
+    <!-- 3D Moving Cyberspace Background Canvas -->
+    <div id="hero-3d-bg-container" class="absolute inset-0 pointer-events-none overflow-hidden z-0" aria-hidden="true"></div>
+
     <!-- Big Title Header -->
-    <div class="text-center w-full mb-6 md:mb-10 relative z-0 select-none">
+    <div class="text-center w-full mb-6 md:mb-10 relative z-10 select-none">
       <h1 id="hero-title" class="text-[9.5vw] md:text-[8rem] lg:text-[9.5rem] font-extrabold uppercase leading-[0.85] tracking-tight">
         <span class="block overflow-hidden">
           <span id="hero-name-line-1" class="hero-name-allan block">ALLAN GEORGE</span>
@@ -345,7 +348,7 @@
     </div>
 
     <!-- Center Headshot & Symmetrical Content Grid -->
-    <div class="relative grid grid-cols-1 md:grid-cols-12 items-center mt-2 md:-mt-6">
+    <div class="relative z-10 grid grid-cols-1 md:grid-cols-12 items-center mt-2 md:-mt-6">
       
       <!-- Left Column: Designer info & Arrow -->
       <div id="hero-left-col" class="md:col-span-3 flex flex-col items-start md:items-start pl-2 md:pl-6 order-2 md:order-1 pt-6 md:pt-0">
@@ -1455,6 +1458,7 @@
   </script>
   <script type="module" src="./scroll-expand-media.js"></script>
   <script type="module" src="./experience-section.js?v=resume-content"></script>
+  <script type="module" src="./hero-3d-background.js?v=cyber-depth"></script>
   <script type="module" src="./hero-cinematic-reveal.js?v=cinematic-v2"></script>
 </body>
 </html>
