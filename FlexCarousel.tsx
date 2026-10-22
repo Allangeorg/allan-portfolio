@@ -167,7 +167,7 @@ export const DEFAULT_ITEMS: FlexCarouselItem[] = [
     title: 'Portfolio Website',
     subtitle: 'Personal Developer & Designer Portfolio',
     description: 'A personal portfolio highlighting full-stack engineering, interactive UI components, and modern web craft.',
-    link: 'https://jishnumondal.vercel.app/'
+    link: 'https://github.com/Allangeorg/allan-portfolio'
   },
   {
     src: 'Project Images/Sen Cruzo-Client Portfolio.png',
