@@ -1,17 +1,18 @@
-# ECHO — Editorial Developer & Designer Portfolio
+# ALLAN GEORGE MATHEW — Cybersecurity & Full Stack Developer Portfolio
 
 <div align="center">
 
   [![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-v3-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)](https://tailwindcss.com/)
-  [![WebGL](https://img.shields.io/badge/Graphics-OGL_WebGL-black?style=for-the-badge&logo=webgl&logoColor=white)](https://github.com/oframe/ogl)
+  [![Three.js](https://img.shields.io/badge/Graphics-Three.js-black?style=for-the-badge&logo=threedotjs&logoColor=white)](https://threejs.org/)
+  [![GSAP](https://img.shields.io/badge/Animation-GSAP_3-88CE02?style=for-the-badge&logo=greensock&logoColor=white)](https://greensock.com/gsap/)
   [![License](https://img.shields.io/badge/License-MIT-000000?style=for-the-badge)](LICENSE)
 
   <p align="center">
-    <strong>A bespoke, high-performance monochrome editorial portfolio showcasing digital craftsmanship, spatial web animations, and interactive design engineering.</strong>
+    <strong>A high-performance modern developer portfolio showcasing cybersecurity research, full-stack web applications, real-time 3D particle GPU animations, and interactive design engineering.</strong>
   </p>
 
   <p align="center">
-    Crafted by <strong><a href="https://github.com/Jishnu09-siuu">Jishnu Mondal</a></strong> — Designer & Full-Stack Creative Developer.
+    Crafted by <strong><a href="https://github.com/Allangeorg">Allan George Mathew</a></strong> — Cybersecurity Specialist & Full-Stack Developer.
   </p>
 
 </div>
@@ -20,45 +21,34 @@
 
 ## ✦ Overview
 
-**ECHO** is an editorial developer and designer portfolio engineered with a focus on typography, fluid physics, and cutting-edge web graphics. Built around a curated monochrome aesthetic, it marries brutalist minimalism with rich micro-interactions, hardware-accelerated scroll animations, and interactive 3D drum reel navigation.
+This is the personal portfolio of **Allan George Mathew**, a Cybersecurity and Full-Stack Developer studying Computer Applications at Christ University, Bengaluru (Expected 2027).
 
-Whether presenting production landing pages, full-stack applications, or bespoke brand identities, ECHO provides an immersive editorial reading and browsing experience.
+The portfolio integrates modern web graphics, hardware-accelerated scroll animations, a cinematic 3D Three.js particle reveal, a 3D WorksWheel drum reel for hobbies, and an interactive spatial timeline for academic & professional milestones.
 
 ---
 
 ## ✦ Key Features & Interactive Architecture
 
-### 1. 🪐 Custom ECHO Orbital Preloader
-- Seamless intro experience with an orbital wavy dot animation synchronized via `requestAnimationFrame`.
-- Auto-detects first load and dissolves smoothly to unveil the editorial hero section.
+### 1. ⚡ Cinematic 3D Particle Hero Reveal
+- **Three.js GPU Particles**: Real-time 3D particle system sampling the masked cybersecurity operator avatar into thousands of depth-scattered points.
+- **GSAP Master Timeline**: A coordinated 6-second cinematic entrance sequence transitioning from darkness into particle convergence, avatar resolve, and typography reveal.
+- **Motion Micro-Interactions**: Smooth spring physics on interactive buttons and service links.
 
-### 2. 🗞️ Editorial Hero & Metallic Typography Shaders
-- Fluid responsive typography driven by dynamic viewport calculations (`clamp` / `vw`).
-- Multi-layer metallic header effects and integrated portrait depth masking.
-- Intersection-observer-powered entrance reveals that gracefully retrigger on revisit.
-
-### 3. 🔍 `ScrollExpandMedia` Kinetic Canvas
-- Scroll-driven media expansion stage that smoothly interpolates card dimensions, aspect ratio, and blur filters.
-- Dual-layer GPU-accelerated unblur rendering running at 120 FPS without reflow penalties.
-- Minimalist perimeter content layout ensuring 100% unobscured artwork visibility.
-
-### 4. 🧭 Horizontal Spatial Experience Canvas
-- Sticky horizontal timeline translating vertical user scroll into horizontal spatial progression.
-- Interactive timeline panels displaying milestones, career history, and "living flow" energy animations.
-- Accessible fallback honoring user OS preferences (`prefers-reduced-motion`).
-
-### 5. 🎡 WorksWheel 3D Drum Reel
-- Mathematical 3D cylindrical drum projection with radial ring transformations (`rotateX`, `rotateZ`, `translateZ`).
+### 2. 🎡 WorksWheel 3D Drum Reel (Hobbies & Interests)
+- Mathematical cylindrical drum projection with radial ring transformations (`rotateX`, `rotateZ`, `translateZ`).
 - Physics-based smooth drag gestures, momentum inertia, wheel scrolling, and step navigation.
-- Deep project integration linking directly into dynamic modal inspection.
+- Showcases Allan's 6 off-duty passions: **Football**, **Guitar**, **Video Editing**, **Video Games**, **Motorcycle Riding**, and **Trekking & Exploring**.
 
-### 6. 🌊 FlexCarousel (OGL WebGL Liquid Preset)
-- Interactive card slider powered by **OGL** (lightweight WebGL engine) with liquid lens bending and real-time mesh displacement.
-- Dynamic accordion states, focus-on-click navigation, and full keyboard/touch support.
+### 3. 🧭 Horizontal Spatial Journey Canvas
+- Sticky horizontal experience timeline translating vertical scroll into horizontal spatial progression.
+- Displays academic milestones, certifications (Ethical Hacking, Penetration Testing, Incident Defense), and core developer journey.
 
-### 7. 🪟 Interactive Project Inspection Modal
-- Glassmorphic modal viewer with animated backdrop blur (`cubic-bezier` spring easing).
-- Comprehensive project metadata: client background, deliverable scopes, tech stacks, and direct links to live deployments.
+### 4. 🌊 FlexCarousel Interactive Project Showcase
+- Fluid liquid slider displaying featured production projects.
+- Dynamic accordion states, focus-on-click navigation, and full touch/drag support.
+
+### 5. 🔍 ScrollExpandMedia Kinetic Canvas
+- Scroll-driven media expansion stage that smoothly interpolates dimensions, aspect ratio, and backdrop blur filters at 120 FPS.
 
 ---
 
@@ -66,94 +56,44 @@ Whether presenting production landing pages, full-stack applications, or bespoke
 
 | Domain | Technology | Description |
 |---|---|---|
-| **Structure** | HTML5 / Semantic Web | SEO-optimized, accessible markup with meta hierarchy |
+| **Structure** | HTML5 / Semantic Web | SEO-optimized, accessible markup with OpenGraph & meta hierarchy |
 | **Styling** | Vanilla CSS + Tailwind CSS v3 | Custom dark/light design tokens, typography & CSS variables |
-| **Graphics & WebGL** | [OGL](https://github.com/oframe/ogl) | High-performance WebGL 3D meshes & shaders for liquid bending |
-| **Logic & Motion** | Vanilla JavaScript (ES Modules) | Lightweight, zero-framework overhead, modular components |
-| **Typography** | Plus Jakarta Sans | Editorial modernist sans-serif loaded from Google Fonts |
-| **Components** | `flex-carousel`, `works-wheel`, `scroll-expand-media` | Bespoke modular UI engines |
+| **3D & Graphics** | [Three.js](https://threejs.org/) | GPU-accelerated 3D particle shaders, depth parallax, and ambient lighting |
+| **Animation Engines** | [GSAP](https://greensock.com/) + [Motion](https://motion.dev/) | Master timeline sequencing and spring physics micro-interactions |
+| **Typography** | Plus Jakarta Sans | Modern editorial sans-serif loaded from Google Fonts |
+| **Components** | `works-wheel`, `flex-carousel`, `scroll-expand-media` | Modular UI engines built with ES Modules |
 
 ---
 
 ## ✦ Featured Projects
 
-The portfolio indexes a curated roster of production web applications, landing pages, and client systems:
-
-- **Aether AI**: Cognitive workspace engineered for deep systemic research and reasoning canvas telemetry.
-- **Aether Protocol**: Monolithic preview portal and executive onboarding architectural briefing flow.
-- **Afterform S01**: Minimalist architectural lookbook and editorial digital showcase.
-- **Cafe Website (Mocha & Miso)**: Full-stack cafe management system with order processing and real-time reservation portal.
-- **Design Studio**: Bold creative agency identity website with fluid layout systems.
-- **Julian Vance Photography**: Analog & editorial photography archive showcasing visual storytelling.
-- **Sen Cruzo Client Portfolio**: Luxury architectural client presentation portfolio with custom typography.
-
----
-
-## ✦ Project Structure
-
-```bash
-ECHO-WEBSITE/
-├── index.html                   # Core single-page portfolio layout & markup
-├── flex-carousel.js             # WebGL / OGL-powered liquid carousel engine
-├── FlexCarousel.css             # Stylesheet for carousel layout & states
-├── FlexCarousel.tsx             # React / TypeScript source reference
-├── works-wheel.js               # 3D Cylindrical drum reel component
-├── scroll-expand-media.js       # Scroll-driven media expansion engine
-├── ScrollExpandMedia.tsx        # Component source reference
-├── experience-section.js        # Horizontal spatial timeline engine
-├── package.json                 # Project configuration & scripts
-├── assets/                      # Brand assets, portrait imagery, and icons
-├── Project Images/              # Production portfolio preview captures
-└── Landing Page Assest/         # Full-length landing page showcase assets
-```
+- **Lost & Found Platform**: Responsive React & Tailwind CSS web application built for college campuses, featuring Firebase real-time data storage and secure item reporting.
+- **Food Ordering App (Canteen System)**: Scalable digital ordering system for campus cafeterias with live vendor order dispatch and coupon verification.
+- **Real-Time Chat Application**: High-performance socket-based instant messaging client with room isolation and low-latency delivery.
+- **Cybersecurity Labs & Ethical Hacking**: Hands-on network defense, vulnerability assessment with OpenVAS, packet inspection via Wireshark, and Metasploit penetration testing.
 
 ---
 
 ## ✦ Getting Started Locally
 
-This project is built using native ES modules and standard web technologies. You can run it with any local HTTP server:
-
-### Prerequisites
-- Python 3.x **or** Node.js installed on your machine.
-
-### Option 1: Python Simple HTTP Server (Recommended)
 ```bash
 # Clone the repository
-git clone https://github.com/Jishnu09-siuu/ECHO-WEBSITE.git
-cd ECHO-WEBSITE
+git clone https://github.com/Allangeorg/allan-portfolio.git
+cd allan-portfolio
 
-# Run local development server
-npm start
-# or directly:
-python3 -m http.server 8080
+# Start local server (Python)
+python -m http.server 3000
 ```
-Then navigate to `http://localhost:8080` in your browser.
-
-### Option 2: Node.js / Vite / `npx serve`
-```bash
-npx serve .
-# or
-npx live-server
-```
-
----
-
-## ✦ Deployment
-
-Because ECHO is completely static and modular, it can be deployed instantly to any edge hosting provider:
-
-- **Vercel**: Run `vercel` from the root directory or connect the GitHub repository.
-- **Netlify**: Drag and drop the folder or connect via Git with publish directory set to `/`.
-- **GitHub Pages**: Head to repository **Settings > Pages** and set source to branch `main` and folder `/ (root)`.
+Then navigate to `http://localhost:3000` in your browser.
 
 ---
 
 ## ✦ Connect & Socials
 
-- **Portfolio**: [Jishnu Mondal](https://jishnumondal.vercel.app/)
-- **GitHub**: [@Jishnu09-siuu](https://github.com/Jishnu09-siuu)
-- **LinkedIn**: [jishnu-mondal](https://www.linkedin.com/in/jishnu-mondal/)
-- **X / Twitter**: [@Jishn8m](https://x.com/Jishn8m)
+- **GitHub**: [@Allangeorg](https://github.com/Allangeorg)
+- **LinkedIn**: [Allan George Mathew](https://www.linkedin.com/in/allan-george-mathew-844225321)
+- **Email**: [allangeorgemathew@gmail.com](mailto:allangeorgemathew@gmail.com)
+- **Portfolio Repository**: [Allangeorg/allan-portfolio](https://github.com/Allangeorg/allan-portfolio)
 
 ---
 
