@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
-  <title>Jishnu Mondal — Monochrome Editorial Developer & Designer Portfolio</title>
-  <meta name="description" content="Portfolio of Jishnu Mondal, a talented freelance designer & developer specializing in UI/UX, Web Design, Landing Pages, Figma, and Webflow.">
+  <title>Allan George Mathew — Cybersecurity & Full Stack Developer</title>
+  <meta name="description" content="Portfolio of Allan George Mathew, a cybersecurity and full stack developer studying computer applications at Christ University.">
   
   <!-- Tailwind CSS v3 with Plugins -->
   <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
@@ -35,6 +35,17 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="FlexCarousel.css">
+
+  <!-- Import Map for Modern Animation & 3D Technologies (Three.js, GSAP, Motion) -->
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+        "gsap": "https://cdn.jsdelivr.net/npm/gsap@3.12.5/index.js",
+        "motion": "https://cdn.jsdelivr.net/npm/motion@11.11.13/+esm"
+      }
+    }
+  </script>
   <style>
     body {
       font-family: 'Plus Jakarta Sans', sans-serif;
@@ -128,6 +139,52 @@
       -webkit-mask-image: linear-gradient(black 65%, transparent 100%);
     }
 
+    /* ============================================================
+       CINEMATIC HERO INITIAL STATE & TYPOGRAPHY
+       ============================================================ */
+    .hero-name-allan {
+      color: #F3F4F6 !important;
+      opacity: 0;
+      transform: translateY(45px);
+      will-change: transform, opacity;
+    }
+
+    .hero-name-mathew {
+      display: inline-block;
+      background: linear-gradient(180deg, #8BFFB2 0%, #00FF88 45%, #009E52 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      opacity: 0;
+      transform: translateY(45px);
+      will-change: transform, opacity;
+    }
+
+    #hero-avatar-stage img {
+      opacity: 0;
+      transform: scale(0.97);
+      will-change: opacity, transform, filter;
+      visibility: hidden;
+    }
+
+    #hero-left-col,
+    #hero-right-col {
+      opacity: 0;
+      transform: translateY(20px);
+      will-change: transform, opacity;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .hero-name-allan,
+      .hero-name-mathew,
+      #hero-avatar-stage img,
+      #hero-left-col,
+      #hero-right-col {
+        opacity: 1 !important;
+        transform: none !important;
+        visibility: visible !important;
+      }
+    }
+
     .footer-metallic-title {
       background: linear-gradient(180deg, #FFFFFF 0%, #a8a8a8 50%, #444444 100%);
       -webkit-background-clip: text;
@@ -195,6 +252,7 @@
       opacity: 1;
     }
   </style>
+  <link rel="stylesheet" href="hacker-theme.css">
 </head>
 <body class="antialiased text-[#111] bg-[#FAFAFA]">
 
@@ -205,7 +263,7 @@
   <header class="relative z-40 bg-[#FAFAFA] transition-all duration-300 w-full pt-6 pb-4 px-6 md:px-14 max-w-[1400px] mx-auto flex items-center justify-between" data-purpose="site-navigation">
     <!-- Brand Wordmark -->
     <a class="group font-extrabold text-xl tracking-tight text-black flex items-center" href="#home">
-      <span>ECHO</span>
+      <span>AGM</span>
       <span class="inline-block w-2 h-2 bg-black rounded-full ml-1 transition-transform group-hover:scale-150 duration-200"></span>
     </a>
 
@@ -213,31 +271,31 @@
     <nav class="hidden md:flex items-center gap-1 p-1 bg-white/95 border border-[#E2E2E2] rounded-full shadow-sm text-xs font-semibold tracking-wider text-neutral-600">
       <a id="nav-home" class="nav-link px-4 py-2 rounded-full border border-neutral-300 text-black hover:border-black transition whitespace-nowrap" href="#home">HOME</a>
       <a id="nav-about" class="nav-link px-4 py-2 rounded-full border border-transparent hover:border-neutral-200 hover:text-black transition whitespace-nowrap" href="#about">ABOUT ME</a>
-      <a id="nav-experience" class="nav-link px-4 py-2 rounded-full border border-transparent hover:border-neutral-200 hover:text-black transition whitespace-nowrap" href="#experience">EXPERIENCE</a>
+      <a id="nav-experience" class="nav-link px-4 py-2 rounded-full border border-transparent hover:border-neutral-200 hover:text-black transition whitespace-nowrap" href="#experience">JOURNEY</a>
       <a id="nav-projects" class="nav-link px-4 py-2 rounded-full border border-transparent hover:border-neutral-200 hover:text-black transition whitespace-nowrap" href="#projects">PROJECTS</a>
-      <a id="nav-landing-pages" class="nav-link px-4 py-2 rounded-full border border-transparent hover:border-neutral-200 hover:text-black transition whitespace-nowrap" href="#landing-pages">LANDING PAGES</a>
-      <a id="nav-services" class="nav-link px-4 py-2 rounded-full border border-transparent hover:border-neutral-200 hover:text-black transition whitespace-nowrap" href="#services">SERVICES</a>
+      <a id="nav-landing-pages" class="nav-link px-4 py-2 rounded-full border border-transparent hover:border-neutral-200 hover:text-black transition whitespace-nowrap" href="#landing-pages">HOBBIES</a>
+      <a id="nav-services" class="nav-link px-4 py-2 rounded-full border border-transparent hover:border-neutral-200 hover:text-black transition whitespace-nowrap" href="#services">SKILLS</a>
     </nav>
 
     <!-- Right Social & Menu Links -->
     <div class="flex items-center gap-1.5 md:gap-2 p-1.5 bg-white/95 border border-[#E2E2E2] rounded-full shadow-sm">
       <!-- Instagram -->
-      <a class="w-8 h-8 rounded-full flex items-center justify-center hover:bg-neutral-100 transition text-neutral-700 hover:text-black" href="https://www.instagram.com/echo__builds/" target="_blank" rel="noopener" title="Instagram">
-        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect height="18" rx="5" ry="5" width="18" x="3" y="3"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"></line></svg>
+      <a class="w-8 h-8 rounded-full flex items-center justify-center hover:bg-neutral-100 transition text-neutral-700 hover:text-black" href="mailto:allangeorgemathew@gmail.com" title="Email Allan George Mathew">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"></rect><path d="m4 7 8 6 8-6" stroke-linecap="round" stroke-linejoin="round"></path></svg>
       </a>
 
       <!-- Twitter / X -->
-      <a class="w-8 h-8 rounded-full flex items-center justify-center hover:bg-neutral-100 transition text-neutral-700 hover:text-black" href="https://x.com/Jishn8m" target="_blank" rel="noopener" title="Twitter">
-        <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+      <a class="w-8 h-8 rounded-full flex items-center justify-center hover:bg-neutral-100 transition text-neutral-700 hover:text-black" href="https://allanlostaadifound.web.app/" target="_blank" rel="noopener" title="Portfolio website">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"></circle><path d="M3 12h18M12 3a15 15 0 0 1 0 18M12 3a15 15 0 0 0 0 18" stroke-linecap="round"></path></svg>
       </a>
 
       <!-- LinkedIn -->
-      <a class="w-8 h-8 rounded-full flex items-center justify-center hover:bg-neutral-100 transition text-neutral-700 hover:text-black" href="https://www.linkedin.com/in/jishnu-mondal/" target="_blank" rel="noopener" title="LinkedIn">
+      <a class="w-8 h-8 rounded-full flex items-center justify-center hover:bg-neutral-100 transition text-neutral-700 hover:text-black" href="https://www.linkedin.com/in/allan-george-mathew-844225321" target="_blank" rel="noopener" title="LinkedIn">
         <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/></svg>
       </a>
 
       <!-- GitHub -->
-      <a class="w-8 h-8 rounded-full flex items-center justify-center hover:bg-neutral-100 transition text-neutral-700 hover:text-black" href="https://github.com/Jishnu09-siuu" target="_blank" rel="noopener" title="GitHub">
+      <a class="w-8 h-8 rounded-full flex items-center justify-center hover:bg-neutral-100 transition text-neutral-700 hover:text-black" href="https://github.com/Allangeorg" target="_blank" rel="noopener" title="GitHub">
         <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg>
       </a>
 
@@ -253,7 +311,7 @@
     <div id="mobile-drawer-content" class="w-4/5 max-w-sm bg-white h-full p-8 flex flex-col justify-between transform translate-x-full transition-transform duration-300 shadow-2xl">
       <div>
         <div class="flex items-center justify-between pb-6 border-b border-neutral-200">
-          <span class="font-extrabold text-lg tracking-tight">ECHO•</span>
+          <span class="font-extrabold text-lg tracking-tight">AGM•</span>
           <button onclick="toggleMobileMenu()" class="w-8 h-8 rounded-full border border-neutral-300 flex items-center justify-center text-neutral-700 hover:border-black">
             ✕
           </button>
@@ -261,16 +319,16 @@
         <nav class="flex flex-col gap-4 mt-8 text-base font-bold tracking-wider">
           <a onclick="toggleMobileMenu()" href="#home" class="py-2 border-b border-neutral-100 hover:text-neutral-500">HOME</a>
           <a onclick="toggleMobileMenu()" href="#about" class="py-2 border-b border-neutral-100 hover:text-neutral-500">ABOUT ME</a>
-          <a onclick="toggleMobileMenu()" href="#experience" class="py-2 border-b border-neutral-100 hover:text-neutral-500">EXPERIENCE</a>
+          <a onclick="toggleMobileMenu()" href="#experience" class="py-2 border-b border-neutral-100 hover:text-neutral-500">JOURNEY</a>
           <a onclick="toggleMobileMenu()" href="#projects" class="py-2 border-b border-neutral-100 hover:text-neutral-500">PROJECTS</a>
-          <a onclick="toggleMobileMenu()" href="#landing-pages" class="py-2 border-b border-neutral-100 hover:text-neutral-500">LANDING PAGES</a>
-          <a onclick="toggleMobileMenu()" href="#services" class="py-2 border-b border-neutral-100 hover:text-neutral-500">SERVICES</a>
+          <a onclick="toggleMobileMenu()" href="#landing-pages" class="py-2 border-b border-neutral-100 hover:text-neutral-500">HOBBIES</a>
+          <a onclick="toggleMobileMenu()" href="#services" class="py-2 border-b border-neutral-100 hover:text-neutral-500">SKILLS</a>
           <a onclick="toggleMobileMenu(); openContactModal();" href="javascript:void(0)" class="py-2 text-black hover:underline">CONTACT</a>
         </nav>
       </div>
       <div class="pt-6 border-t border-neutral-200">
-        <p class="text-xs uppercase tracking-widest text-neutral-400 mb-3">JISHNU MONDAL</p>
-        <p class="text-xs text-neutral-600">Freelance Designer & Developer</p>
+        <p class="text-xs uppercase tracking-widest text-neutral-400 mb-3">ALLAN GEORGE MATHEW</p>
+        <p class="text-xs text-neutral-600">Cybersecurity &amp; Full Stack Developer</p>
       </div>
     </div>
   </div>
@@ -281,11 +339,11 @@
     <!-- Big Title Header -->
     <div class="text-center w-full mb-6 md:mb-10 relative z-0 select-none">
       <h1 id="hero-title" class="text-[9.5vw] md:text-[8rem] lg:text-[9.5rem] font-extrabold uppercase leading-[0.85] tracking-tight">
-        <span class="block">
-          <span class="text-[#121212]">EXPLORE MY</span>
+        <span class="block overflow-hidden">
+          <span id="hero-name-line-1" class="hero-name-allan block">ALLAN GEORGE</span>
         </span>
-        <span class="block">
-          <span class="metallic-title">PORTFOLIO</span>
+        <span class="block overflow-hidden">
+          <span id="hero-name-line-2" class="hero-name-mathew block">MATHEW</span>
         </span>
       </h1>
     </div>
@@ -294,8 +352,8 @@
     <div class="relative grid grid-cols-1 md:grid-cols-12 items-center mt-2 md:-mt-6">
       
       <!-- Left Column: Designer info & Arrow -->
-      <div class="md:col-span-3 flex flex-col items-start md:items-start pl-2 md:pl-6 order-2 md:order-1 pt-6 md:pt-0">
-        <span class="text-xs font-bold tracking-wider uppercase text-neutral-800 mb-6">DESIGNER EST.2000</span>
+      <div id="hero-left-col" class="md:col-span-3 flex flex-col items-start md:items-start pl-2 md:pl-6 order-2 md:order-1 pt-6 md:pt-0">
+        <span class="text-xs font-bold tracking-wider uppercase text-neutral-800 mb-6">BCA · EXPECTED 2027</span>
         <a class="circle-btn w-14 h-14 md:w-16 md:h-16 border-neutral-300" href="#about" aria-label="Scroll to About Section">
           <svg class="w-5 h-5 text-neutral-800 transform rotate-45" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
             <path d="M14 5l7 7m0 0l-7 7m7-7H3" stroke-linecap="round" stroke-linejoin="round"></path>
@@ -303,33 +361,33 @@
         </a>
       </div>
 
-      <!-- Center Column: Stylized Black and White Headshot (in front of text) -->
-      <div class="md:col-span-6 flex justify-center order-1 md:order-2 relative z-10 -mt-16 md:-mt-36">
-        <div class="relative w-[320px] h-[400px] md:w-[480px] md:h-[580px] flex items-end justify-center hero-portrait-mask">
-          <img src="assets/hero_portrait.png" 
-               alt="Jishnu Mondal — Developer & Designer" 
-               class="w-full h-full object-contain object-bottom pointer-events-none select-none transition-transform duration-700 hover:scale-[1.02]"
-               onerror="this.src='https://lh3.googleusercontent.com/aida-public/AB6AXuCcazn9gQbymIOQnywium-Vsjyj8kV2UoFlH63M0RX3nV0Z_2LZD-rugA9K0ORrfrFxJEkOBrlAyB0HWB8cm7KhZp-5sNgQuhXyGzJ9WmwvjEDhYw_g3BAr4A9j5phGh8JE5Rka_2e_B_o51jY55CQt5wfTPsFDGRvU2gaHKRu4gOOZD_FnQOszLiRDTh3La-RZzzHeFwfFY3XPZ9ikMq55oZ_xP2A95rzfUQE8WkHuIogtKLU-9zuSV9QywgCsVw4Btw'">
+      <!-- Center Column: 3D masked cybersecurity operator -->
+      <div class="md:col-span-6 flex justify-center order-1 md:order-2 relative z-10 -mt-16 md:-mt-8">
+        <div id="hero-avatar-stage" class="relative w-[320px] h-[400px] md:w-[480px] md:h-[580px] flex items-end justify-center hero-portrait-mask">
+          <img src="assets/masked-operator-hero.png" 
+               alt="3D masked cybersecurity operator in a dark hood"
+               class="w-full h-full object-contain object-bottom pointer-events-none select-none"
+               fetchpriority="high">
         </div>
       </div>
 
       <!-- Right Column: Pitch and Disciplines -->
-      <div class="md:col-span-3 flex flex-col items-start md:items-end text-left order-3 pt-6 md:pt-0 pr-2 md:pr-6 space-y-10">
+      <div id="hero-right-col" class="md:col-span-3 flex flex-col items-start md:items-end text-left order-3 pt-6 md:pt-0 pr-2 md:pr-6 space-y-10">
         <!-- Pitch Quote -->
         <p class="text-[11px] md:text-xs uppercase font-medium leading-relaxed tracking-wider text-neutral-700 max-w-[220px] text-left">
-          I AM PASSIONATE ABOUT CREATING WEBSITES THAT STAND OUT FROM THE CROWD.
+          CYBERSECURITY &amp; FULL STACK DEVELOPER. BCA COMPUTER SCIENCE, CHRIST UNIVERSITY.
         </p>
 
         <!-- Service List with hover interaction -->
         <div class="flex flex-col space-y-3 text-[11px] md:text-xs font-semibold tracking-widest text-neutral-600 uppercase">
           <a href="#services" onclick="selectService(0)" class="hover:text-black hover:translate-x-1 md:hover:-translate-x-1 transition-all inline-flex items-center gap-1.5">
-            <span>UI/UX</span>
+            <span>WEB DEVELOPMENT</span>
           </a>
           <a href="#services" onclick="selectService(1)" class="hover:text-black hover:translate-x-1 md:hover:-translate-x-1 transition-all inline-flex items-center gap-1.5">
-            <span>WEB DESIGN</span>
+            <span>CYBERSECURITY</span>
           </a>
           <a href="#services" onclick="selectService(2)" class="hover:text-black hover:translate-x-1 md:hover:-translate-x-1 transition-all inline-flex items-center gap-1.5 font-bold text-black">
-            <span>LANDING PAGE</span>
+            <span>LANGUAGES</span>
           </a>
         </div>
       </div>
@@ -367,7 +425,7 @@
               <img
                 id="sem-media-img"
                 src="assets/about_floating_light_hq.png?v=14"
-                alt="Jishnu Mondal - Ascendance &amp; Digital Craft"
+                alt="Abstract silhouette in a beam of light"
                 class="w-full h-full object-cover rounded-xl transition-none"
                 style="transform: scale(1.02) translateZ(0); transform-origin: center; backface-visibility: hidden;"
               />
@@ -391,10 +449,10 @@
                 <!-- Top Perimeter: Refined Monochrome Headline -->
                 <div class="flex flex-col sm:flex-row sm:items-baseline justify-between gap-2 border-b border-white/10 pb-3">
                   <h3 class="text-xs sm:text-sm md:text-base font-extrabold uppercase tracking-tight text-white max-w-xl">
-                    TURNING VISIONARY IDEAS INTO FAST, DISTINCTIVE DIGITAL EXPERIENCES
+                    CYBERSECURITY STUDENT &amp; FULL STACK DEVELOPER
                   </h3>
                   <span class="text-[10px] font-mono tracking-wider uppercase text-neutral-400 shrink-0">
-                    BASED IN INDIA &bull; WORLDWIDE
+                    BENGALURU, INDIA
                   </span>
                 </div>
 
@@ -408,10 +466,10 @@
                     <div class="flex items-center gap-2.5">
                       <span class="text-[10px] font-bold tracking-widest uppercase text-neutral-300">DISCIPLINE &amp; CRAFT</span>
                       <div class="h-px bg-white/15 w-6"></div>
-                      <span class="text-[10px] font-mono tracking-widest uppercase text-neutral-400">UI/UX &bull; WEB DESIGN &bull; WEBFLOW &bull; FIGMA</span>
+                      <span class="text-[10px] font-mono tracking-widest uppercase text-neutral-400">WEB APPS &bull; ETHICAL HACKING &bull; NETWORK ANALYSIS</span>
                     </div>
                     <p class="text-xs sm:text-[12px] font-medium leading-relaxed tracking-wider uppercase text-neutral-300">
-                      I SPECIALIZE IN BUILDING BESPOKE DIGITAL PRODUCTS WHERE PURPOSEFUL EDITORIAL DESIGN MEETS ROBUST ENGINEERING. CREATING EXPERIENCES WITH INTENTIONAL MOTION, SYSTEMATIC RIGOR, AND MEASURABLE IMPACT.
+                      I STUDY COMPUTER APPLICATIONS AT CHRIST UNIVERSITY, BUILD RESPONSIVE WEB APPLICATIONS, AND DEVELOP CYBERSECURITY SKILLS THROUGH COURSEWORK AND HANDS-ON LABS.
                     </p>
                   </div>
 
@@ -423,8 +481,8 @@
                         <path d="M14 5l7 7m0 0l-7 7m7-7H3" stroke-linecap="round" stroke-linejoin="round"></path>
                       </svg>
                     </a>
-                    <a href="#services" class="pointer-events-auto px-5 py-2.5 rounded-full border border-neutral-500 hover:border-white text-white text-xs font-bold tracking-wider uppercase transition-all duration-200">
-                      SERVICES
+          <a href="#services" class="pointer-events-auto px-5 py-2.5 rounded-full border border-neutral-500 hover:border-white text-white text-xs font-bold tracking-wider uppercase transition-all duration-200">
+                      SKILLS
                     </a>
                   </div>
                 </div>
@@ -443,7 +501,7 @@
           </div>
 
           <!-- Splitting Title Header (ABOUT translates left, ME translates right) -->
-          <div class="flex items-center justify-center text-center gap-2 sm:gap-4 w-full relative z-10 pointer-events-none flex-col" style="will-change: transform; backface-visibility: hidden;">
+          <div class="about-title flex items-center justify-center text-center gap-2 sm:gap-4 w-full relative z-10 pointer-events-none flex-col" style="will-change: transform; backface-visibility: hidden;">
             <h2 id="sem-title-first" class="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black text-white uppercase tracking-tight transition-none drop-shadow-2xl" style="will-change: transform, opacity;">
               ABOUT
             </h2>
@@ -481,11 +539,11 @@
       <div class="absolute inset-0 flex flex-col justify-around pointer-events-none overflow-hidden opacity-[0.035]">
         <!-- Upper Ticker (Drifting Left) -->
         <div id="exp-ticker-top" class="whitespace-nowrap font-black uppercase text-[14vw] tracking-tighter will-change-transform leading-none">
-          CREATIVE TECHNOLOGIST &nbsp;&nbsp; FULL STACK ARCHITECTURE &nbsp;&nbsp; CREATIVE TECHNOLOGIST &nbsp;&nbsp; FULL STACK ARCHITECTURE &nbsp;&nbsp;
+          COMPUTER SCIENCE &nbsp;&nbsp; CYBERSECURITY COURSEWORK &nbsp;&nbsp; COMPUTER SCIENCE &nbsp;&nbsp; CYBERSECURITY COURSEWORK &nbsp;&nbsp;
         </div>
         <!-- Lower Ticker (Drifting Right) -->
         <div id="exp-ticker-bottom" class="whitespace-nowrap font-black uppercase text-[14vw] tracking-tighter will-change-transform leading-none">
-          2023 &nbsp;&nbsp; SELF-DIRECTED LEARNING &nbsp;&nbsp; 2026 &nbsp;&nbsp; FREELANCE SYSTEMS &nbsp;&nbsp; 2023 &nbsp;&nbsp; SELF-DIRECTED LEARNING &nbsp;&nbsp;
+          CHRIST UNIVERSITY &nbsp;&nbsp; EXPECTED APRIL 2027 &nbsp;&nbsp; HANDS-ON LABS &nbsp;&nbsp; CHRIST UNIVERSITY &nbsp;&nbsp;
         </div>
       </div>
 
@@ -493,7 +551,7 @@
       <header class="relative z-30 w-full px-6 md:px-14 pt-6 pb-4 flex items-center justify-between border-b border-white/[0.08] backdrop-blur-md bg-[#070709]/80">
         <div class="flex items-center gap-4">
           <span id="exp-hud-phase" class="text-[11px] font-semibold tracking-widest uppercase text-neutral-400">
-            SELF-DIRECTED LEARNING
+            BCA · COMPUTER SCIENCE
           </span>
         </div>
 
@@ -516,13 +574,13 @@
           <div class="exp-panel flex-shrink-0 w-[95vw] md:w-[85vw] px-8 md:px-16 lg:px-24 flex flex-col justify-center">
             <div class="max-w-3xl">
               <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-white/15 bg-white/[0.04] text-[10px] font-semibold tracking-widest uppercase text-neutral-300 mb-6">
-                <span>FOUNDATION & JOURNEY</span>
+                <span>ACADEMIC & HANDS-ON</span>
               </div>
               <h2 class="text-5xl sm:text-7xl md:text-8xl lg:text-9xl font-black uppercase tracking-tight text-white leading-[0.88] mb-8">
-                WHERE<br>I'VE BEEN
+                LEARNING<br>IN PUBLIC
               </h2>
               <p class="text-base sm:text-lg md:text-xl text-neutral-300 leading-relaxed max-w-xl font-normal">
-                My professional journey through different roles and environments.
+                I study computer science at Christ University and build web projects while developing cybersecurity skills through coursework and practical labs.
               </p>
             </div>
           </div>
@@ -534,97 +592,97 @@
               class="exp-date-bg absolute -top-8 right-12 md:right-28 text-[12vw] md:text-[14vw] font-black uppercase text-white/[0.04] tracking-tighter select-none pointer-events-none will-change-transform"
               data-parallax-factor="0.15"
             >
-              2023 — 2025
+              EXPECTED 04/2027
             </div>
 
             <div class="relative z-10 max-w-4xl">
               <!-- Eyebrow & Date -->
               <div class="flex items-center gap-4 mb-4">
                 <span class="text-xs font-semibold tracking-widest uppercase text-neutral-400">
-                  2023 — 2025
+                  EXPECTED 04/2027
                 </span>
                 <span class="h-[1px] w-12 bg-white/20"></span>
                 <span class="text-xs font-bold tracking-widest uppercase text-white">
-                  SELF-DIRECTED LEARNING
+                  BCA · COMPUTER SCIENCE
                 </span>
               </div>
 
               <!-- Oversized Typographic Role Title -->
               <h3 class="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-black uppercase tracking-tight text-white leading-[0.92] mb-6">
-                CREATIVE<br>TECHNOLOGIST
+                BACHELOR OF<br>COMPUTER APPLICATIONS
               </h3>
 
               <!-- Narrative Summary -->
               <p class="text-sm sm:text-base md:text-lg text-neutral-300 leading-relaxed max-w-2xl mb-8">
-                Intensive self-education period exploring web technologies, creative coding, and modern development practices.
+                Bachelor of Computer Applications in Computer Science at Christ University, Bengaluru. Expected completion: April 2027.
               </p>
 
               <!-- Milestone Specifications (Hairline Grid) -->
               <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 pt-6 border-t border-white/10 max-w-3xl mb-8">
                 <div>
-                  <div class="text-[10px] font-bold text-neutral-400 uppercase tracking-widest mb-1.5">MILESTONE 01</div>
-                  <div class="text-xs sm:text-sm text-neutral-200 font-medium leading-snug">Completed 500+ hours of hands-on development</div>
+                  <div class="text-[10px] font-bold text-neutral-400 uppercase tracking-widest mb-1.5">DEGREE</div>
+                  <div class="text-xs sm:text-sm text-neutral-200 font-medium leading-snug">Bachelor of Computer Applications</div>
                 </div>
                 <div>
-                  <div class="text-[10px] font-bold text-neutral-400 uppercase tracking-widest mb-1.5">MILESTONE 02</div>
-                  <div class="text-xs sm:text-sm text-neutral-200 font-medium leading-snug">Mastered React, Node.js, and TypeScript ecosystem</div>
+                  <div class="text-[10px] font-bold text-neutral-400 uppercase tracking-widest mb-1.5">SPECIALIZATION</div>
+                  <div class="text-xs sm:text-sm text-neutral-200 font-medium leading-snug">Computer Science</div>
                 </div>
                 <div>
-                  <div class="text-[10px] font-bold text-neutral-400 uppercase tracking-widest mb-1.5">MILESTONE 03</div>
-                  <div class="text-xs sm:text-sm text-neutral-200 font-medium leading-snug">Built portfolio of 15+ production-ready projects</div>
+                  <div class="text-[10px] font-bold text-neutral-400 uppercase tracking-widest mb-1.5">UNIVERSITY</div>
+                  <div class="text-xs sm:text-sm text-neutral-200 font-medium leading-snug">Christ University · Bengaluru</div>
                 </div>
               </div>
             </div>
           </div>
 
-          <!-- ================= CHAPTER 02: FREELANCE (190vw - 290vw) ================= -->
+          <!-- ================= CHAPTER 02: COURSEWORK (190vw - 290vw) ================= -->
           <div class="exp-panel relative flex-shrink-0 w-[105vw] md:w-[100vw] px-8 md:px-16 lg:px-24 flex flex-col justify-center">
             <!-- Background Parallax Date Typography -->
             <div
               class="exp-date-bg absolute -top-8 right-12 md:right-28 text-[12vw] md:text-[14vw] font-black uppercase text-white/[0.04] tracking-tighter select-none pointer-events-none will-change-transform"
               data-parallax-factor="0.15"
             >
-              2026 — PRESENT
+              2024 — 2026
             </div>
 
             <div class="relative z-10 max-w-4xl">
               <!-- Eyebrow & Date -->
               <div class="flex items-center gap-4 mb-4">
                 <span class="text-xs font-semibold tracking-widest uppercase text-neutral-400">
-                  2026 — PRESENT
+                  2024 — 2026
                 </span>
                 <span class="h-[1px] w-12 bg-white/20"></span>
                 <span class="text-xs font-bold tracking-widest uppercase text-white">
-                  FREELANCE / INDEPENDENT
+                  SELECTED COURSEWORK
                 </span>
                 <span class="hidden sm:inline-flex items-center px-2.5 py-0.5 rounded-full border border-white/20 text-[10px] font-semibold uppercase text-neutral-300">
-                  COMMERCIAL
+                  COURSEWORK & LABS
                 </span>
               </div>
 
               <!-- Oversized Typographic Role Title -->
               <h3 class="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-black uppercase tracking-tight text-white leading-[0.92] mb-6">
-                FULL STACK<br>DEVELOPER
+                WEB DEVELOPMENT<br>& CYBERSECURITY
               </h3>
 
               <!-- Narrative Summary -->
               <p class="text-sm sm:text-base md:text-lg text-neutral-300 leading-relaxed max-w-2xl mb-8">
-                Building premium web experiences for clients worldwide. Specializing in interactive frontends, scalable backends, and AI-powered applications.
+                A focused mix of web development foundations, Google Cybersecurity coursework, guided ethical hacking labs, and hands-on security practice.
               </p>
 
               <!-- Milestone Specifications (Hairline Grid) -->
               <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 pt-6 border-t border-white/10 max-w-3xl mb-8">
                 <div>
-                  <div class="text-[10px] font-bold text-neutral-400 uppercase tracking-widest mb-1.5">DELIVERY</div>
-                  <div class="text-xs sm:text-sm text-neutral-200 font-medium leading-snug">Delivered 20+ projects across diverse industries</div>
+                  <div class="text-[10px] font-bold text-neutral-400 uppercase tracking-widest mb-1.5">FOUNDATION</div>
+                  <div class="text-xs sm:text-sm text-neutral-200 font-medium leading-snug">Full Stack Development · Dec 2024<br>Play It Safe: Manage Security Risks · Oct 2025</div>
                 </div>
                 <div>
-                  <div class="text-[10px] font-bold text-neutral-400 uppercase tracking-widest mb-1.5">INFRASTRUCTURE</div>
-                  <div class="text-xs sm:text-sm text-neutral-200 font-medium leading-snug">Implemented CI/CD pipelines and cloud architecture</div>
+                  <div class="text-[10px] font-bold text-neutral-400 uppercase tracking-widest mb-1.5">CYBERSECURITY</div>
+                  <div class="text-xs sm:text-sm text-neutral-200 font-medium leading-snug">Google Cybersecurity · Assets, Threats, and Vulnerabilities · Sound the Alarm: Detection and Response · Dec 2025</div>
                 </div>
                 <div>
-                  <div class="text-[10px] font-bold text-neutral-400 uppercase tracking-widest mb-1.5">MOTION SYSTEM</div>
-                  <div class="text-xs sm:text-sm text-neutral-200 font-medium leading-snug">Created custom animation systems with GSAP and Three.js</div>
+                  <div class="text-[10px] font-bold text-neutral-400 uppercase tracking-widest mb-1.5">TOOLS &amp; CAPSTONE</div>
+                  <div class="text-xs sm:text-sm text-neutral-200 font-medium leading-snug">Automate Cybersecurity Tasks with Python · Network Traffic Analysis with Wireshark · Exploitation and Penetration Testing with Metasploit · Dec 2025<br>Ethical Hacking Capstone: Breach Response, AI Incident Response and Defense with OpenVAS · Jan 2026</div>
                 </div>
               </div>
             </div>
@@ -642,14 +700,14 @@
             class="exp-jump-btn text-[11px] font-bold tracking-widest uppercase px-3 py-1 rounded-md border border-white/20 text-white bg-white/10 transition-all hover:bg-white/20"
             data-target-progress="0.30"
           >
-            LEARNING
+            EDUCATION
           </button>
           <button
             type="button"
             class="exp-jump-btn text-[11px] font-bold tracking-widest uppercase px-3 py-1 rounded-md border border-white/5 text-neutral-500 hover:text-white transition-all hover:border-white/20"
             data-target-progress="0.75"
           >
-            FREELANCE
+            COURSEWORK
           </button>
         </div>
       </footer>
@@ -662,8 +720,9 @@
     <!-- Header -->
     <div class="mb-8">
       <h2 class="text-3xl md:text-5xl font-black uppercase tracking-tight text-neutral-900">
-        FEATURED PROJECT
+        SELECTED PROJECTS
       </h2>
+      <p class="mt-3 text-xs uppercase tracking-[0.18em] text-neutral-500">AI-generated concept imagery · descriptions reflect projects and coursework from my resume</p>
     </div>
 
     <!-- Dynamic Projects Content Area with FlexCarousel -->
@@ -675,14 +734,15 @@
   </section>
   <!-- END: Featured Project Section -->
 
-  <!-- BEGIN: Landing Pages Featured Projects (WorksWheel) Section -->
-  <section class="max-w-[1400px] mx-auto px-6 md:px-14 py-16" data-purpose="landing-pages-featured-projects" id="landing-pages">
+  <!-- BEGIN: Hobbies & Interests (WorksWheel) Section -->
+  <section class="max-w-[1400px] mx-auto px-6 md:px-14 py-16" data-purpose="hobbies-and-interests" id="landing-pages">
     <!-- Header with Title -->
     <div class="mb-8 flex flex-col md:flex-row md:items-end justify-between gap-4">
       <div>
         <h2 class="text-3xl md:text-5xl font-black uppercase tracking-tight text-neutral-900">
-          LANDING PAGES
+          HOBBIES &amp; INTERESTS
         </h2>
+        <p class="mt-3 text-xs uppercase tracking-[0.18em] text-neutral-500">A few things I enjoy outside the screen · AI-generated concept imagery</p>
       </div>
     </div>
 
@@ -693,86 +753,83 @@
       </div>
     </div>
   </section>
-  <!-- END: Landing Pages Featured Projects Section -->
+  <!-- END: Hobbies & Interests Section -->
 
-  <!-- BEGIN: Services Section -->
+  <!-- BEGIN: Skills & Languages Section -->
   <section class="max-w-[1400px] mx-auto px-6 md:px-14 py-20" data-purpose="services-section" id="services">
     <!-- Centered Header -->
     <div class="text-center max-w-2xl mx-auto mb-14">
       <h2 class="text-3xl md:text-5xl font-black uppercase tracking-tight text-neutral-900 mb-4">
-        THE SERVICES WE PROVIDE
+        SKILLS &amp; LANGUAGES
       </h2>
       <p class="text-xs md:text-xs uppercase font-medium leading-relaxed tracking-wider text-neutral-500">
-        CREATING VISUALLY APPEALING AND FUNCTIONAL WEBSITES TAILORED TO THE CLIENT'S NEEDS AND GOALS. PROVIDING A CONSISTENT USER EXPERIENCE ACROSS PLATFORMS.
+        WEB PROJECTS, CYBERSECURITY COURSEWORK, FIVE LANGUAGES, AND THE PEOPLE SKILLS I BRING TO LEARNING AND COLLABORATION.
       </p>
     </div>
 
     <!-- Service Pill Rows Accordion -->
     <div class="max-w-4xl mx-auto flex flex-col space-y-3.5">
       
-      <!-- Item 1: UI/UX -->
+      <!-- Item 1: Web development -->
       <div id="service-0" onclick="toggleService(0)" class="accordion-item w-full flex flex-col px-6 py-4 rounded-3xl border border-neutral-300 bg-white hover:border-black transition-all cursor-pointer">
         <div class="flex items-center justify-between">
           <span class="item-badge w-8 h-8 rounded-full border border-neutral-300 flex items-center justify-center text-xs font-medium text-neutral-700">1</span>
-          <span class="item-title text-xs md:text-sm font-bold tracking-widest uppercase text-neutral-800">UI/UX</span>
+          <span class="item-title text-xs md:text-sm font-bold tracking-widest uppercase text-neutral-800">WEB DEVELOPMENT</span>
           <div class="item-icon w-8 h-8 rounded-full border border-neutral-300 flex items-center justify-center transition-transform">
             <svg class="w-3.5 h-3.5 text-neutral-700" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M19 9l-7 7-7-7" stroke-linecap="round" stroke-linejoin="round"></path></svg>
           </div>
         </div>
         <div class="accordion-content">
           <p class="text-xs text-neutral-500 leading-relaxed max-w-2xl mb-4">
-            User research, wireframing, interactive prototyping, and usability validation. Transforming complex workflows into effortless, delightful digital experiences.
+            Project work using HTML, CSS, JavaScript, React/JSX, Tailwind CSS, and Firebase SDK. I have also explored WebSockets and JSON-based configuration in my applications.
           </p>
           <div class="flex items-center justify-between border-t border-neutral-200 pt-3">
-            <span class="text-[11px] font-mono text-neutral-400">DELIVERABLES: USER FLOWS, WIREFRAMES, DESIGN TOKENS</span>
-            <button onclick="event.stopPropagation(); bookSpecificService('UI/UX Design');" class="text-xs font-bold underline hover:text-neutral-600">INQUIRE ↗</button>
+            <span class="text-[11px] font-mono text-neutral-400">PROJECT AREAS: RESPONSIVE WEB APPS · REAL-TIME FEATURES</span>
           </div>
         </div>
       </div>
 
-      <!-- Item 2: WEB DESIGN -->
+      <!-- Item 2: Cybersecurity -->
       <div id="service-1" onclick="toggleService(1)" class="accordion-item w-full flex flex-col px-6 py-4 rounded-3xl border border-neutral-300 bg-white hover:border-black transition-all cursor-pointer">
         <div class="flex items-center justify-between">
           <span class="item-badge w-8 h-8 rounded-full border border-neutral-300 flex items-center justify-center text-xs font-medium text-neutral-700">2</span>
-          <span class="item-title text-xs md:text-sm font-bold tracking-widest uppercase text-neutral-800">WEB DESIGN</span>
+          <span class="item-title text-xs md:text-sm font-bold tracking-widest uppercase text-neutral-800">CYBERSECURITY</span>
           <div class="item-icon w-8 h-8 rounded-full border border-neutral-300 flex items-center justify-center transition-transform">
             <svg class="w-3.5 h-3.5 text-neutral-700" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M19 9l-7 7-7-7" stroke-linecap="round" stroke-linejoin="round"></path></svg>
           </div>
         </div>
         <div class="accordion-content">
           <p class="text-xs text-neutral-500 leading-relaxed max-w-2xl mb-4">
-            Bespoke web aesthetics with flawless responsive layouts, typography hierarchy, high-contrast dark modes, and crisp interactive animations.
+            Learning through Google Cybersecurity and Coursera/IBM coursework, with practice in networking, reconnaissance, web security, SQL injection, authentication flaws, and Linux.
           </p>
           <div class="flex items-center justify-between border-t border-neutral-200 pt-3">
-            <span class="text-[11px] font-mono text-neutral-400">DELIVERABLES: FULL RESPONSIVE WEB DESIGNS, FIGMA SYSTEM</span>
-            <button onclick="event.stopPropagation(); bookSpecificService('Web Design');" class="text-xs font-bold underline hover:text-neutral-600">INQUIRE ↗</button>
+            <span class="text-[11px] font-mono text-neutral-400">TOOLS IN COURSEWORK: WIRESHARK · METASPLOIT · OPENVAS · PYTHON</span>
           </div>
         </div>
       </div>
 
-      <!-- Item 3: LANDING PAGE DESIGN (Active by default) -->
+      <!-- Item 3: Languages & strengths (Active by default) -->
       <div id="service-2" onclick="toggleService(2)" class="accordion-item active w-full flex flex-col px-6 py-4 rounded-3xl bg-black text-white shadow-xl cursor-pointer transition-all transform scale-[1.01]">
         <div class="flex items-center justify-between">
           <span class="item-badge w-8 h-8 rounded-full border border-neutral-700 flex items-center justify-center text-xs font-medium text-neutral-300">3</span>
-          <span class="item-title text-xs md:text-sm font-bold tracking-widest uppercase text-white">LANDING PAGE DESIGN</span>
+          <span class="item-title text-xs md:text-sm font-bold tracking-widest uppercase text-white">LANGUAGES &amp; STRENGTHS</span>
           <div class="item-icon w-8 h-8 rounded-full border border-neutral-700 flex items-center justify-center transition-transform rotate-90">
             <svg class="w-3.5 h-3.5 text-white" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7" stroke-linecap="round" stroke-linejoin="round"></path></svg>
           </div>
         </div>
         <div class="accordion-content">
           <p class="text-xs text-neutral-300 leading-relaxed max-w-2xl mb-4">
-            High-converting editorial landing pages tailored for startups, product launches, and personal brands. Engineered to capture attention and boost conversions.
+            English C1 · Hindi B2 · Tamil B2 · Malayalam C2 · Kannada C2. Strengths include teamwork, collaboration, quick learning, problem solving, and interpersonal communication.
           </p>
           <div class="flex items-center justify-between border-t border-neutral-800 pt-3">
-            <span class="text-[11px] font-mono text-neutral-400">DELIVERABLES: COPYWRITING STRUCTURE, CUSTOM 3D/GRAPHICS, WEBFLOW CODE</span>
-            <button onclick="event.stopPropagation(); bookSpecificService('Landing Page Design');" class="text-xs font-bold underline text-white hover:text-neutral-300">INQUIRE ↗</button>
+            <span class="text-[11px] font-mono text-neutral-400">LANGUAGE LEVELS: CEFR · SKILLS FROM MY RESUME</span>
           </div>
         </div>
       </div>
 
     </div>
   </section>
-  <!-- END: Services Section -->
+  <!-- END: Skills & Languages Section -->
 
   <!-- BEGIN: Contact / Let's Talk Footer -->
   <footer class="w-full bg-[#0D0D0D] text-white pt-20 pb-12 mt-12" data-purpose="footer-section" id="contact">
@@ -787,16 +844,19 @@
 
       <!-- Action Button Pills -->
       <div class="flex flex-wrap items-center justify-center gap-3.5 mt-8 mb-20">
-        <a class="px-6 py-2.5 rounded-full border border-neutral-700 hover:border-neutral-400 text-xs font-medium tracking-wider uppercase transition text-neutral-300 hover:text-white" href="https://www.instagram.com/echo__builds/" target="_blank" rel="noopener">
-          INSTAGRAM
+        <a class="px-6 py-2.5 rounded-full border border-neutral-700 hover:border-neutral-400 text-xs font-medium tracking-wider uppercase transition text-neutral-300 hover:text-white" href="mailto:allangeorgemathew@gmail.com">
+          EMAIL
         </a>
-        <a class="px-6 py-2.5 rounded-full border border-neutral-700 hover:border-neutral-400 text-xs font-medium tracking-wider uppercase transition text-neutral-300 hover:text-white" href="https://x.com/Jishn8m" target="_blank" rel="noopener">
-          TWITTER
+        <a class="px-6 py-2.5 rounded-full border border-neutral-700 hover:border-neutral-400 text-xs font-medium tracking-wider uppercase transition text-neutral-300 hover:text-white" href="tel:+917022509058">
+          +91 70225 09058
         </a>
-        <a class="px-6 py-2.5 rounded-full border border-neutral-700 hover:border-neutral-400 text-xs font-medium tracking-wider uppercase transition text-neutral-300 hover:text-white" href="https://www.linkedin.com/in/jishnu-mondal/" target="_blank" rel="noopener">
+        <a class="px-6 py-2.5 rounded-full border border-neutral-700 hover:border-neutral-400 text-xs font-medium tracking-wider uppercase transition text-neutral-300 hover:text-white" href="https://allanlostaadifound.web.app/" target="_blank" rel="noopener">
+          PORTFOLIO
+        </a>
+        <a class="px-6 py-2.5 rounded-full border border-neutral-700 hover:border-neutral-400 text-xs font-medium tracking-wider uppercase transition text-neutral-300 hover:text-white" href="https://www.linkedin.com/in/allan-george-mathew-844225321" target="_blank" rel="noopener">
           LINKEDIN
         </a>
-        <a class="px-6 py-2.5 rounded-full border border-neutral-700 hover:border-neutral-400 text-xs font-medium tracking-wider uppercase transition text-neutral-300 hover:text-white" href="https://github.com/Jishnu09-siuu" target="_blank" rel="noopener">
+        <a class="px-6 py-2.5 rounded-full border border-neutral-700 hover:border-neutral-400 text-xs font-medium tracking-wider uppercase transition text-neutral-300 hover:text-white" href="https://github.com/Allangeorg" target="_blank" rel="noopener">
           GITHUB
         </a>
         <button onclick="openContactModal()" class="px-7 py-2.5 rounded-full bg-white text-black hover:bg-neutral-200 text-xs font-bold tracking-wider uppercase transition transform hover:scale-105">
@@ -804,10 +864,12 @@
         </button>
       </div>
 
+      <p class="mb-12 text-[11px] uppercase tracking-[0.18em] text-neutral-500">Bengaluru, India · BCA Computer Science · Expected April 2027</p>
+
       <!-- Bottom Credits Bar -->
       <div class="w-full pt-8 border-t border-neutral-900 flex flex-col md:flex-row items-center justify-between text-[10px] tracking-widest uppercase text-neutral-600 font-semibold gap-4">
         <div>PORTFOLIO. ALL RIGHTS RESERVED</div>
-        <div>DESIGN BY JISHNU MONDAL</div>
+        <div>ALLAN GEORGE MATHEW</div>
       </div>
 
     </div>
@@ -849,14 +911,12 @@
           <input type="email" id="contact-email" required placeholder="john@company.com" class="w-full px-4 py-2.5 rounded-xl border border-neutral-300 focus:outline-none focus:border-black text-sm">
         </div>
         <div>
-          <label class="block text-xs font-bold uppercase tracking-wider text-neutral-700 mb-1">Service Required</label>
+          <label class="block text-xs font-bold uppercase tracking-wider text-neutral-700 mb-1">Reason for reaching out</label>
           <select id="contact-service" class="w-full px-4 py-2.5 rounded-xl border border-neutral-300 focus:outline-none focus:border-black text-sm bg-white">
-            <option value="Landing Page Design">Landing Page Design</option>
-            <option value="UI/UX Design">UI/UX Design</option>
-            <option value="Web Design">Web Design</option>
-            <option value="Mobile App Design">Mobile App Design</option>
-            <option value="UI Design Figma">UI Design Figma</option>
-            <option value="Other">Other / Full Project</option>
+            <option value="Project discussion">Project discussion</option>
+            <option value="Collaboration">Collaboration</option>
+            <option value="Opportunity">Opportunity</option>
+            <option value="Other">Other</option>
           </select>
         </div>
         <div>
@@ -899,37 +959,48 @@
 
     // Project data details
     const projectsData = {
-      solar: {
-        category: 'APP DESIGN',
-        title: 'SOLAR PANEL MOBILE APP',
-        description: 'An intelligent energy management application that allows users to monitor real-time photovoltaic output, battery reserve statuses, and grid export rates.',
-        deliverables: ['Real-time IoT Telemetry Interface', 'Dark Mode High-Contrast UI', 'Custom Interactive Solar Graphs', 'Battery Degradation Predictor'],
-        tools: ['Figma', 'React Native', 'Tailwind', 'SwiftUI'],
-        stats: '428.4 kWh daily monitoring capacity with 99.8% precision telemetry.'
-      },
-      furniture: {
-        category: 'FURNITURE APP',
-        title: 'OUR GROUNDBREAKING FURNITURE',
-        description: 'A minimalist architectural furniture e-commerce experience designed for curated designer objects, featuring augmented reality preview and fluid one-tap checkout.',
-        deliverables: ['Editorial Product Showcase', 'Minimal Cart Flow', 'Haptic Interactions', 'AR Object Viewer'],
-        tools: ['Figma', 'Three.js', 'Next.js', 'Stripe'],
-        stats: 'Featured piece: Hand-carved Wood Chair ($140.00).'
-      },
-      atelier: {
-        category: 'WEB DESIGN',
-        title: 'ATELIER MONOCHROME STUDIO',
-        description: 'A bespoke editorial web portfolio for an international Scandinavian architecture practice. Built with subtle typography gradients, fluid scroll interactions, and monolithic layout grids.',
-        deliverables: ['Editorial Layout System', 'Custom Typography Styling', 'Full Responsive CMS', 'Scroll-linked Animations'],
-        tools: ['Figma', 'Webflow', 'GSAP', 'Barba.js'],
-        stats: 'Awarded Site of the Day for Editorial Excellence.'
-      },
-      nexus: {
+      lostFound: {
         category: 'WEB APPLICATION',
-        title: 'NEXUS AI ANALYTICS PLATFORM',
-        description: 'A mission-critical observability and analytics console for distributed systems. Real-time telemetry, cluster health maps, and predictive query cost forecasting.',
-        deliverables: ['Real-time Stream Canvas', 'Data Visualization System', 'Keyboard-Driven Command Palette', 'Micro-interactions'],
-        tools: ['React', 'TypeScript', 'Tailwind', 'D3.js'],
-        stats: 'Processes over 1.2M queries per second at 12ms average latency.'
+        title: 'LOST & FOUND PLATFORM',
+        description: 'A campus platform where students can report lost or found items, browse listings, and comment. Built with React, Tailwind CSS, and Firebase for storage and real-time updates.',
+        deliverables: ['Lost and found item posts', 'Browse and comment flows', 'Firebase storage and live updates'],
+        tools: ['React', 'JSX', 'Tailwind CSS', 'Firebase SDK', 'JSON']
+      },
+      canteen: {
+        category: 'WEB APPLICATION',
+        title: 'COLLEGE CANTEEN ORDERING APP',
+        description: 'A canteen ordering concept for vendors to list food and discounts and receive orders, while students place an order and use a verification coupon number. The backend is planned.',
+        deliverables: ['Vendor menus and discounts', 'Student ordering flow', 'Order verification coupon'],
+        tools: ['HTML', 'CSS', 'JavaScript', 'Backend planned']
+      },
+      chat: {
+        category: 'WEB APPLICATION',
+        title: 'REAL-TIME CHAT APPLICATION',
+        description: 'A chat application concept with instant messaging, authentication, chat rooms, and notifications.',
+        deliverables: ['Real-time messaging', 'Authentication', 'Chat rooms and notifications'],
+        tools: ['HTML', 'CSS', 'JavaScript', 'WebSockets']
+      },
+      portfolio: {
+        category: 'PERSONAL WEBSITE',
+        title: 'PERSONAL PORTFOLIO',
+        description: 'A responsive personal portfolio built to present projects and work with accessibility in mind.',
+        deliverables: ['Responsive layouts', 'Accessible content structure', 'Project presentation'],
+        tools: ['HTML', 'CSS', 'JavaScript'],
+        link: 'https://allanlostaadifound.web.app/'
+      },
+      tryhackme: {
+        category: 'CYBERSECURITY PRACTICE',
+        title: 'TRYHACKME PRACTICE LABS',
+        description: 'Hands-on learning across networking, reconnaissance, web security, SQL injection, authentication flaws, and Linux.',
+        deliverables: ['Networking and reconnaissance practice', 'Web security exercises', 'Linux fundamentals'],
+        tools: ['TryHackMe', 'Linux', 'Networking']
+      },
+      ethicalHacking: {
+        category: 'COURSEWORK & GUIDED LABS',
+        title: 'ETHICAL HACKING COURSEWORK',
+        description: 'Guided coursework and labs covering security tools, penetration testing, vulnerability analysis, and incident response.',
+        deliverables: ['Ethical hacking capstone', 'Breach and incident response study', 'Vulnerability analysis'],
+        tools: ['OpenVAS', 'Metasploit', 'Wireshark', 'Python']
       }
     };
 
@@ -1289,6 +1360,7 @@
         'about': document.getElementById('nav-about'),
         'experience': document.getElementById('nav-experience'),
         'projects': document.getElementById('nav-projects'),
+        'landing-pages': document.getElementById('nav-landing-pages'),
         'services': document.getElementById('nav-services')
       };
 
@@ -1355,15 +1427,15 @@
 
   <!-- WorksWheel 3D Drum Reel Initialization -->
   <script type="module">
-    import { initWorksWheel, DEFAULT_WORKS } from './works-wheel.js';
+    import { initWorksWheel, DEFAULT_WORKS } from './works-wheel.js?v=hobby-expansion';
 
     function startWorksWheel() {
       const container = document.getElementById('works-wheel-container');
       if (container) {
         const wheelInstance = initWorksWheel(container, {
           items: DEFAULT_WORKS,
-          label: "Works '26",
-          action: "View",
+          label: "Hobbies & Interests",
+          action: "Explore",
           onSelect: (index, item) => {
             if (window.openProjectModal) {
               window.openProjectModal(item);
@@ -1386,6 +1458,8 @@
     }
   </script>
   <script type="module" src="./scroll-expand-media.js"></script>
-  <script type="module" src="./experience-section.js"></script>
+  <script type="module" src="./experience-section.js?v=resume-content"></script>
+  <script type="module" src="./hero-cinematic-reveal.js?v=cinematic-v2"></script>
 </body>
 </html>
+

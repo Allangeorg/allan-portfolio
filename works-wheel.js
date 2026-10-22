@@ -35,70 +35,46 @@ function place(ringDeg, drumDeg, ringR, drumR, bow, m) {
 
 export const DEFAULT_WORKS = [
   {
-    title: "Aether AI",
-    subtitle: "Cognitive Workspace & Deep Reasoning",
-    description: "A cognitive workspace engineered for deep systemic research, disciplined reasoning, and structural synthesis with real-time active node synthesis.",
-    image: "Landing Page Assest/Screenshot 2026-10-20 at 7.46.25\u202fPM.png",
-    src: "Landing Page Assest/Screenshot 2026-10-20 at 7.46.25\u202fPM.png",
-    href: "#aether-ai",
-    stats: "Active Node Engine • Systemic Synthesis • Structural Research",
-    tools: ["React", "TypeScript", "Tailwind CSS", "AI Engine"],
-    deliverables: ["Cognitive Workspace UI", "Active Node Telemetry", "Interactive Reasoning Canvas"]
+    title: "Football",
+    subtitle: "Team Sport & Fitness",
+    description: "I enjoy playing football for the teamwork, coordination, fitness, and discipline it builds.",
+    image: "assets/hobby-football.webp",
+    src: "assets/hobby-football.webp"
   },
   {
-    title: "Aether Protocol",
-    subtitle: "Private Preview & Monolithic Deployment",
-    description: "Exclusive onboarding portal and architectural briefing interface engineered for research scientists, architectural principals, and technical executives.",
-    image: "Landing Page Assest/Screenshot 2026-10-20 at 7.46.43\u202fPM.png",
-    src: "Landing Page Assest/Screenshot 2026-10-20 at 7.46.43\u202fPM.png",
-    href: "#aether-protocol",
-    stats: "Version 4.5.2 • Monolithic Core Stability • Immediate Deployment",
-    tools: ["Next.js", "TypeScript", "Tailwind CSS", "Figma"],
-    deliverables: ["Briefing Reservation Portal", "Monolithic Design System", "Executive Onboarding Flow"]
+    title: "Guitar",
+    subtitle: "Music & Creativity",
+    description: "Playing guitar is a creative break that helps me practice focus and patience.",
+    image: "assets/hobby-guitar.webp",
+    src: "assets/hobby-guitar.webp"
   },
   {
-    title: "Afterform S01",
-    subtitle: "Brutalist Campaign & Visual Monograph",
-    description: "A seasonal fashion campaign and visual monograph capturing structural streetwear silhouettes framed against raw monolithic concrete architecture.",
-    image: "Landing Page Assest/Screenshot 2026-10-20 at 7.45.28\u202fPM.png",
-    src: "Landing Page Assest/Screenshot 2026-10-20 at 7.45.28\u202fPM.png",
-    href: "#afterform-s01",
-    stats: "Campaign S01 • Frame Ref: 35mm_Exp_09 • Visual Monograph",
-    tools: ["Next.js", "Tailwind CSS", "Figma", "Lenis Scroll"],
-    deliverables: ["Visual Monograph Experience", "High-Resolution Lookbook", "Seasonal Campaign Direction"]
+    title: "Video Editing",
+    subtitle: "Visual Storytelling",
+    description: "I enjoy editing video with cuts, transitions, audio sync, basic color correction, and attention to pacing and story.",
+    image: "assets/hobby-video-editing.webp",
+    src: "assets/hobby-video-editing.webp"
   },
   {
-    title: "Afterform System",
-    subtitle: "Brutalist Apparel & Brand Manifesto",
-    description: "A monolithic architectural apparel manifesto stripping garments of emblems and logos, focusing on pure volume, silhouette, and human-concrete alignment.",
-    image: "Landing Page Assest/Screenshot 2026-10-20 at 7.45.46\u202fPM.png",
-    src: "Landing Page Assest/Screenshot 2026-10-20 at 7.45.46\u202fPM.png",
-    href: "#afterform-system",
-    stats: "Tokyo Studio • Berlin Lab • Seoul Showroom",
-    tools: ["React", "Tailwind CSS", "Figma", "GSAP"],
-    deliverables: ["Brand Manifesto Landing Page", "Brutalist Lookbook System", "E-Commerce Catalog Layout"]
+    title: "Video Games",
+    subtitle: "Gaming & Play",
+    description: "Playing video games is one of my favorite ways to unwind and enjoy interactive worlds.",
+    image: "assets/hobby-video-games.webp",
+    src: "assets/hobby-video-games.webp"
   },
   {
-    title: "Maison Éléara",
-    subtitle: "Fine Jewellery & Parisian Atelier",
-    description: "An haute jewellery boutique celebrating sculpted contours in heavy fairmined gold born from geological stillness, crafted in Paris Place Vendôme.",
-    image: "Landing Page Assest/Screenshot 2026-10-20 at 7.44.03\u202fPM.png",
-    src: "Landing Page Assest/Screenshot 2026-10-20 at 7.44.03\u202fPM.png",
-    href: "#maison-eleara",
-    stats: "Place Vendôme Atelier • 18k Recycled Gold • Aurelia Torc & Drops",
-    tools: ["Figma", "React", "Tailwind CSS", "High-Precision Typography"],
-    deliverables: ["Fine Jewellery Boutique", "Atelier Concierge Interface", "Artisanal Archive Showcase"]
+    title: "Riding",
+    subtitle: "Motorbike Rides",
+    description: "I enjoy motorbike rides and the freedom of exploring the road along the way.",
+    image: "assets/hobby-riding.webp",
+    src: "assets/hobby-riding.webp"
   },
   {
-    title: "Éléara Campaign",
-    subtitle: "Campaign Edition Vol. IX — Sandstone Edit",
-    description: "An organic editorial campaign highlighting sculpted gold signet jewellery set against raw geological sandstone formations, with private salon concierge booking.",
-    image: "Landing Page Assest/Screenshot 2026-10-20 at 7.44.42\u202fPM.png",
-    src: "Landing Page Assest/Screenshot 2026-10-20 at 7.44.42\u202fPM.png",
-    href: "#eleara-campaign",
-    stats: "Campaign Edition Vol. IX • Sandstone Geology • Atelier Concierge",
-    tools: ["WebGL", "Three.js", "Tailwind CSS", "Smooth Scroll"],
-    deliverables: ["Campaign Lookbook Experience", "Private Salon Reservation Portal", "Sensory Art Direction"]
+    title: "Trekking & Exploring",
+    subtitle: "Outdoors & Adventure",
+    description: "I like getting outdoors to trek, explore new places, and enjoy the journey.",
+    image: "assets/hobby-trekking.webp",
+    src: "assets/hobby-trekking.webp"
   }
 ];
 
@@ -106,8 +82,8 @@ export function initWorksWheel(container, options = {}) {
   if (!container) return null;
 
   const items = options.items || DEFAULT_WORKS;
-  const label = options.label || "Works '26";
-  const action = options.action !== undefined ? options.action : "View";
+  const label = options.label || "Hobbies & Interests";
+  const action = options.action !== undefined ? options.action : "Explore";
   const onSelect = options.onSelect || null;
 
   const count = items.length;
@@ -207,7 +183,7 @@ export function initWorksWheel(container, options = {}) {
   stageEl.appendChild(wheelEl);
   section.appendChild(stageEl);
 
-  // Center ring label ("Works '26" or "Landing Pages")
+  // Center ring label ("Hobbies & Interests")
   const labelEl = document.createElement("div");
   labelEl.className = "pointer-events-none absolute inset-0 grid place-items-center tracking-tight font-black uppercase text-center text-neutral-900 select-none z-10 transition-opacity duration-300";
   labelEl.textContent = label;

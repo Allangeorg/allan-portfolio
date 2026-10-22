@@ -9,6 +9,9 @@
     "start": "python3 -m http.server 8080"
   },
   "dependencies": {
-    "@fiddle-digital/string-tune": "^1.2.0"
+    "@fiddle-digital/string-tune": "^1.2.0",
+    "gsap": "^3.15.0",
+    "motion": "^14.6.0",
+    "three": "^0.186.1"
   }
 }
