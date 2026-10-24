@@ -1016,27 +1016,25 @@
 
     </div>
   </section>
-  <!-- END: Skills & Technical Proficiencies Section -->
-
-  <!-- BEGIN: Contact / Let's Talk Section -->
-  <footer class="w-full bg-[#030504] text-white pt-16 pb-12 mt-12 relative overflow-hidden" data-purpose="footer-section" id="contact">
+  <!-  <!-- BEGIN: Contact / Let's Talk Section (Fits within 100dvh on desktop) -->
+  <footer class="w-full min-h-screen lg:h-screen lg:max-h-[100dvh] bg-[#030504] text-white flex flex-col justify-between items-center py-3 sm:py-5 px-4 sm:px-8 relative overflow-hidden box-border" data-purpose="footer-section" id="contact">
     <!-- Atmospheric Ambient Under-Glow -->
-    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[850px] h-[450px] bg-[#35E89A]/5 rounded-full blur-[140px] pointer-events-none" aria-hidden="true"></div>
+    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[380px] bg-[#35E89A]/5 rounded-full blur-[130px] pointer-events-none" aria-hidden="true"></div>
 
-    <div class="max-w-[1400px] mx-auto px-6 md:px-14 flex flex-col items-center relative z-10">
+    <div class="w-full max-w-[1360px] h-full flex flex-col justify-between items-center relative z-10 flex-1 min-h-0">
       
       <!-- Level 1: Metallic Callout Headline -->
-      <div class="w-full text-center pt-2 pb-4">
-        <h2 class="text-[12vw] md:text-[8rem] lg:text-[9.5rem] font-black uppercase leading-none tracking-tight footer-metallic-title select-none cursor-pointer" onclick="openContactModal()">
+      <div class="w-full text-center shrink-0 pt-1 pb-1">
+        <h2 class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black uppercase leading-none tracking-tight footer-metallic-title select-none cursor-pointer" onclick="openContactModal()">
           LET'S TALK
         </h2>
-        <p class="text-[11px] font-mono tracking-widest text-[#35E89A]/80 uppercase mt-2">
+        <p class="text-[10px] sm:text-[11px] font-mono tracking-widest text-[#35E89A]/80 uppercase mt-1">
           REAL-TIME 3D PARTICLE SCULPTURE · INTERACTIVE IDENTITY
         </p>
       </div>
 
       <!-- Level 2: 3D Particle Sculpture Stage with Minimal Side Navigation Arrows -->
-      <div class="relative w-full max-w-[1280px] flex items-center justify-center my-0 sm:my-2 px-2 sm:px-6">
+      <div class="relative w-full flex-1 min-h-[260px] max-h-[440px] flex items-center justify-center my-auto px-2 sm:px-6">
         <!-- Minimal Left Navigation Arrow -->
         <button id="particle-prev-btn" 
                 type="button"
@@ -1053,7 +1051,18 @@
              tabindex="0"
              role="region"
              aria-label="Interactive 3D particle sculpture (use left/right arrows to switch shapes)"
-             class="relative w-full h-[480px] sm:h-[530px] md:h-[570px] flex items-center justify-center pointer-events-auto cursor-crosshair select-none focus:outline-none focus:ring-1 focus:ring-[#35E89A]/40 rounded-2xl">
+             class="relative w-full h-full flex items-center justify-center pointer-events-auto cursor-crosshair select-none focus:outline-none focus:ring-1 focus:ring-[#35E89A]/40 rounded-2xl">
+          
+          <!-- Crisp Foreground Avatar Layer (Co-aligned with 3D particles, fades gracefully during morph) -->
+          <div id="contact-avatar-display" 
+               class="absolute inset-0 m-auto pointer-events-none select-none transition-opacity duration-500 ease-out z-20 flex items-center justify-center"
+               style="width: clamp(210px, 20vw, 260px); height: clamp(270px, 26vw, 330px); transform: translateY(-16px);">
+            <img src="assets/masked-operator-hero.png" 
+                 alt="Allan George Mathew - Masked Hacker Avatar" 
+                 class="w-full h-full object-contain object-bottom filter drop-shadow-[0_0_24px_rgba(53,232,154,0.35)]"
+                 style="mask-image: linear-gradient(to bottom, black 0%, black 72%, transparent 96%); -webkit-mask-image: linear-gradient(to bottom, black 0%, black 72%, transparent 96%);" />
+          </div>
+
           <!-- Crisp Fallback Image (Shown if WebGL or particle sampling fails or under reduced motion) -->
           <img id="contact-avatar-fallback" 
                src="assets/masked-operator-hero.png" 
@@ -1073,55 +1082,58 @@
         </button>
       </div>
 
-      <!-- Minimal Shape Status Indicator -->
-      <div class="flex items-center justify-center gap-2 -mt-2 mb-4 z-20">
-        <span class="w-1.5 h-1.5 rounded-full bg-[#A8FF35] animate-pulse"></span>
-        <span id="particle-shape-indicator" class="font-mono text-[11px] tracking-widest text-[#35E89A]/90 uppercase">
-          IDENTITY // MASKED AVATAR [1/5]
-        </span>
-      </div>
+      <!-- Lower Controls, Links & Academic Credits (Compact & neatly aligned) -->
+      <div class="w-full flex flex-col items-center shrink-0 pt-1 pb-1">
+        <!-- Minimal Shape Status Indicator -->
+        <div class="flex items-center justify-center gap-2 mb-2 z-20">
+          <span class="w-1.5 h-1.5 rounded-full bg-[#A8FF35] animate-pulse"></span>
+          <span id="particle-shape-indicator" class="font-mono text-[10px] sm:text-[11px] tracking-widest text-[#35E89A]/90 uppercase">
+            IDENTITY // MASKED AVATAR [1/5]
+          </span>
+        </div>
 
-      <!-- Level 3: Action Button Pills (With Real Working Links + Hover Morphing) -->
-      <div class="flex flex-wrap items-center justify-center gap-3.5 mt-2 mb-14 z-20">
-        <a class="px-6 py-2.5 rounded-full border border-neutral-700 hover:border-[#35E89A] hover:bg-[#35E89A]/10 text-xs font-medium tracking-wider uppercase transition text-neutral-300 hover:text-[#A8FF35]"
-           href="mailto:allan.george.mathew@gmail.com"
-           onmouseenter="window.morphContactHologram?.('email')"
-           onclick="window.morphContactHologram?.('email')">
-          EMAIL
-        </a>
-        <a class="px-6 py-2.5 rounded-full border border-neutral-700 hover:border-neutral-400 text-xs font-medium tracking-wider uppercase transition text-neutral-300 hover:text-white" 
-           href="tel:+917022509058">
-          +91 70225 09058
-        </a>
-        <a class="px-6 py-2.5 rounded-full border border-neutral-700 hover:border-neutral-400 text-xs font-medium tracking-wider uppercase transition text-neutral-300 hover:text-white" 
-           href="https://allanlostaadifound.web.app/" target="_blank" rel="noopener noreferrer">
-          LOST &amp; FOUND DEMO
-        </a>
-        <a class="px-6 py-2.5 rounded-full border border-neutral-700 hover:border-[#16D9FF] hover:bg-[#16D9FF]/10 text-xs font-medium tracking-wider uppercase transition text-neutral-300 hover:text-[#16D9FF]"
-           href="https://www.linkedin.com/in/allan-george-mathew-844225321" target="_blank" rel="noopener noreferrer"
-           onmouseenter="window.morphContactHologram?.('linkedin')"
-           onclick="window.morphContactHologram?.('linkedin')">
-          LINKEDIN
-        </a>
-        <a class="px-6 py-2.5 rounded-full border border-neutral-700 hover:border-[#A8FF35] hover:bg-[#A8FF35]/10 text-xs font-medium tracking-wider uppercase transition text-neutral-300 hover:text-[#A8FF35]"
-           href="https://github.com/Allangeorg" target="_blank" rel="noopener noreferrer"
-           onmouseenter="window.morphContactHologram?.('github')"
-           onclick="window.morphContactHologram?.('github')">
-          GITHUB
-        </a>
-        <button onclick="window.morphContactHologram?.('contact'); openContactModal();" 
-                onmouseenter="window.morphContactHologram?.('contact')"
-                class="px-7 py-2.5 rounded-full bg-white text-black hover:bg-[#A8FF35] hover:text-black text-xs font-bold tracking-wider uppercase transition transform hover:scale-105 shadow-md">
-          CONTACT ME
-        </button>
-      </div>
+        <!-- Level 3: Action Button Pills (With Real Working Links + Hover Morphing) -->
+        <div class="flex flex-wrap items-center justify-center gap-2 sm:gap-2.5 mb-2 z-20">
+          <a class="px-5 py-2 rounded-full border border-neutral-700 hover:border-[#35E89A] hover:bg-[#35E89A]/10 text-[11px] font-medium tracking-wider uppercase transition text-neutral-300 hover:text-[#A8FF35]"
+             href="mailto:allan.george.mathew@gmail.com"
+             onmouseenter="window.morphContactHologram?.('email')"
+             onclick="window.morphContactHologram?.('email')">
+            EMAIL
+          </a>
+          <a class="px-5 py-2 rounded-full border border-neutral-700 hover:border-neutral-400 text-[11px] font-medium tracking-wider uppercase transition text-neutral-300 hover:text-white" 
+             href="tel:+917022509058">
+            +91 70225 09058
+          </a>
+          <a class="px-5 py-2 rounded-full border border-neutral-700 hover:border-neutral-400 text-[11px] font-medium tracking-wider uppercase transition text-neutral-300 hover:text-white" 
+             href="https://allanlostaadifound.web.app/" target="_blank" rel="noopener noreferrer">
+            LOST &amp; FOUND DEMO
+          </a>
+          <a class="px-5 py-2 rounded-full border border-neutral-700 hover:border-[#16D9FF] hover:bg-[#16D9FF]/10 text-[11px] font-medium tracking-wider uppercase transition text-neutral-300 hover:text-[#16D9FF]"
+             href="https://www.linkedin.com/in/allan-george-mathew-844225321" target="_blank" rel="noopener noreferrer"
+             onmouseenter="window.morphContactHologram?.('linkedin')"
+             onclick="window.morphContactHologram?.('linkedin')">
+            LINKEDIN
+          </a>
+          <a class="px-5 py-2 rounded-full border border-neutral-700 hover:border-[#A8FF35] hover:bg-[#A8FF35]/10 text-[11px] font-medium tracking-wider uppercase transition text-neutral-300 hover:text-[#A8FF35]"
+             href="https://github.com/Allangeorg" target="_blank" rel="noopener noreferrer"
+             onmouseenter="window.morphContactHologram?.('github')"
+             onclick="window.morphContactHologram?.('github')">
+            GITHUB
+          </a>
+          <button onclick="window.morphContactHologram?.('contact'); openContactModal();" 
+                  onmouseenter="window.morphContactHologram?.('contact')"
+                  class="px-6 py-2 rounded-full bg-white text-black hover:bg-[#A8FF35] hover:text-black text-[11px] font-bold tracking-wider uppercase transition transform hover:scale-105 shadow-md">
+            CONTACT ME
+          </button>
+        </div>
 
-      <p class="mb-12 text-[11px] uppercase tracking-[0.18em] text-neutral-500">Bengaluru, India · Bachelor of Computer Applications (BCA), Computer Science · Expected Graduation: 2027 · Christ University</p>
+        <p class="mb-1 text-[10px] uppercase tracking-wider text-neutral-500 text-center">Bengaluru, India · Bachelor of Computer Applications (BCA), Computer Science · Expected Graduation: 2027 · Christ University</p>
 
-      <!-- Bottom Credits Bar -->
-      <div class="w-full pt-8 border-t border-neutral-900 flex flex-col md:flex-row items-center justify-between text-[10px] tracking-widest uppercase text-neutral-600 font-semibold gap-4">
-        <div>PORTFOLIO. ALL RIGHTS RESERVED</div>
-        <div>ALLAN GEORGE MATHEW</div>
+        <!-- Bottom Credits Bar -->
+        <div class="w-full pt-1.5 border-t border-neutral-900/80 flex flex-col sm:flex-row items-center justify-between text-[9px] tracking-widest uppercase text-neutral-600 font-semibold gap-1">
+          <div>PORTFOLIO. ALL RIGHTS RESERVED</div>
+          <div>ALLAN GEORGE MATHEW</div>
+        </div>
       </div>
 
     </div>
@@ -1709,7 +1721,7 @@
   <script type="module" src="./hero-3d-background.js?v=cyber-depth"></script>
   <script type="module" src="./hero-cinematic-reveal.js?v=hologram-vfx"></script>
   <script type="module">
-    import { initContactHologramTerminal } from './contact-hologram-terminal.js?v=rescue-v6';
+    import { initContactHologramTerminal } from './contact-hologram-terminal.js?v=production-v2';
     if (document.readyState === 'loading') {
       document.addEventListener('DOMContentLoaded', () => initContactHologramTerminal('contact-stage-container'));
     } else {

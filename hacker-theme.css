@@ -796,6 +796,25 @@ header[data-purpose="site-navigation"] #mobile-menu-btn:hover {
   }
 }
 
+#contact {
+  box-sizing: border-box !important;
+}
+
+@media (min-width: 1024px) {
+  #contact {
+    height: 100vh !important;
+    height: 100dvh !important;
+    max-height: 100dvh !important;
+    padding-top: 1rem !important;
+    padding-bottom: 1rem !important;
+    margin-top: 2rem !important;
+  }
+}
+
+#contact-avatar-display img {
+  will-change: transform, opacity, filter;
+}
+
 #contact .border-t {
   border-color: var(--line) !important;
 }
