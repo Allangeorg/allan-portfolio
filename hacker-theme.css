@@ -708,43 +708,59 @@ header[data-purpose="site-navigation"] #mobile-menu-btn:hover {
 }
 
 #project-modal-card,
-#contact-modal-card,
-#cart-modal-card {
+#contact-modal-card {
   border: 1px solid var(--line-strong) !important;
-  border-radius: 10px !important;
+  border-radius: 16px !important;
   color: var(--ink) !important;
   background: #09100b !important;
-  box-shadow: 0 30px 100px rgba(0, 0, 0, 0.62) !important;
+  box-shadow: 0 30px 100px rgba(0, 0, 0, 0.75), 0 0 40px rgba(168, 255, 53, 0.08) !important;
 }
 
 #project-modal-card :is(h3, h4),
-#contact-modal-card h3,
-#cart-modal-card h3 {
+#contact-modal-card h3 {
   color: var(--ink) !important;
 }
 
 #project-modal-card :is(p, span, div),
-#contact-modal-card :is(p, span, label),
-#cart-modal-card :is(p, span, label) {
+#contact-modal-card :is(p, span, label) {
   color: inherit;
 }
 
+/* Modal tech tags and pills - high contrast dark pill with lime-green text */
+#project-modal-card .modal-tech-tag,
+#project-modal-card span.modal-tech-tag,
+#project-modal-card .bg-neutral-100,
+#project-modal-card span.bg-neutral-100 {
+  background: #0c1810 !important;
+  border: 1px solid rgba(168, 255, 53, 0.38) !important;
+  color: #a8ff35 !important;
+  font-family: var(--mono) !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4) !important;
+}
+
+#project-modal-card .bg-neutral-50,
+#project-modal-card div.bg-neutral-50 {
+  background: #0b140e !important;
+  border: 1px solid rgba(168, 255, 53, 0.2) !important;
+  color: var(--ink) !important;
+}
+
 #project-modal-card button,
-#contact-modal-card button,
-#cart-modal-card button {
+#contact-modal-card button {
   color: var(--ink) !important;
   border-color: var(--line) !important;
 }
 
 #project-modal-card a.bg-black {
   border-color: transparent !important;
-  color: var(--page) !important;
-  background: var(--acid) !important;
+  color: #050806 !important;
+  background: #a8ff35 !important;
+  font-weight: 700 !important;
 }
 
 #project-modal-card a.bg-black:hover {
-  color: var(--page) !important;
-  background: #d0ff8a !important;
+  color: #050806 !important;
+  background: #c3ff6f !important;
 }
 
 #contact-modal-card input,
