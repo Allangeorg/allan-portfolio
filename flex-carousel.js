@@ -348,29 +348,21 @@ export function initFlexCarousel(container, options = {}) {
         <span class="flex-carousel__subtitle"></span>
       </span>
       <span class="flex-carousel__count">
-        <span class="flex-carousel__digits">
-          <span class="flex-carousel__digit"><span class="flex-carousel__reel reel-1"></span></span>
-          <span class="flex-carousel__digit"><span class="flex-carousel__reel reel-2"></span></span>
-        </span>
+        <span class="flex-carousel__current-num">01</span>
         <span class="flex-carousel__slash">/</span>
-        <span>${String(items.length).padStart(2, '0')}</span>
+        <span class="flex-carousel__total-num">${String(items.length).padStart(2, '0')}</span>
       </span>
     `;
 
-    const makeDigits = () => '0123456789'.split('').map(n => `<span>${n}</span>`).join('');
-    captionEl.querySelector('.reel-1').innerHTML = makeDigits();
-    captionEl.querySelector('.reel-2').innerHTML = makeDigits();
-
     titleEl = captionEl.querySelector('.flex-carousel__title-text');
     subtitleEl = captionEl.querySelector('.flex-carousel__subtitle');
-    reel1El = captionEl.querySelector('.reel-1');
-    reel2El = captionEl.querySelector('.reel-2');
+    reel1El = captionEl.querySelector('.flex-carousel__current-num');
     countEl = captionEl.querySelector('.flex-carousel__count');
 
     container.appendChild(captionEl);
 
     liveEl = document.createElement('div');
-    liveEl.className = 'flex-carousel__live';
+    liveEl.className = 'flex-carousel__live sr-only';
     liveEl.setAttribute('aria-live', 'polite');
     liveEl.setAttribute('aria-atomic', 'true');
     container.appendChild(liveEl);
@@ -391,17 +383,17 @@ export function initFlexCarousel(container, options = {}) {
     }
 
     const valStr = String(index + 1).padStart(2, '0');
-    if (reel1El) reel1El.style.transform = `translateY(${-Number(valStr[0]) * 10}%)`;
-    if (reel2El) reel2El.style.transform = `translateY(${-Number(valStr[1]) * 10}%)`;
+    if (reel1El) reel1El.innerText = valStr;
 
     if (countEl) {
+      countEl.setAttribute('aria-label', `Project ${index + 1} of ${items.length}`);
       if (focusOpen) countEl.setAttribute('data-hidden', '');
       else countEl.removeAttribute('data-hidden');
     }
 
     if (liveEl) {
-      const label = current.title || current.alt || `Image ${index + 1}`;
-      liveEl.innerText = `${label}, ${index + 1} of ${items.length}`;
+      const label = current.title || current.alt || `Project ${index + 1}`;
+      liveEl.innerText = `${label}, Project ${index + 1} of ${items.length}`;
     }
   }
 
@@ -1300,6 +1292,25 @@ export function initFlexCarousel(container, options = {}) {
     wake: () => {
       dirty = true;
       start();
-    }
+    },
+    next: () => {
+      skipIntro();
+      closeFocus();
+      interactedAt = performance.now();
+      step(metrics(settings), 1);
+    },
+    prev: () => {
+      skipIntro();
+      closeFocus();
+      interactedAt = performance.now();
+      step(metrics(settings), -1);
+    },
+    goTo: (idx) => {
+      skipIntro();
+      closeFocus();
+      interactedAt = performance.now();
+      goTo(metrics(settings), idx);
+    },
+    getCurrentIndex: () => activeIndex
   };
 }

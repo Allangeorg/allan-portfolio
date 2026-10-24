@@ -655,6 +655,64 @@ header[data-purpose="site-navigation"] #mobile-menu-btn:hover {
   color: var(--acid) !important;
 }
 
+/* Skills Matrix Cards & Pills */
+#skills .skill-card,
+.skill-card {
+  border: 1px solid rgba(168, 255, 53, 0.25) !important;
+  border-radius: 16px !important;
+  color: #f2f7f1 !important;
+  background: #0c1810 !important;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5) !important;
+  transition: border-color 220ms ease, background-color 220ms ease !important;
+}
+
+#skills .skill-card:hover,
+.skill-card:hover {
+  border-color: #a8ff35 !important;
+  background: #112217 !important;
+}
+
+#skills .skill-pill,
+.skill-card .skill-pill,
+.skill-pill {
+  background: #08100a !important;
+  border: 1px solid rgba(168, 255, 53, 0.3) !important;
+  color: #a8ff35 !important;
+  font-family: var(--mono) !important;
+  transition: all 180ms ease !important;
+}
+
+#skills .skill-pill:hover,
+.skill-card .skill-pill:hover,
+.skill-pill:hover {
+  border-color: #a8ff35 !important;
+  color: #a8ff35 !important;
+  box-shadow: 0 0 8px rgba(168, 255, 53, 0.3) !important;
+}
+
+/* FlexCarousel Prev / Next buttons */
+#flex-carousel-prev-btn,
+#flex-carousel-next-btn {
+  background: #0c1810 !important;
+  border: 1px solid rgba(168, 255, 53, 0.35) !important;
+  color: #a8ff35 !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5) !important;
+  transition: all 200ms ease !important;
+}
+
+#flex-carousel-prev-btn:hover,
+#flex-carousel-next-btn:hover {
+  background: #152d19 !important;
+  border-color: #a8ff35 !important;
+  color: #a8ff35 !important;
+  box-shadow: 0 0 12px rgba(168, 255, 53, 0.35) !important;
+}
+
+#flex-carousel-prev-btn svg,
+#flex-carousel-next-btn svg {
+  color: #a8ff35 !important;
+}
+
 /* Contact and modal surfaces */
 #contact {
   margin-top: 0 !important;

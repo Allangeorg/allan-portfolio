@@ -267,7 +267,7 @@
       opacity: 1;
     }
   </style>
-  <link rel="stylesheet" href="hacker-theme.css">
+  <link rel="stylesheet" href="hacker-theme.css?v=20261024-cyber">
 </head>
 <body class="antialiased text-[#111] bg-[#FAFAFA]">
 
@@ -522,7 +522,7 @@
                         <path d="M14 5l7 7m0 0l-7 7m7-7H3" stroke-linecap="round" stroke-linejoin="round"></path>
                       </svg>
                     </a>
-          <a href="#services" class="pointer-events-auto px-5 py-2.5 rounded-full border border-neutral-500 hover:border-white text-white text-xs font-bold tracking-wider uppercase transition-all duration-200">
+          <a href="#skills" class="pointer-events-auto px-5 py-2.5 rounded-full border border-neutral-500 hover:border-white text-white text-xs font-bold tracking-wider uppercase transition-all duration-200">
                       SKILLS
                     </a>
                   </div>
@@ -577,14 +577,14 @@
       </div>
 
       <!-- Layer 0B: Massive Ambient Horizontal Running Tickers (Layered Depth) -->
-      <div class="absolute inset-0 flex flex-col justify-around pointer-events-none overflow-hidden opacity-[0.035]">
+      <div class="absolute inset-0 flex flex-col justify-around pointer-events-none overflow-hidden opacity-[0.035]" aria-hidden="true">
         <!-- Upper Ticker (Drifting Left) -->
         <div id="exp-ticker-top" class="whitespace-nowrap font-black uppercase text-[14vw] tracking-tighter will-change-transform leading-none">
           COMPUTER SCIENCE &nbsp;&nbsp; CYBERSECURITY COURSEWORK &nbsp;&nbsp; COMPUTER SCIENCE &nbsp;&nbsp; CYBERSECURITY COURSEWORK &nbsp;&nbsp;
         </div>
         <!-- Lower Ticker (Drifting Right) -->
         <div id="exp-ticker-bottom" class="whitespace-nowrap font-black uppercase text-[14vw] tracking-tighter will-change-transform leading-none">
-          CHRIST UNIVERSITY &nbsp;&nbsp; EXPECTED APRIL 2027 &nbsp;&nbsp; HANDS-ON LABS &nbsp;&nbsp; CHRIST UNIVERSITY &nbsp;&nbsp;
+          CHRIST UNIVERSITY &nbsp;&nbsp; EXPECTED GRADUATION: 2027 &nbsp;&nbsp; HANDS-ON LABS &nbsp;&nbsp; CHRIST UNIVERSITY &nbsp;&nbsp;
         </div>
       </div>
 
@@ -632,15 +632,16 @@
             <div
               class="exp-date-bg absolute -top-8 right-12 md:right-28 text-[12vw] md:text-[14vw] font-black uppercase text-white/[0.04] tracking-tighter select-none pointer-events-none will-change-transform"
               data-parallax-factor="0.15"
+              aria-hidden="true"
             >
-              EXPECTED 04/2027
+              2027
             </div>
 
             <div class="relative z-10 max-w-4xl">
               <!-- Eyebrow & Date -->
               <div class="flex items-center gap-4 mb-4">
                 <span class="text-xs font-semibold tracking-widest uppercase text-neutral-400">
-                  EXPECTED 04/2027
+                  EXPECTED GRADUATION: 2027
                 </span>
                 <span class="h-[1px] w-12 bg-white/20"></span>
                 <span class="text-xs font-bold tracking-widest uppercase text-white">
@@ -655,7 +656,7 @@
 
               <!-- Narrative Summary -->
               <p class="text-sm sm:text-base md:text-lg text-neutral-300 leading-relaxed max-w-2xl mb-8">
-                Bachelor of Computer Applications in Computer Science at Christ University, Bengaluru. Expected completion: April 2027.
+                Bachelor of Computer Applications (BCA) in Computer Science at Christ University, Bengaluru. Expected Graduation: 2027.
               </p>
 
               <!-- Milestone Specifications (Hairline Grid) -->
@@ -682,6 +683,7 @@
             <div
               class="exp-date-bg absolute -top-8 right-12 md:right-28 text-[12vw] md:text-[14vw] font-black uppercase text-white/[0.04] tracking-tighter select-none pointer-events-none will-change-transform"
               data-parallax-factor="0.15"
+              aria-hidden="true"
             >
               2024 — 2026
             </div>
@@ -758,12 +760,34 @@
 
   <!-- BEGIN: Featured Project Section -->
   <section class="max-w-[1400px] mx-auto px-6 md:px-14 py-16" data-purpose="featured-projects" id="projects">
-    <!-- Header -->
-    <div class="mb-8">
-      <h2 class="text-3xl md:text-5xl font-black uppercase tracking-tight text-neutral-900">
-        SELECTED PROJECTS
-      </h2>
-      <p class="mt-3 text-xs uppercase tracking-[0.18em] text-neutral-500">Verified web applications, prototypes, and hands-on cybersecurity coursework</p>
+    <!-- Header with Accessible Controls -->
+    <div class="mb-8 flex flex-col md:flex-row md:items-end justify-between gap-4">
+      <div>
+        <h2 class="text-3xl md:text-5xl font-black uppercase tracking-tight text-neutral-900">
+          SELECTED PROJECTS
+        </h2>
+        <p class="mt-3 text-xs uppercase tracking-[0.18em] text-neutral-500">Verified web applications, prototypes, and hands-on cybersecurity coursework</p>
+      </div>
+
+      <!-- Accessible Prev/Next Controls -->
+      <div class="flex items-center gap-3">
+        <button
+          id="flex-carousel-prev-btn"
+          type="button"
+          aria-label="Previous project slide"
+          class="w-10 h-10 rounded-full border border-neutral-300 bg-white hover:border-black flex items-center justify-center transition shadow-sm"
+        >
+          <svg class="w-4 h-4 text-neutral-800" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M15 19l-7-7 7-7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <button
+          id="flex-carousel-next-btn"
+          type="button"
+          aria-label="Next project slide"
+          class="w-10 h-10 rounded-full border border-neutral-300 bg-white hover:border-black flex items-center justify-center transition shadow-sm"
+        >
+          <svg class="w-4 h-4 text-neutral-800" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+      </div>
     </div>
 
     <!-- Dynamic Projects Content Area with FlexCarousel -->
@@ -808,7 +832,110 @@
       </p>
     </div>
 
-    <!-- Service Pill Rows Accordion -->
+    <!-- Structured 7-Category Skills Matrix -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 max-w-5xl mx-auto mb-14">
+      <!-- 1. Programming Languages -->
+      <div class="skill-card p-5 rounded-2xl border border-[rgba(168,255,53,0.25)] bg-[#0c1810] shadow-sm">
+        <div class="flex items-center justify-between mb-3 border-b border-[rgba(168,255,53,0.15)] pb-2">
+          <span class="text-xs font-mono font-bold uppercase tracking-wider text-[#a8ff35]">01 // LANGUAGES</span>
+          <span class="text-[10px] text-neutral-400 font-mono">CORE</span>
+        </div>
+        <div class="flex flex-wrap gap-1.5">
+          <span class="skill-pill px-2.5 py-1 text-xs font-mono rounded bg-[#08100a] text-[#a8ff35] border border-[rgba(168,255,53,0.3)]" title="Applied in Lost & Found, Portfolio, Canteen">JavaScript (ES6+)</span>
+          <span class="skill-pill px-2.5 py-1 text-xs font-mono rounded bg-[#08100a] text-[#a8ff35] border border-[rgba(168,255,53,0.3)]" title="Applied in Security Task Automation & Scripting">Python</span>
+          <span class="skill-pill px-2.5 py-1 text-xs font-mono rounded bg-[#08100a] text-[#a8ff35] border border-[rgba(168,255,53,0.3)]">HTML5</span>
+          <span class="skill-pill px-2.5 py-1 text-xs font-mono rounded bg-[#08100a] text-[#a8ff35] border border-[rgba(168,255,53,0.3)]">CSS3</span>
+          <span class="skill-pill px-2.5 py-1 text-xs font-mono rounded bg-[#08100a] text-[#a8ff35] border border-[rgba(168,255,53,0.3)]" title="Applied in Database Coursework & SQLite">SQL</span>
+        </div>
+      </div>
+
+      <!-- 2. Frontend Development -->
+      <div class="skill-card p-5 rounded-2xl border border-[rgba(168,255,53,0.25)] bg-[#0c1810] shadow-sm">
+        <div class="flex items-center justify-between mb-3 border-b border-[rgba(168,255,53,0.15)] pb-2">
+          <span class="text-xs font-mono font-bold uppercase tracking-wider text-[#a8ff35]">02 // FRONTEND</span>
+          <span class="text-[10px] text-neutral-400 font-mono">UI / UX</span>
+        </div>
+        <div class="flex flex-wrap gap-1.5">
+          <span class="skill-pill px-2.5 py-1 text-xs font-mono rounded bg-[#08100a] text-[#a8ff35] border border-[rgba(168,255,53,0.3)]" title="Applied in Lost & Found Platform">React</span>
+          <span class="skill-pill px-2.5 py-1 text-xs font-mono rounded bg-[#08100a] text-[#a8ff35] border border-[rgba(168,255,53,0.3)]" title="Applied in Portfolio & Web Apps">Tailwind CSS</span>
+          <span class="skill-pill px-2.5 py-1 text-xs font-mono rounded bg-[#08100a] text-[#a8ff35] border border-[rgba(168,255,53,0.3)]" title="Applied in 3D WebGL Particle Shaders">Three.js / WebGL</span>
+          <span class="skill-pill px-2.5 py-1 text-xs font-mono rounded bg-[#08100a] text-[#a8ff35] border border-[rgba(168,255,53,0.3)]" title="Applied in Timeline Choreography">GSAP</span>
+        </div>
+      </div>
+
+      <!-- 3. Backend Development -->
+      <div class="skill-card p-5 rounded-2xl border border-[rgba(168,255,53,0.25)] bg-[#0c1810] shadow-sm">
+        <div class="flex items-center justify-between mb-3 border-b border-[rgba(168,255,53,0.15)] pb-2">
+          <span class="text-xs font-mono font-bold uppercase tracking-wider text-[#a8ff35]">03 // BACKEND</span>
+          <span class="text-[10px] text-neutral-400 font-mono">APIS & SERVICES</span>
+        </div>
+        <div class="flex flex-wrap gap-1.5">
+          <span class="skill-pill px-2.5 py-1 text-xs font-mono rounded bg-[#08100a] text-[#a8ff35] border border-[rgba(168,255,53,0.3)]">Node.js</span>
+          <span class="skill-pill px-2.5 py-1 text-xs font-mono rounded bg-[#08100a] text-[#a8ff35] border border-[rgba(168,255,53,0.3)]">Express</span>
+          <span class="skill-pill px-2.5 py-1 text-xs font-mono rounded bg-[#08100a] text-[#a8ff35] border border-[rgba(168,255,53,0.3)]">REST APIs</span>
+          <span class="skill-pill px-2.5 py-1 text-xs font-mono rounded bg-[#08100a] text-[#a8ff35] border border-[rgba(168,255,53,0.3)]" title="Applied in Real-Time Chat App">WebSockets</span>
+        </div>
+      </div>
+
+      <!-- 4. Databases -->
+      <div class="skill-card p-5 rounded-2xl border border-[rgba(168,255,53,0.25)] bg-[#0c1810] shadow-sm">
+        <div class="flex items-center justify-between mb-3 border-b border-[rgba(168,255,53,0.15)] pb-2">
+          <span class="text-xs font-mono font-bold uppercase tracking-wider text-[#a8ff35]">04 // DATABASES</span>
+          <span class="text-[10px] text-neutral-400 font-mono">STORAGE</span>
+        </div>
+        <div class="flex flex-wrap gap-1.5">
+          <span class="skill-pill px-2.5 py-1 text-xs font-mono rounded bg-[#08100a] text-[#a8ff35] border border-[rgba(168,255,53,0.3)]" title="Applied in Lost & Found Platform">Firebase Realtime DB</span>
+          <span class="skill-pill px-2.5 py-1 text-xs font-mono rounded bg-[#08100a] text-[#a8ff35] border border-[rgba(168,255,53,0.3)]">Firebase Auth</span>
+          <span class="skill-pill px-2.5 py-1 text-xs font-mono rounded bg-[#08100a] text-[#a8ff35] border border-[rgba(168,255,53,0.3)]" title="Applied in Local DB Projects">SQLite</span>
+        </div>
+      </div>
+
+      <!-- 5. Developer Tools -->
+      <div class="skill-card p-5 rounded-2xl border border-[rgba(168,255,53,0.25)] bg-[#0c1810] shadow-sm">
+        <div class="flex items-center justify-between mb-3 border-b border-[rgba(168,255,53,0.15)] pb-2">
+          <span class="text-xs font-mono font-bold uppercase tracking-wider text-[#a8ff35]">05 // DEV TOOLS</span>
+          <span class="text-[10px] text-neutral-400 font-mono">WORKFLOW</span>
+        </div>
+        <div class="flex flex-wrap gap-1.5">
+          <span class="skill-pill px-2.5 py-1 text-xs font-mono rounded bg-[#08100a] text-[#a8ff35] border border-[rgba(168,255,53,0.3)]">Git &amp; GitHub</span>
+          <span class="skill-pill px-2.5 py-1 text-xs font-mono rounded bg-[#08100a] text-[#a8ff35] border border-[rgba(168,255,53,0.3)]">Linux CLI / Bash</span>
+          <span class="skill-pill px-2.5 py-1 text-xs font-mono rounded bg-[#08100a] text-[#a8ff35] border border-[rgba(168,255,53,0.3)]">VS Code</span>
+          <span class="skill-pill px-2.5 py-1 text-xs font-mono rounded bg-[#08100a] text-[#a8ff35] border border-[rgba(168,255,53,0.3)]">Vite / npm</span>
+        </div>
+      </div>
+
+      <!-- 6. Cybersecurity & Networking -->
+      <div class="skill-card p-5 rounded-2xl border border-[rgba(168,255,53,0.25)] bg-[#0c1810] shadow-sm">
+        <div class="flex items-center justify-between mb-3 border-b border-[rgba(168,255,53,0.15)] pb-2">
+          <span class="text-xs font-mono font-bold uppercase tracking-wider text-[#a8ff35]">06 // CYBERSECURITY</span>
+          <span class="text-[10px] text-neutral-400 font-mono">DEFENSE & AUDIT</span>
+        </div>
+        <div class="flex flex-wrap gap-1.5">
+          <span class="skill-pill px-2.5 py-1 text-xs font-mono rounded bg-[#08100a] text-[#a8ff35] border border-[rgba(168,255,53,0.3)]" title="Applied in Packet Stream Analysis">Wireshark</span>
+          <span class="skill-pill px-2.5 py-1 text-xs font-mono rounded bg-[#08100a] text-[#a8ff35] border border-[rgba(168,255,53,0.3)]" title="Applied in Reconnaissance & Port Scanning">Nmap</span>
+          <span class="skill-pill px-2.5 py-1 text-xs font-mono rounded bg-[#08100a] text-[#a8ff35] border border-[rgba(168,255,53,0.3)]" title="Applied in Vulnerability Assessment Labs">OpenVAS</span>
+          <span class="skill-pill px-2.5 py-1 text-xs font-mono rounded bg-[#08100a] text-[#a8ff35] border border-[rgba(168,255,53,0.3)]" title="Applied in Guided Metasploit Exploitation">Metasploit</span>
+          <span class="skill-pill px-2.5 py-1 text-xs font-mono rounded bg-[#08100a] text-[#a8ff35] border border-[rgba(168,255,53,0.3)]">TCP/IP Protocols</span>
+          <span class="skill-pill px-2.5 py-1 text-xs font-mono rounded bg-[#08100a] text-[#a8ff35] border border-[rgba(168,255,53,0.3)]" title="Applied in TryHackMe & Sanitization">XSS &amp; SQLi Auditing</span>
+        </div>
+      </div>
+
+      <!-- 7. Currently Learning -->
+      <div class="skill-card p-5 rounded-2xl border border-[rgba(168,255,53,0.25)] bg-[#0c1810] shadow-sm md:col-span-2 lg:col-span-3">
+        <div class="flex items-center justify-between mb-3 border-b border-[rgba(168,255,53,0.15)] pb-2">
+          <span class="text-xs font-mono font-bold uppercase tracking-wider text-[#a8ff35]">07 // CURRENTLY LEARNING</span>
+          <span class="text-[10px] text-neutral-400 font-mono">ACTIVE STUDY</span>
+        </div>
+        <div class="flex flex-wrap gap-2">
+          <span class="skill-pill px-3 py-1 text-xs font-mono rounded-full bg-[#08100a] text-[#a8ff35] border border-[rgba(168,255,53,0.3)]">Advanced Network Penetration Testing</span>
+          <span class="skill-pill px-3 py-1 text-xs font-mono rounded-full bg-[#08100a] text-[#a8ff35] border border-[rgba(168,255,53,0.3)]">Cloud Infrastructure Security</span>
+          <span class="skill-pill px-3 py-1 text-xs font-mono rounded-full bg-[#08100a] text-[#a8ff35] border border-[rgba(168,255,53,0.3)]">Secure Software Development Lifecycle (SSDLC)</span>
+          <span class="skill-pill px-3 py-1 text-xs font-mono rounded-full bg-[#08100a] text-[#a8ff35] border border-[rgba(168,255,53,0.3)]">Incident Detection &amp; SIEM Rule Tuning</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Deep-Dive Focus Areas Accordion -->
     <div class="max-w-4xl mx-auto flex flex-col space-y-3.5">
       
       <!-- Item 1: Frontend & UI Engineering -->
@@ -924,7 +1051,7 @@
         </button>
       </div>
 
-      <p class="mb-12 text-[11px] uppercase tracking-[0.18em] text-neutral-500">Bengaluru, India · BCA Computer Science · Expected April 2027</p>
+      <p class="mb-12 text-[11px] uppercase tracking-[0.18em] text-neutral-500">Bengaluru, India · Bachelor of Computer Applications (BCA), Computer Science · Expected Graduation: 2027 · Christ University</p>
 
       <!-- Bottom Credits Bar -->
       <div class="w-full pt-8 border-t border-neutral-900 flex flex-col md:flex-row items-center justify-between text-[10px] tracking-widest uppercase text-neutral-600 font-semibold gap-4">
@@ -953,26 +1080,32 @@
   <!-- MODAL: Contact Form Modal -->
   <div id="contact-modal" onclick="if(event.target === this) closeContactModal()" class="fixed inset-0 z-50 bg-black/75 backdrop-blur-md opacity-0 pointer-events-none transition-opacity duration-300 flex items-center justify-center p-4">
     <div id="contact-modal-card" class="bg-white rounded-3xl max-w-lg w-full p-6 md:p-8 shadow-2xl transform scale-95 transition-transform duration-300">
-      <div class="flex justify-between items-center border-b border-neutral-200 pb-4 mb-6">
+      <div class="flex justify-between items-center border-b border-neutral-200 dark:border-neutral-800 pb-4 mb-4">
         <div>
-          <span class="text-[10px] font-bold tracking-widest uppercase text-neutral-400">START A CONVERSATION</span>
-          <h3 class="text-xl font-black uppercase text-neutral-900">LET'S BUILD SOMETHING</h3>
+          <span class="text-[10px] font-bold tracking-widest uppercase text-neutral-400 font-mono">DIRECT DISPATCH // INQUIRY</span>
+          <h3 class="text-xl font-black uppercase text-neutral-900">GET IN TOUCH</h3>
         </div>
-        <button onclick="closeContactModal()" aria-label="Close Contact Dialog" class="w-8 h-8 rounded-full border border-neutral-300 flex items-center justify-center text-neutral-600 hover:border-black hover:text-black">✕</button>
+        <button onclick="closeContactModal()" aria-label="Close Contact Dialog" class="w-8 h-8 rounded-full border border-neutral-300 dark:border-neutral-700 flex items-center justify-center text-neutral-600 dark:text-neutral-400 hover:border-black dark:hover:border-[#a8ff35] hover:text-black dark:hover:text-[#a8ff35] transition">✕</button>
+      </div>
+
+      <!-- Quick 1-Click Email Bar -->
+      <div class="flex items-center justify-between p-3 rounded-xl bg-neutral-100 dark:bg-[#0c1810] border border-neutral-200 dark:border-[rgba(168,255,53,0.25)] text-xs mb-4">
+        <span class="font-mono text-neutral-700 dark:text-[#a8ff35] truncate text-[11px]">allan.george.mathew@gmail.com</span>
+        <button type="button" onclick="copyContactEmail()" class="px-3 py-1 rounded bg-black dark:bg-[#152e1a] text-white dark:text-[#a8ff35] text-[10px] font-bold uppercase tracking-wider hover:opacity-90 transition shrink-0 ml-2 border border-transparent dark:border-[rgba(168,255,53,0.3)]">Copy Email</button>
       </div>
       
       <form id="contact-form" onsubmit="submitContactForm(event)" class="space-y-4">
         <div>
-          <label for="contact-name" class="block text-xs font-bold uppercase tracking-wider text-neutral-700 mb-1">Your Name</label>
-          <input type="text" id="contact-name" required placeholder="John Doe" class="w-full px-4 py-2.5 rounded-xl border border-neutral-300 focus:outline-none focus:border-black text-sm">
+          <label for="contact-name" class="block text-xs font-bold uppercase tracking-wider text-neutral-700 dark:text-neutral-300 mb-1">Your Name</label>
+          <input type="text" id="contact-name" required placeholder="John Doe" class="w-full px-4 py-2.5 rounded-xl border border-neutral-300 dark:border-neutral-700 dark:bg-[#08100a] dark:text-white focus:outline-none focus:border-black dark:focus:border-[#a8ff35] text-sm">
         </div>
         <div>
-          <label for="contact-email" class="block text-xs font-bold uppercase tracking-wider text-neutral-700 mb-1">Email Address</label>
-          <input type="email" id="contact-email" required placeholder="john@company.com" class="w-full px-4 py-2.5 rounded-xl border border-neutral-300 focus:outline-none focus:border-black text-sm">
+          <label for="contact-email" class="block text-xs font-bold uppercase tracking-wider text-neutral-700 dark:text-neutral-300 mb-1">Email Address</label>
+          <input type="email" id="contact-email" required placeholder="john@company.com" class="w-full px-4 py-2.5 rounded-xl border border-neutral-300 dark:border-neutral-700 dark:bg-[#08100a] dark:text-white focus:outline-none focus:border-black dark:focus:border-[#a8ff35] text-sm">
         </div>
         <div>
-          <label for="contact-service" class="block text-xs font-bold uppercase tracking-wider text-neutral-700 mb-1">Reason for reaching out</label>
-          <select id="contact-service" class="w-full px-4 py-2.5 rounded-xl border border-neutral-300 focus:outline-none focus:border-black text-sm bg-white">
+          <label for="contact-service" class="block text-xs font-bold uppercase tracking-wider text-neutral-700 dark:text-neutral-300 mb-1">Reason for reaching out</label>
+          <select id="contact-service" class="w-full px-4 py-2.5 rounded-xl border border-neutral-300 dark:border-neutral-700 dark:bg-[#08100a] dark:text-white focus:outline-none focus:border-black dark:focus:border-[#a8ff35] text-sm">
             <option value="Project discussion">Project discussion</option>
             <option value="Internship / Engineering Opportunity">Internship / Engineering Opportunity</option>
             <option value="Technical Collaboration">Technical Collaboration</option>
@@ -980,11 +1113,12 @@
           </select>
         </div>
         <div>
-          <label for="contact-message" class="block text-xs font-bold uppercase tracking-wider text-neutral-700 mb-1">Message</label>
-          <textarea id="contact-message" rows="3" required placeholder="Tell me about your project, goals, or role..." class="w-full px-4 py-2 rounded-xl border border-neutral-300 focus:outline-none focus:border-black text-sm"></textarea>
+          <label for="contact-message" class="block text-xs font-bold uppercase tracking-wider text-neutral-700 dark:text-neutral-300 mb-1">Message</label>
+          <textarea id="contact-message" rows="3" required placeholder="Tell me about your project, goals, or role..." class="w-full px-4 py-2 rounded-xl border border-neutral-300 dark:border-neutral-700 dark:bg-[#08100a] dark:text-white focus:outline-none focus:border-black dark:focus:border-[#a8ff35] text-sm"></textarea>
         </div>
-        <button type="submit" class="w-full py-3 bg-black text-white rounded-xl text-xs font-bold tracking-widest uppercase hover:bg-neutral-800 transition">
-          SEND MESSAGE
+        <p class="text-[10px] text-neutral-500 font-mono leading-tight">Submitting prepares a pre-filled draft in your default email client to allan.george.mathew@gmail.com.</p>
+        <button id="contact-submit-btn" type="submit" class="w-full py-3 bg-black dark:bg-[#a8ff35] text-white dark:text-black rounded-xl text-xs font-bold tracking-widest uppercase hover:bg-neutral-800 dark:hover:bg-[#c3ff6f] transition flex items-center justify-center gap-2">
+          <span>SEND MESSAGE</span>
         </button>
       </form>
     </div>
@@ -1252,13 +1386,19 @@
       }, 350);
     }
 
+    let lastContactTrigger = null;
+
     function openContactModal() {
+      lastContactTrigger = document.activeElement;
       const modal = document.getElementById('contact-modal');
       const card = document.getElementById('contact-modal-card');
       if (!modal || !card) return;
       modal.classList.remove('opacity-0', 'pointer-events-none');
       card.classList.remove('scale-95');
       card.classList.add('scale-100');
+      setTimeout(() => {
+        document.getElementById('contact-name')?.focus();
+      }, 60);
     }
 
     function closeContactModal() {
@@ -1268,6 +1408,9 @@
       modal.classList.add('opacity-0', 'pointer-events-none');
       card.classList.remove('scale-100');
       card.classList.add('scale-95');
+      if (lastContactTrigger && typeof lastContactTrigger.focus === 'function') {
+        lastContactTrigger.focus();
+      }
     }
 
     // Keyboard navigation (Escape closes all active modals)
@@ -1291,10 +1434,24 @@
       const email = document.getElementById('contact-email').value.trim();
       const service = document.getElementById('contact-service').value;
       const message = document.getElementById('contact-message').value.trim();
+      const submitBtn = document.getElementById('contact-submit-btn');
 
       if (!name || !email || !message) {
         showToast('Please complete all required fields.');
         return;
+      }
+
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailRegex.test(email)) {
+        showToast('Please enter a valid email address.');
+        document.getElementById('contact-email')?.focus();
+        return;
+      }
+
+      // Prevent duplicate submissions and show loading state
+      if (submitBtn) {
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = '<span>PREPARING DRAFT...</span>';
       }
 
       // Generate verified mailto draft
@@ -1311,9 +1468,15 @@
       // Trigger user's default email client
       window.location.href = mailtoUrl;
 
-      closeContactModal();
-      showToast('Opening your email client... (allan.george.mathew@gmail.com copied to clipboard)');
-      document.getElementById('contact-form').reset();
+      setTimeout(() => {
+        if (submitBtn) {
+          submitBtn.disabled = false;
+          submitBtn.innerHTML = '<span>SEND MESSAGE</span>';
+        }
+        closeContactModal();
+        showToast('Opening email client draft... (copied allan.george.mathew@gmail.com to clipboard)');
+        document.getElementById('contact-form')?.reset();
+      }, 400);
     }
 
     function copyContactEmail() {
@@ -1429,6 +1592,11 @@
             }
           }
         });
+
+        const prevBtn = document.getElementById('flex-carousel-prev-btn');
+        const nextBtn = document.getElementById('flex-carousel-next-btn');
+        if (prevBtn) prevBtn.addEventListener('click', () => window.flexCarouselInstance?.prev());
+        if (nextBtn) nextBtn.addEventListener('click', () => window.flexCarouselInstance?.next());
       }
     }
 

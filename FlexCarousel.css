@@ -74,6 +74,13 @@
   opacity: 0;
 }
 
+.flex-carousel__current-num,
+.flex-carousel__total-num {
+  font-family: inherit;
+  font-variant-numeric: tabular-nums;
+  display: inline-block;
+}
+
 .flex-carousel__digits {
   display: inline-flex;
 }
