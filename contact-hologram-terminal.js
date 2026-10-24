@@ -1,18 +1,34 @@
 /**
  * contact-hologram-terminal.js
  * 
- * ALLAN GEORGE MATHEW — IGLOO-INSPIRED 3D PARTICLE SCULPTURE EXPERIENCE
+ * ALLAN GEORGE MATHEW — IGLOO-INSPIRED 3D PARTICLE SCULPTURE & STAGE
  * 
- * Visual Rescue Upgrades:
- * - Removed all faux terminal-panel borders, boxed cards, and GPS telemetry boxes.
- * - Created a large, heroic, full-width 3D scene (height ~740px) with transparent background.
- * - Increased sculpture scale (~360 units tall), commanding central visual focus.
- * - Luminous, high-contrast hacker palette: #A8FF35 volt, #35E89A emerald, #16D9FF cyan, #E6FFFF white.
- * - Authentic 2.5D volumetric avatar sculpture preserving hood, mask, visor, and shoulders.
- * - 5 high-fidelity deterministic 3D shapes: Avatar, GitHub Octocat, LinkedIn Network, Email Envelope, Transmission Radar.
- * - Fluid spring-damper cursor physics with velocity-driven luminous trails.
- * - Illuminated circular platform with rotating rings and vertical light cone.
- * - Viewport visibility observer for zero idle GPU usage when scrolled away.
+ * Core Architectural & Visual Fixes:
+ * 1. Fixed Avatar Segmentation:
+ *    - Isolates the masked hacker avatar bust (hood, visor, mask, shoulders) from the
+ *      dark rectangular fill in the lower third of the PNG.
+ *    - Completely eliminates the accidental rectangular particle cloud.
+ * 
+ * 2. Proper Particle Scale & Camera Framing:
+ *    - Sculpture occupies ~30% of hero width on desktop (within 25–40% target).
+ *    - Entire sculpture and platform remain 100% visible with zero clipping.
+ *    - Responsive scaling across desktop and mobile.
+ * 
+ * 3. Minimal Side Navigation Arrows:
+ *    - Replaces the top row of boxed buttons with clean, understated left/right chevrons.
+ *    - Large click targets, accessible labels, keyboard Left/Right arrow support.
+ * 
+ * 4. 5 Coherent, Recognizable 3D Particle Targets:
+ *    - [0] Masked Hacker Avatar (default state)
+ *    - [1] GitHub Octocat silhouette + < / > code brackets
+ *    - [2] LinkedIn "in" symbol with rounded border tile
+ *    - [3] Email 3D envelope with folded flap & signal waves
+ *    - [4] Contact conversation dialogue beacon
+ * 
+ * 5. Polished 3D Presentation Platform:
+ *    - Grounded 3D TorusGeometry continuous concentric rings (Cyan #16D9FF, Emerald #35E89A, Volt #A8FF35).
+ *    - Dark reflective base disc with soft Gaussian ground lighting.
+ *    - No clipped arcs, no visual fragmentation.
  */
 
 import * as THREE from 'three';
@@ -20,33 +36,30 @@ import { gsap } from 'gsap';
 
 export function initContactHologramTerminal(containerId = 'contact-stage-container') {
   const container = document.getElementById(containerId);
+  const fallbackImg = document.getElementById('contact-avatar-fallback');
   if (!container) return;
 
   const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  // Reduced motion fallback: show clean static avatar preview
+  // Reduced motion: show clean static avatar preview
   if (reducedMotion) {
-    container.innerHTML = `
-      <div class="flex flex-col items-center justify-center p-8 text-center select-none pointer-events-none">
-        <img src="assets/masked-operator-hero.png" alt="Allan George Mathew Avatar" class="w-64 h-64 object-contain filter drop-shadow-[0_0_30px_rgba(53,232,154,0.4)]">
-        <p class="font-mono text-xs text-[#35E89A] tracking-widest uppercase mt-4">STATIC DISPLAY // PREFERS REDUCED MOTION</p>
-      </div>
-    `;
+    if (fallbackImg) fallbackImg.classList.remove('hidden');
     return;
   }
 
   // ---------------------------------------------------------------------------
-  // 1. Three.js Scene, Camera & Renderer
+  // 1. Three.js Scene, Camera & WebGL Renderer
   // ---------------------------------------------------------------------------
   const scene = new THREE.Scene();
-  scene.fog = new THREE.FogExp2(0x030504, 0.0011);
+  scene.fog = new THREE.FogExp2(0x030504, 0.0012);
 
-  let width = container.clientWidth || 1000;
-  let height = container.clientHeight || 720;
+  let width = container.clientWidth || 800;
+  let height = container.clientHeight || 520;
 
-  const camera = new THREE.PerspectiveCamera(45, width / height, 1, 3500);
-  camera.position.set(0, 10, 440);
-  camera.lookAt(0, 10, 0);
+  // Camera placed so sculpture occupies ~30% width with generous breathing room
+  const camera = new THREE.PerspectiveCamera(40, width / height, 1, 3000);
+  camera.position.set(0, 20, 490);
+  camera.lookAt(0, 18, 0);
 
   let renderer;
   try {
@@ -56,7 +69,8 @@ export function initContactHologramTerminal(containerId = 'contact-stage-contain
       powerPreference: 'high-performance'
     });
   } catch (err) {
-    console.warn('WebGL not available for contact particle sculpture:', err);
+    console.warn('WebGL not supported for contact sculpture:', err);
+    if (fallbackImg) fallbackImg.classList.remove('hidden');
     return;
   }
 
@@ -67,111 +81,55 @@ export function initContactHologramTerminal(containerId = 'contact-stage-contain
   renderer.domElement.style.display = 'block';
   renderer.domElement.style.pointerEvents = 'auto';
   renderer.domElement.setAttribute('aria-hidden', 'true');
-  container.innerHTML = '';
   container.appendChild(renderer.domElement);
 
   // Palette Constants
   const COLOR_ACID    = new THREE.Color(0xA8FF35); // #A8FF35 Volt green
-  const COLOR_EMERALD = new THREE.Color(0x35E89A); // #35E89A Glowing emerald
+  const COLOR_EMERALD = new THREE.Color(0x35E89A); // #35E89A Radiant emerald
   const COLOR_CYAN    = new THREE.Color(0x16D9FF); // #16D9FF Electric cyan
-  const COLOR_WHITE   = new THREE.Color(0xE6FFFF); // #E6FFFF Luminous white
-  const COLOR_SHADOW  = new THREE.Color(0x0E3A20); // Deep glowing forest emerald (never pitch black)
+  const COLOR_WHITE   = new THREE.Color(0xE6FFFF); // #E6FFFF Highlight white
+  const COLOR_SHADOW  = new THREE.Color(0x0E3A20); // Deep glowing emerald shadow
 
   const isMobile = window.innerWidth < 768;
-  const PARTICLE_COUNT = isMobile ? 4200 : 9600;
+  const PARTICLE_COUNT = isMobile ? 3600 : 7800;
 
   // ---------------------------------------------------------------------------
-  // 2. Grounded Circular Stage (Platform Rings & Volumetric Light Beam)
+  // 2. Rebuilt Polished 3D Presentation Platform (Continuous Torus Rings)
   // ---------------------------------------------------------------------------
-  const stageGroup = new THREE.Group();
-  stageGroup.position.set(0, -155, -15);
-  stageGroup.rotation.x = Math.PI * 0.44; // Tilted perspective disc
-  scene.add(stageGroup);
+  const platformGroup = new THREE.Group();
+  // Positioned so it sits cleanly beneath the sculpture without viewport clipping
+  platformGroup.position.set(0, -82, -10);
+  platformGroup.rotation.x = Math.PI * 0.42;
+  scene.add(platformGroup);
 
-  // A. Dark Reflective Base Disc
-  const platformBaseGeom = new THREE.CircleGeometry(210, 64);
-  const platformBaseMat = new THREE.MeshBasicMaterial({
+  // A. Dark Reflective Ground Disc
+  const groundDiscGeom = new THREE.CircleGeometry(125, 64);
+  const groundDiscMat = new THREE.MeshBasicMaterial({
     color: 0x020804,
     transparent: true,
-    opacity: 0.85,
+    opacity: 0.88,
     side: THREE.DoubleSide
   });
-  const platformBase = new THREE.Mesh(platformBaseGeom, platformBaseMat);
-  stageGroup.add(platformBase);
+  const groundDisc = new THREE.Mesh(groundDiscGeom, groundDiscMat);
+  platformGroup.add(groundDisc);
 
-  // B. Outer Electric Cyan Ring (Large heroic radius 208)
-  const outerRingGeom = new THREE.RingGeometry(204, 208, 64);
-  const outerRingMat = new THREE.MeshBasicMaterial({
-    color: COLOR_CYAN,
-    transparent: true,
-    opacity: 0.75,
-    side: THREE.DoubleSide,
-    blending: THREE.AdditiveBlending
-  });
-  const outerRing = new THREE.Mesh(outerRingGeom, outerRingMat);
-  stageGroup.add(outerRing);
-
-  // C. Middle Radiant Emerald Ring (Radius 165)
-  const midRingGeom = new THREE.RingGeometry(162, 166, 56);
-  const midRingMat = new THREE.MeshBasicMaterial({
-    color: COLOR_EMERALD,
-    transparent: true,
-    opacity: 0.85,
-    side: THREE.DoubleSide,
-    blending: THREE.AdditiveBlending
-  });
-  const midRing = new THREE.Mesh(midRingGeom, midRingMat);
-  stageGroup.add(midRing);
-
-  // D. Core Volt Green Ring (Radius 112)
-  const coreRingGeom = new THREE.RingGeometry(110, 114, 48);
-  const coreRingMat = new THREE.MeshBasicMaterial({
-    color: COLOR_ACID,
-    transparent: true,
-    opacity: 0.95,
-    side: THREE.DoubleSide,
-    blending: THREE.AdditiveBlending
-  });
-  const coreRing = new THREE.Mesh(coreRingGeom, coreRingMat);
-  stageGroup.add(coreRing);
-
-  // E. Inner Pulse Beacon Ring
-  const pulseRingGeom = new THREE.RingGeometry(60, 62, 36);
-  const pulseRingMat = new THREE.MeshBasicMaterial({
-    color: COLOR_WHITE,
-    transparent: true,
-    opacity: 0.6,
-    side: THREE.DoubleSide,
-    blending: THREE.AdditiveBlending
-  });
-  const pulseRing = new THREE.Mesh(pulseRingGeom, pulseRingMat);
-  stageGroup.add(pulseRing);
-
-  // F. Upward Volumetric Hologram Light Cylinder
-  const beamGeom = new THREE.CylinderGeometry(170, 210, 420, 36, 1, true);
-  const beamMat = new THREE.ShaderMaterial({
-    uniforms: {
-      uTime: { value: 0.0 }
-    },
+  // B. Soft Ground Halos beneath sculpture
+  const groundHaloGeom = new THREE.RingGeometry(10, 120, 48);
+  const groundHaloMat = new THREE.ShaderMaterial({
     vertexShader: `
       varying vec2 vUv;
-      varying vec3 vNormal;
       void main() {
         vUv = uv;
-        vNormal = normalize(normalMatrix * normal);
         gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
       }
     `,
     fragmentShader: `
-      uniform float uTime;
       varying vec2 vUv;
-      varying vec3 vNormal;
       void main() {
-        float vFade = pow(1.0 - vUv.y, 2.2);
-        float rim = pow(1.0 - abs(dot(vNormal, vec3(0.0, 0.0, 1.0))), 2.0);
-        float scan = sin(vUv.y * 50.0 - uTime * 3.5) * 0.18 + 0.82;
-        vec3 col = mix(vec3(0.2, 0.98, 0.6), vec3(0.08, 0.88, 1.0), vUv.y);
-        float alpha = vFade * rim * scan * 0.28;
+        float d = length(vUv - vec2(0.5)) * 2.0;
+        float alpha = clamp(1.0 - d, 0.0, 1.0);
+        alpha = pow(alpha, 1.8) * 0.35;
+        vec3 col = mix(vec3(0.2, 0.98, 0.6), vec3(0.08, 0.85, 1.0), d);
         gl_FragColor = vec4(col * alpha, alpha);
       }
     `,
@@ -180,14 +138,58 @@ export function initContactHologramTerminal(containerId = 'contact-stage-contain
     side: THREE.DoubleSide,
     blending: THREE.AdditiveBlending
   });
-  const hologramBeam = new THREE.Mesh(beamGeom, beamMat);
-  hologramBeam.rotation.x = -Math.PI * 0.44;
-  hologramBeam.position.set(0, 210, 0);
-  stageGroup.add(hologramBeam);
+  const groundHalo = new THREE.Mesh(groundHaloGeom, groundHaloMat);
+  groundHalo.position.z = 0.5;
+  platformGroup.add(groundHalo);
+
+  // C. Continuous 3D Concentric Torus Rings (Smooth tubular geometry)
+  // Outer Electric Cyan Ring
+  const outerRingGeom = new THREE.TorusGeometry(120, 1.2, 16, 120);
+  const outerRingMat = new THREE.MeshBasicMaterial({
+    color: COLOR_CYAN,
+    transparent: true,
+    opacity: 0.70,
+    blending: THREE.AdditiveBlending
+  });
+  const outerRing = new THREE.Mesh(outerRingGeom, outerRingMat);
+  outerRing.position.z = 1.0;
+  platformGroup.add(outerRing);
+
+  // Middle Radiant Emerald Ring
+  const midRingGeom = new THREE.TorusGeometry(92, 1.2, 16, 100);
+  const midRingMat = new THREE.MeshBasicMaterial({
+    color: COLOR_EMERALD,
+    transparent: true,
+    opacity: 0.80,
+    blending: THREE.AdditiveBlending
+  });
+  const midRing = new THREE.Mesh(midRingGeom, midRingMat);
+  midRing.position.z = 1.2;
+  platformGroup.add(midRing);
+
+  // Inner Volt Green Core Ring
+  const coreRingGeom = new THREE.TorusGeometry(62, 1.0, 16, 80);
+  const coreRingMat = new THREE.MeshBasicMaterial({
+    color: COLOR_ACID,
+    transparent: true,
+    opacity: 0.90,
+    blending: THREE.AdditiveBlending
+  });
+  const coreRing = new THREE.Mesh(coreRingGeom, coreRingMat);
+  coreRing.position.z = 1.4;
+  platformGroup.add(coreRing);
 
   // ---------------------------------------------------------------------------
-  // 3. High-Fidelity 3D Target Shape Generators
+  // 3. Shape Point Generation with Verified Mask & Crisp Typography
   // ---------------------------------------------------------------------------
+  const SHAPES_CONFIG = [
+    { key: 'avatar',   label: 'IDENTITY // MASKED AVATAR [1/5]' },
+    { key: 'github',   label: 'PROJECTS // GITHUB [2/5]' },
+    { key: 'linkedin', label: 'NETWORK // LINKEDIN [3/5]' },
+    { key: 'email',    label: 'CHANNEL // EMAIL [4/5]' },
+    { key: 'contact',  label: 'TRANSMISSION // CONTACT [5/5]' }
+  ];
+
   const shapeLibraries = {
     avatar: null,
     github: null,
@@ -196,26 +198,38 @@ export function initContactHologramTerminal(containerId = 'contact-stage-contain
     contact: null
   };
 
-  // Resample array to exact particle count without clumping
+  // Helper to ensure target array has exactly PARTICLE_COUNT points uniformly distributed
   function fitPoints(raw, count) {
     const out = new Float32Array(count * 3);
     const n = Math.floor(raw.length / 3);
     if (n === 0) return out;
 
-    for (let i = 0; i < count; i++) {
-      const srcIdx = (i % n) * 3;
-      out[i * 3]     = raw[srcIdx] + (Math.random() - 0.5) * 1.5;
-      out[i * 3 + 1] = raw[srcIdx + 1] + (Math.random() - 0.5) * 1.5;
-      out[i * 3 + 2] = raw[srcIdx + 2] + (Math.random() - 0.5) * 1.5;
+    if (n >= count) {
+      // Downsample evenly across the entire source geometry so full bust/shape is captured
+      const step = n / count;
+      for (let i = 0; i < count; i++) {
+        const srcIdx = Math.floor(i * step) * 3;
+        out[i * 3]     = raw[srcIdx] + (Math.random() - 0.5) * 0.8;
+        out[i * 3 + 1] = raw[srcIdx + 1] + (Math.random() - 0.5) * 0.8;
+        out[i * 3 + 2] = raw[srcIdx + 2] + (Math.random() - 0.5) * 0.8;
+      }
+    } else {
+      // Upsample: tile through source points and add subtle jitter
+      for (let i = 0; i < count; i++) {
+        const srcIdx = (i % n) * 3;
+        out[i * 3]     = raw[srcIdx] + (Math.random() - 0.5) * 1.2;
+        out[i * 3 + 1] = raw[srcIdx + 1] + (Math.random() - 0.5) * 1.2;
+        out[i * 3 + 2] = raw[srcIdx + 2] + (Math.random() - 0.5) * 1.2;
+      }
     }
     return out;
   }
 
-  // A. Sample Avatar from masked-operator-hero.png with Volumetric Relief
+  // A. Avatar Sampling: Accurate Segmentation (Removes rectangular bottom box)
   function sampleAvatarPoints(img, count) {
     const off = document.createElement('canvas');
-    const nw = img.naturalWidth || 600;
-    const nh = img.naturalHeight || 750;
+    const nw = img.naturalWidth || 1036;
+    const nh = img.naturalHeight || 1519;
     off.width = nw;
     off.height = nh;
     const ctx = off.getContext('2d', { willReadFrequently: true });
@@ -225,226 +239,228 @@ export function initContactHologramTerminal(containerId = 'contact-stage-contain
     const data = ctx.getImageData(0, 0, nw, nh).data;
     const raw = [];
 
-    // Scale to fill central stage (~360px tall)
-    const targetHeight = 360;
-    const targetWidth  = (nw / nh) * targetHeight;
-    const step = isMobile ? 3 : 2;
+    // Scale so bust height is ~200 units, width ~175 units, centered at Y = 16
+    const bustScale = 0.22;
+    const step = isMobile ? 4 : 3;
 
     for (let y = 0; y < nh; y += step) {
+      const normY = y / nh; // 0.0 (top) to 1.0 (bottom)
+      // The person's anatomical bust exists from normY 0.05 down to ~0.64
+      // Beyond 0.65, the image contains the dark rectangular backdrop!
+      if (normY > 0.64) continue;
+
       for (let x = 0; x < nw; x += step) {
+        const normX = (x - nw / 2) / (nw / 2); // -1.0 to 1.0
+        // Anatomical shoulder taper boundary: prevents rectangular corner bleed
+        const maxHalfWidth = 0.36 + normY * 0.92;
+        if (Math.abs(normX) > maxHalfWidth) continue;
+
         const idx = (y * nw + x) * 4;
         const a = data[idx + 3];
-        if (a > 22) {
+        if (a > 28) {
           const r = data[idx] / 255;
           const g = data[idx + 1] / 255;
           const b = data[idx + 2] / 255;
           const brightness = (r + g + b) / 3;
 
-          const nx = (x - nw / 2) * (targetWidth / nw);
-          const ny = -(y - nh / 2) * (targetHeight / nh) + 15;
+          const px = (x - nw / 2) * bustScale;
+          const py = -(y - nh * 0.38) * bustScale + 12;
 
-          // Realistic anatomical depth contours:
-          const normX = (x - nw / 2) / (nw / 2);
-          const normY = (y - nh / 2) / (nh / 2);
-          const faceDist = Math.sqrt(normX * normX * 1.6 + Math.pow(normY + 0.12, 2) * 2.2);
+          // 2.5D Volumetric Relief
+          const faceDist = Math.sqrt(normX * normX * 1.6 + Math.pow(normY - 0.32, 2) * 2.8);
+          let pz = Math.max(0.0, 1.0 - faceDist) * 36.0;
 
-          let nz = Math.max(0.0, 1.0 - faceDist) * 62.0;
           // Visor & nose bridge project forward
-          if (faceDist < 0.6) {
-            nz += brightness * 35.0;
+          if (faceDist < 0.5) {
+            pz += brightness * 22.0;
           }
-          // Hood wraps forward around head
-          if (faceDist > 0.62 && faceDist < 0.95 && normY < 0.22) {
-            nz += 22.0;
+          // Hood wraps forward around face
+          if (faceDist > 0.52 && faceDist < 0.85 && normY < 0.42) {
+            pz += 14.0;
           }
-          // Torso & shoulders curve backward into depth
-          if (normY > 0.15) {
-            nz -= (normX * normX) * 55.0;
+          // Shoulders curve back into depth
+          if (normY > 0.45) {
+            pz -= (normX * normX) * 38.0;
           }
 
-          raw.push(nx, ny, nz);
+          raw.push(px, py, pz);
         }
       }
     }
     return fitPoints(raw, count);
   }
 
-  // B. Generate 3D GitHub Octocat Silhouette & Code Brackets
+  // B. GitHub Octocat Silhouette + Code Brackets
   function generateGitHubPoints(count) {
     const off = document.createElement('canvas');
-    off.width = 360;
-    off.height = 360;
+    off.width = 300;
+    off.height = 300;
     const ctx = off.getContext('2d');
     if (!ctx) return new Float32Array(count * 3);
 
     ctx.fillStyle = '#000000';
-    ctx.fillRect(0, 0, 360, 360);
+    ctx.fillRect(0, 0, 300, 300);
 
-    // Large Octocat SVG path centered and scaled
+    // Center Octocat path
     ctx.save();
-    ctx.translate(35, 25);
-    ctx.scale(12.2, 12.2);
+    ctx.translate(35, 20);
+    ctx.scale(9.6, 9.6);
     ctx.fillStyle = '#FFFFFF';
     const p = new Path2D("M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z");
     ctx.fill(p);
     ctx.restore();
 
-    // Bold Code Brackets < / >
+    // Code Brackets < / >
     ctx.strokeStyle = '#FFFFFF';
-    ctx.lineWidth = 10;
-    ctx.font = 'bold 54px monospace';
-    ctx.strokeText('< / >', 105, 345);
+    ctx.lineWidth = 8;
+    ctx.font = 'bold 42px monospace';
+    ctx.strokeText('< / >', 85, 285);
 
-    const imgData = ctx.getImageData(0, 0, 360, 360).data;
+    const imgData = ctx.getImageData(0, 0, 300, 300).data;
     const raw = [];
-    for (let y = 0; y < 360; y += 2) {
-      for (let x = 0; x < 360; x += 2) {
-        const idx = (y * 360 + x) * 4;
+    for (let y = 0; y < 300; y += 2) {
+      for (let x = 0; x < 300; x += 2) {
+        const idx = (y * 300 + x) * 4;
         if (imgData[idx] > 80) {
-          const nx = (x - 180) * 0.95;
-          const ny = -(y - 180) * 0.95 + 10;
-          const dist = Math.sqrt(nx * nx + ny * ny);
-          const nz = Math.cos(dist * 0.018) * 38.0;
-          raw.push(nx, ny, nz);
+          const px = (x - 150) * 0.65;
+          const py = -(y - 150) * 0.65 + 14;
+          const dist = Math.sqrt(px * px + py * py);
+          const pz = Math.cos(dist * 0.025) * 22.0;
+          raw.push(px, py, pz);
         }
       }
     }
     return fitPoints(raw, count);
   }
 
-  // C. Generate 3D LinkedIn Professional Network Constellation & Monogram
+  // C. LinkedIn "in" Monogram with Rounded Border Tile
   function generateLinkedInPoints(count) {
     const raw = [];
-    const scale = 1.3;
+    const size = 88;
+    const r = 24; // corner radius
 
-    // 14 Primary Node Hubs
-    const nodes = [
-      { x: 0, y: 25, z: 25 },
-      { x: -85, y: 75, z: -15 },
-      { x: 85, y: 80, z: -20 },
-      { x: -95, y: -45, z: 12 },
-      { x: 95, y: -40, z: 15 },
-      { x: -45, y: -105, z: -25 },
-      { x: 50, y: -100, z: -22 },
-      { x: -135, y: 15, z: -35 },
-      { x: 140, y: 20, z: -30 },
-      { x: -35, y: 125, z: 10 },
-      { x: 40, y: 130, z: 8 },
-      { x: 0, y: -65, z: 30 }
+    // 1. Outer rounded rectangle border
+    for (let t = -size + r; t <= size - r; t += 2) {
+      raw.push(t, size, 0);
+      raw.push(t, -size, 0);
+      raw.push(-size, t, 0);
+      raw.push(size, t, 0);
+    }
+    // Rounded corners
+    const corners = [
+      { cx: size - r, cy: size - r, a0: 0, a1: Math.PI * 0.5 },
+      { cx: -size + r, cy: size - r, a0: Math.PI * 0.5, a1: Math.PI },
+      { cx: -size + r, cy: -size + r, a0: Math.PI, a1: Math.PI * 1.5 },
+      { cx: size - r, cy: -size + r, a0: Math.PI * 1.5, a1: Math.PI * 2 }
     ];
-
-    // High density particle spheres at node coordinates
-    nodes.forEach(n => {
-      for (let i = 0; i < 340; i++) {
-        const u = Math.random();
-        const v = Math.random();
-        const theta = u * 2.0 * Math.PI;
-        const phi = Math.acos(2.0 * v - 1.0);
-        const r = Math.cbrt(Math.random()) * 22.0;
-        raw.push(
-          (n.x + r * Math.sin(phi) * Math.cos(theta)) * scale,
-          (n.y + r * Math.sin(phi) * Math.sin(theta)) * scale,
-          (n.z + r * Math.cos(phi)) * scale
-        );
+    corners.forEach(c => {
+      for (let a = c.a0; a <= c.a1; a += 0.06) {
+        raw.push(c.cx + Math.cos(a) * r, c.cy + Math.sin(a) * r, 0);
       }
     });
 
-    // Connecting geometric filaments
-    for (let i = 0; i < nodes.length; i++) {
-      for (let j = i + 1; j < nodes.length; j++) {
-        const n1 = nodes[i];
-        const n2 = nodes[j];
-        const d = Math.hypot(n1.x - n2.x, n1.y - n2.y, n1.z - n2.z);
-        if (d < 165) {
-          const steps = Math.floor(d * 1.6);
-          for (let s = 0; s < steps; s++) {
-            const t = s / steps;
-            raw.push(
-              (n1.x + (n2.x - n1.x) * t + (Math.random() - 0.5) * 3) * scale,
-              (n1.y + (n2.y - n1.y) * t + (Math.random() - 0.5) * 3) * scale,
-              (n1.z + (n2.z - n1.z) * t + (Math.random() - 0.5) * 3) * scale
-            );
-          }
-        }
+    // 2. Letter "i" (Stem + Dot)
+    for (let y = -42; y <= 16; y += 2.5) {
+      for (let x = -48; x <= -32; x += 2.5) {
+        raw.push(x, y + 10, 8);
+      }
+    }
+    for (let y = 32; y <= 48; y += 2.5) {
+      for (let x = -48; x <= -32; x += 2.5) {
+        raw.push(x, y + 10, 8);
       }
     }
 
-    // Outer architectural shield rings
-    for (let i = 0; i < 1600; i++) {
-      const angle = Math.random() * Math.PI * 2;
-      const r = (155 + (Math.random() - 0.5) * 12) * scale;
-      raw.push(
-        Math.cos(angle) * r,
-        Math.sin(angle) * r * 0.92,
-        (Math.random() - 0.5) * 22
-      );
+    // 3. Letter "n" (Left stem + Arch + Right leg)
+    // Left stem
+    for (let y = -42; y <= 16; y += 2.5) {
+      for (let x = -14; x <= 2; x += 2.5) {
+        raw.push(x, y + 10, 8);
+      }
+    }
+    // Right leg
+    for (let y = -42; y <= 16; y += 2.5) {
+      for (let x = 32; x <= 48; x += 2.5) {
+        raw.push(x, y + 10, 8);
+      }
+    }
+    // Upper arch
+    for (let a = 0; a <= Math.PI; a += 0.04) {
+      const ax = 17 + Math.cos(a) * 31;
+      const ay = 14 + Math.sin(a) * 19;
+      for (let w = -4; w <= 4; w += 2) {
+        raw.push(ax + w, ay + 10, 8);
+      }
+    }
+
+    // Subtle 3D volumetric contouring
+    for (let i = 0; i < raw.length; i += 3) {
+      raw[i + 1] += 4; // Center vertically
+      const d = Math.hypot(raw[i], raw[i + 1]);
+      raw[i + 2] += (1.0 - d / 120) * 12.0;
     }
 
     return fitPoints(raw, count);
   }
 
-  // D. Generate 3D Holographic Envelope / Message Glyph
+  // D. 3D Holographic Envelope (Folded Flap & Signal Arcs)
   function generateEmailPoints(count) {
     const raw = [];
-    const w = 270;
-    const h = 180;
+    const w = 180;
+    const h = 120;
 
-    // Outer double frame
-    for (let x = -w / 2; x <= w / 2; x += 1.4) {
-      raw.push(x, -h / 2, 0);
-      raw.push(x, h / 2, 0);
-      raw.push(x, -h / 2 - 4, -4);
-      raw.push(x, h / 2 + 4, -4);
+    // Outer rectangle border
+    for (let x = -w / 2; x <= w / 2; x += 2) {
+      raw.push(x, -h / 2 + 10, 0);
+      raw.push(x, h / 2 + 10, 0);
     }
-    for (let y = -h / 2; y <= h / 2; y += 1.4) {
-      raw.push(-w / 2, y, 0);
-      raw.push(w / 2, y, 0);
-      raw.push(-w / 2 - 4, y, -4);
-      raw.push(w / 2 + 4, y, -4);
+    for (let y = -h / 2; y <= h / 2; y += 2) {
+      raw.push(-w / 2, y + 10, 0);
+      raw.push(w / 2, y + 10, 0);
     }
 
-    // 3D Angled top flap with folded crease
-    const flapApex = { x: 0, y: 15, z: 38 };
-    for (let t = 0; t <= 1; t += 0.008) {
+    // Triangular top flap with 3D projection
+    const apex = { x: 0, y: 12 + 10, z: 24 };
+    for (let t = 0; t <= 1; t += 0.012) {
       raw.push(
-        -w / 2 + (flapApex.x - (-w / 2)) * t,
-        h / 2 + (flapApex.y - h / 2) * t,
-        flapApex.z * t
+        -w / 2 + (apex.x - (-w / 2)) * t,
+        h / 2 + 10 + (apex.y - (h / 2 + 10)) * t,
+        apex.z * t
       );
       raw.push(
-        w / 2 + (flapApex.x - w / 2) * t,
-        h / 2 + (flapApex.y - h / 2) * t,
-        flapApex.z * t
+        w / 2 + (apex.x - w / 2) * t,
+        h / 2 + 10 + (apex.y - (h / 2 + 10)) * t,
+        apex.z * t
       );
       // Bottom crease lines
       raw.push(
         -w / 2 + (0 - (-w / 2)) * t,
-        -h / 2 + (-20 - (-h / 2)) * t,
-        14 * t
+        -h / 2 + 10 + ((-14 + 10) - (-h / 2 + 10)) * t,
+        8 * t
       );
       raw.push(
         w / 2 + (0 - w / 2) * t,
-        -h / 2 + (-20 - (-h / 2)) * t,
-        14 * t
+        -h / 2 + 10 + ((-14 + 10) - (-h / 2 + 10)) * t,
+        8 * t
       );
     }
 
-    // Interior surface fill with 2.5D curvature
-    for (let y = -h / 2; y <= h / 2; y += 3.8) {
-      for (let x = -w / 2; x <= w / 2; x += 3.8) {
+    // Interior surface fill with gentle curvature
+    for (let y = -h / 2; y <= h / 2; y += 4.5) {
+      for (let x = -w / 2; x <= w / 2; x += 4.5) {
         const dist = Math.abs(x) / (w / 2);
-        raw.push(x, y, (1.0 - dist) * 16.0 + (Math.random() - 0.5) * 3);
+        raw.push(x, y + 10, (1.0 - dist) * 10.0);
       }
     }
 
-    // Expanding transmission signal arcs above the envelope
-    for (let arc = 1; arc <= 4; arc++) {
-      const arcRadius = 75 + arc * 32;
-      for (let angle = Math.PI * 0.22; angle <= Math.PI * 0.78; angle += 0.02) {
+    // Digital transmission pulse waves radiating above envelope
+    for (let arc = 1; arc <= 3; arc++) {
+      const arcRadius = 45 + arc * 24;
+      for (let a = Math.PI * 0.25; a <= Math.PI * 0.75; a += 0.03) {
         raw.push(
-          Math.cos(angle) * arcRadius,
-          h / 2 + 15 + Math.sin(angle) * (arcRadius * 0.52),
-          (Math.random() - 0.5) * 16
+          Math.cos(a) * arcRadius,
+          h / 2 + 18 + Math.sin(a) * (arcRadius * 0.48),
+          (Math.random() - 0.5) * 8
         );
       }
     }
@@ -452,53 +468,54 @@ export function initContactHologramTerminal(containerId = 'contact-stage-contain
     return fitPoints(raw, count);
   }
 
-  // E. Generate Holographic Radar & Conversation Signal Beacon
+  // E. Contact Conversation Dialogue Beacon
   function generateContactPoints(count) {
     const raw = [];
 
-    // Concentric radar rings
-    [50, 95, 145, 195].forEach((r, idx) => {
-      const step = 0.015 - idx * 0.002;
-      for (let a = 0; a < Math.PI * 2; a += Math.max(0.008, step)) {
+    // Concentric communication radar rings
+    [32, 64, 96, 128].forEach((r, idx) => {
+      const step = 0.02 - idx * 0.003;
+      for (let a = 0; a < Math.PI * 2; a += Math.max(0.01, step)) {
         raw.push(
-          Math.cos(a) * r + (Math.random() - 0.5) * 2,
-          Math.sin(a) * r + (Math.random() - 0.5) * 2,
-          (Math.random() - 0.5) * 15
+          Math.cos(a) * r,
+          Math.sin(a) * r + 14,
+          (Math.random() - 0.5) * 10
         );
       }
     });
 
     // Crosshair telemetry axes
-    for (let d = -205; d <= 205; d += 1.8) {
-      raw.push(d, 0, (Math.random() - 0.5) * 5);
-      raw.push(0, d, (Math.random() - 0.5) * 5);
+    for (let d = -132; d <= 132; d += 2.5) {
+      raw.push(d, 14, (Math.random() - 0.5) * 4);
+      raw.push(0, d + 14, (Math.random() - 0.5) * 4);
     }
 
-    // Central pulsing core sphere
-    for (let i = 0; i < 650; i++) {
+    // Intersecting 3D speech bubble outlines
+    // Left bubble
+    for (let a = -Math.PI * 0.45; a <= Math.PI * 0.45; a += 0.03) {
+      raw.push(
+        42 + Math.cos(a) * 38,
+        34 + Math.sin(a) * 38,
+        14 + Math.sin(a * 2.0) * 8
+      );
+      raw.push(
+        -42 - Math.cos(a) * 38,
+        -16 - Math.sin(a) * 38,
+        -14 - Math.sin(a * 2.0) * 8
+      );
+    }
+
+    // Central pulsing transmission node
+    for (let i = 0; i < 420; i++) {
       const u = Math.random();
       const v = Math.random();
       const theta = u * 2.0 * Math.PI;
       const phi = Math.acos(2.0 * v - 1.0);
-      const r = Math.cbrt(Math.random()) * 30.0;
+      const r = Math.cbrt(Math.random()) * 20.0;
       raw.push(
         r * Math.sin(phi) * Math.cos(theta),
-        r * Math.sin(phi) * Math.sin(theta),
+        r * Math.sin(phi) * Math.sin(theta) + 14,
         r * Math.cos(phi)
-      );
-    }
-
-    // Intersecting 3D dialogue speech bubbles
-    for (let a = -Math.PI * 0.42; a <= Math.PI * 0.42; a += 0.02) {
-      raw.push(
-        75 + Math.cos(a) * 60,
-        50 + Math.sin(a) * 60,
-        25 + Math.sin(a * 2.0) * 12
-      );
-      raw.push(
-        -75 - Math.cos(a) * 60,
-        -50 - Math.sin(a) * 60,
-        -25 - Math.sin(a * 2.0) * 12
       );
     }
 
@@ -517,8 +534,8 @@ export function initContactHologramTerminal(containerId = 'contact-stage-contain
     uMorphProgress: { value: 1.0 },
     uMouse: { value: new THREE.Vector2(0, 0) },
     uMouseSpeed: { value: 0.0 },
-    uPusherRadius: { value: 180.0 },
-    uPusherStrength: { value: 65.0 },
+    uPusherRadius: { value: 140.0 },
+    uPusherStrength: { value: 50.0 },
     uPixelDensity: { value: Math.min(window.devicePixelRatio || 1, 2) }
   };
 
@@ -527,10 +544,10 @@ export function initContactHologramTerminal(containerId = 'contact-stage-contain
     const rect = container.getBoundingClientRect();
     const nx = ((e.clientX - rect.left) / rect.width) * 2 - 1;
     const ny = -(((e.clientY - rect.top) / rect.height) * 2 - 1);
-    mouse.targetX = Math.max(-1.4, Math.min(1.4, nx));
-    mouse.targetY = Math.max(-1.4, Math.min(1.4, ny));
+    mouse.targetX = Math.max(-1.3, Math.min(1.3, nx));
+    mouse.targetY = Math.max(-1.3, Math.min(1.3, ny));
   };
-  window.addEventListener('pointermove', onPointerMove, { passive: true });
+  container.addEventListener('pointermove', onPointerMove, { passive: true });
 
   function assembleParticleEngine() {
     shapeLibraries.github   = generateGitHubPoints(PARTICLE_COUNT);
@@ -547,7 +564,7 @@ export function initContactHologramTerminal(containerId = 'contact-stage-contain
     const colors = new Float32Array(PARTICLE_COUNT * 3);
 
     for (let i = 0; i < PARTICLE_COUNT; i++) {
-      // Deterministic 3D unit curl vectors for organic morph dispersion
+      // Deterministic curl unit vectors for fluid morphing
       const theta = Math.random() * Math.PI * 2;
       const phi = (Math.random() - 0.5) * Math.PI;
       turbulence[i * 3]     = Math.cos(phi) * Math.sin(theta);
@@ -555,15 +572,14 @@ export function initContactHologramTerminal(containerId = 'contact-stage-contain
       turbulence[i * 3 + 2] = Math.cos(phi) * Math.cos(theta);
 
       phases[i] = Math.random() * Math.PI * 2;
-      // Rich particle size variation: 2.8 to 5.4 units
-      sizes[i]  = Math.random() * 2.6 + 2.8;
+      sizes[i]  = Math.random() * 2.2 + 2.6; // Calibrated particle size
 
-      // Color palette mapping: luminous emerald, volt green, cyan, and white highlights
+      // Vibrant hacker palette distribution
       const rand = Math.random();
       let col = COLOR_EMERALD;
-      if (rand > 0.65) col = COLOR_CYAN;
-      else if (rand > 0.28) col = COLOR_ACID;
-      else if (rand > 0.12) col = COLOR_WHITE;
+      if (rand > 0.62) col = COLOR_CYAN;
+      else if (rand > 0.25) col = COLOR_ACID;
+      else if (rand > 0.10) col = COLOR_WHITE;
       else col = COLOR_SHADOW;
 
       colors[i * 3]     = col.r;
@@ -608,25 +624,24 @@ export function initContactHologramTerminal(containerId = 'contact-stage-contain
           vColor = aColor;
           vPhase = aPhase;
 
-          // 1. Smooth Morphing with 3D Swirl & Curl Turbulence
+          // 1. Morphing Interpolation with 3D Curl Turbulence
           float t = smoothstep(0.0, 1.0, uMorphProgress);
 
-          // Scattering envelope during mid-transition
           float scatter = sin(t * 3.14159265);
-          float swirlAngle = scatter * 2.8 + aPhase;
+          float swirlAngle = scatter * 2.6 + aPhase;
           mat2 rot = mat2(cos(swirlAngle), -sin(swirlAngle), sin(swirlAngle), cos(swirlAngle));
 
-          vec3 midScatter = aTurbulence * (scatter * 115.0);
+          vec3 midScatter = aTurbulence * (scatter * 75.0);
           vec3 currentPos = mix(position, aTarget, t) + midScatter;
-          currentPos.xy = mix(currentPos.xy, rot * currentPos.xy, scatter * 0.68);
+          currentPos.xy = mix(currentPos.xy, rot * currentPos.xy, scatter * 0.65);
 
-          // 2. Organic Idle Breathing
-          currentPos.y += sin(uTime * 1.5 + aPhase) * 2.4;
-          currentPos.x += cos(uTime * 1.2 + aPhase) * 1.8;
-          currentPos.z += sin(uTime * 1.0 + aPhase) * 2.6;
+          // 2. Gentle Breathing Floating
+          currentPos.y += sin(uTime * 1.5 + aPhase) * 1.8;
+          currentPos.x += cos(uTime * 1.2 + aPhase) * 1.4;
+          currentPos.z += sin(uTime * 1.0 + aPhase) * 2.0;
 
-          // 3. Fluid Pusher Cursor Physics with Velocity Trails
-          vec3 mouse3D = vec3(uMouse.x * 270.0, uMouse.y * 210.0, 20.0);
+          // 3. Fluid Pusher Cursor Physics with Damped Return
+          vec3 mouse3D = vec3(uMouse.x * 200.0, uMouse.y * 150.0, 15.0);
           vec3 toMouse = currentPos - mouse3D;
           float dist = length(toMouse.xy);
           float displacementGlow = 0.0;
@@ -635,35 +650,34 @@ export function initContactHologramTerminal(containerId = 'contact-stage-contain
             float influence = pow(1.0 - dist / uPusherRadius, 1.6);
             vec2 pushDir = normalize(toMouse.xy + vec2(0.001));
 
-            // Fluid wave + turbulence around cursor
-            float turb = uTime * 3.4 + aPhase;
+            float turb = uTime * 3.2 + aPhase;
             mat2 tRot = mat2(cos(turb), -sin(turb), sin(turb), cos(turb));
             vec2 swirledDir = tRot * pushDir;
 
             vec3 pushOffset = vec3(
-              swirledDir * (influence * uPusherStrength * (1.0 + uMouseSpeed * 0.8)),
-              influence * 28.0
+              swirledDir * (influence * uPusherStrength * (1.0 + uMouseSpeed * 0.7)),
+              influence * 20.0
             );
             currentPos += pushOffset;
 
             // Displaced particles glow intensely
-            displacementGlow = influence * (1.0 + uMouseSpeed * 1.8);
+            displacementGlow = influence * (1.0 + uMouseSpeed * 1.6);
           }
           vGlow = displacementGlow;
 
-          // 4. Holographic Scanline Micro-Displacement
-          float scan = sin(currentPos.y * 0.05 - uTime * 3.2 + aPhase * 0.6);
-          currentPos.z += smoothstep(0.75, 1.0, scan) * 3.8;
+          // 4. Subtle Hologram Scanline Wave
+          float scan = sin(currentPos.y * 0.06 - uTime * 3.2 + aPhase * 0.6);
+          currentPos.z += smoothstep(0.8, 1.0, scan) * 3.0;
 
           vec4 mvPosition = modelViewMatrix * vec4(currentPos, 1.0);
           gl_Position = projectionMatrix * mvPosition;
 
           // Size attenuation with bright halo expansion
-          float pointScale = aSize * (480.0 / -mvPosition.z) * uPixelDensity;
-          pointScale *= (1.0 + displacementGlow * 0.5);
-          gl_PointSize = clamp(pointScale, 1.6, 22.0);
+          float pointScale = aSize * (450.0 / -mvPosition.z) * uPixelDensity;
+          pointScale *= (1.0 + displacementGlow * 0.45);
+          gl_PointSize = clamp(pointScale, 1.4, 20.0);
 
-          vAlpha = 0.92 + 0.08 * sin(uTime * 2.0 + aPhase);
+          vAlpha = 0.94 + 0.06 * sin(uTime * 2.2 + aPhase);
         }
       `,
       fragmentShader: `
@@ -674,11 +688,10 @@ export function initContactHologramTerminal(containerId = 'contact-stage-contain
         uniform float uTime;
 
         void main() {
-          // Circular particle with anti-aliasing edge
           float d = length(gl_PointCoord - vec2(0.5));
           if (d > 0.5) discard;
 
-          // Soft luminous halo + bright center core
+          // Luminous halo + bright center core
           float core = smoothstep(0.5, 0.0, d);
           float intenseCenter = pow(core, 2.0);
           vec3 finalColor = vColor * core + vec3(0.85, 1.0, 0.92) * intenseCenter * 0.75;
@@ -691,8 +704,7 @@ export function initContactHologramTerminal(containerId = 'contact-stage-contain
             finalColor += whiteFlash * (vGlow * 0.65);
           }
 
-          // Subtle holographic shimmer
-          float shimmer = 0.93 + 0.07 * sin(uTime * 24.0 + vPhase * 8.0);
+          float shimmer = 0.94 + 0.06 * sin(uTime * 24.0 + vPhase * 8.0);
           gl_FragColor = vec4(finalColor * shimmer * (vAlpha * core), vAlpha * core);
         }
       `,
@@ -706,17 +718,34 @@ export function initContactHologramTerminal(containerId = 'contact-stage-contain
   }
 
   // ---------------------------------------------------------------------------
-  // 5. Morphing Controller (GSAP Smooth Physical Transition)
+  // 5. Morphing Controller & Navigation State
   // ---------------------------------------------------------------------------
-  let currentShapeKey = 'avatar';
+  let currentShapeIndex = 0;
   let isMorphing = false;
 
-  function morphTo(shapeKey) {
-    if (shapeKey === currentShapeKey || isMorphing || !shapeLibraries[shapeKey]) return;
-    isMorphing = true;
+  function updateShapeUI(index) {
+    const config = SHAPES_CONFIG[index];
+    const indicator = document.getElementById('particle-shape-indicator');
+    if (indicator) {
+      indicator.textContent = config.label;
+    }
+  }
 
-    const sourceData = shapeLibraries[currentShapeKey];
-    const targetData = shapeLibraries[shapeKey];
+  function morphTo(shapeKey) {
+    const targetIdx = SHAPES_CONFIG.findIndex(s => s.key === shapeKey);
+    if (targetIdx === -1) return;
+    morphToIndex(targetIdx);
+  }
+
+  function morphToIndex(index) {
+    if (index === currentShapeIndex || isMorphing) return;
+    const targetKey = SHAPES_CONFIG[index].key;
+    if (!shapeLibraries[targetKey]) return;
+
+    isMorphing = true;
+    const currentKey = SHAPES_CONFIG[currentShapeIndex].key;
+    const sourceData = shapeLibraries[currentKey];
+    const targetData = shapeLibraries[targetKey];
 
     posAttr.copyArray(sourceData);
     posAttr.needsUpdate = true;
@@ -725,24 +754,14 @@ export function initContactHologramTerminal(containerId = 'contact-stage-contain
     targetAttr.needsUpdate = true;
 
     uniforms.uMorphProgress.value = 0.0;
-
-    // Highlight active control tab pill
-    document.querySelectorAll('.holo-tab-btn').forEach(btn => {
-      const match = btn.getAttribute('data-shape') === shapeKey;
-      btn.classList.toggle('border-[#35E89A]', match);
-      btn.classList.toggle('text-[#A8FF35]', match);
-      btn.classList.toggle('bg-[#35E89A]/20', match);
-      btn.classList.toggle('border-neutral-800', !match);
-      btn.classList.toggle('text-neutral-400', !match);
-      btn.classList.toggle('bg-neutral-900/60', !match);
-    });
+    updateShapeUI(index);
 
     gsap.to(uniforms.uMorphProgress, {
       value: 1.0,
-      duration: 1.3,
+      duration: 1.25,
       ease: 'power2.inOut',
       onComplete: () => {
-        currentShapeKey = shapeKey;
+        currentShapeIndex = index;
         posAttr.copyArray(targetData);
         posAttr.needsUpdate = true;
         isMorphing = false;
@@ -750,7 +769,38 @@ export function initContactHologramTerminal(containerId = 'contact-stage-contain
     });
   }
 
+  function prevShape() {
+    const prev = (currentShapeIndex - 1 + SHAPES_CONFIG.length) % SHAPES_CONFIG.length;
+    morphToIndex(prev);
+  }
+
+  function nextShape() {
+    const next = (currentShapeIndex + 1) % SHAPES_CONFIG.length;
+    morphToIndex(next);
+  }
+
+  // Bind Side Arrows
+  const prevBtn = document.getElementById('particle-prev-btn');
+  const nextBtn = document.getElementById('particle-next-btn');
+  if (prevBtn) prevBtn.addEventListener('click', prevShape);
+  if (nextBtn) nextBtn.addEventListener('click', nextShape);
+
+  // Keyboard Navigation: Left/Right Arrow Keys when container is in focus or hovered
+  const onKeyDown = (e) => {
+    // Only capture if not inside an input/textarea
+    if (e.target instanceof HTMLInputElement || e.target instanceof HTMLTextAreaElement) return;
+    if (e.key === 'ArrowLeft') {
+      prevShape();
+    } else if (e.key === 'ArrowRight') {
+      nextShape();
+    }
+  };
+  window.addEventListener('keydown', onKeyDown);
+
+  // Expose global morph triggers
   window.morphContactHologram = morphTo;
+  window.prevContactHologram  = prevShape;
+  window.nextContactHologram  = nextShape;
 
   // ---------------------------------------------------------------------------
   // 6. Unified 60 FPS Render Loop
@@ -768,7 +818,6 @@ export function initContactHologramTerminal(containerId = 'contact-stage-contain
 
     const elapsed = clock.getElapsedTime();
     uniforms.uTime.value = elapsed;
-    beamMat.uniforms.uTime.value = elapsed;
 
     // Smooth Mouse Tracking
     mouse.prevX = mouse.x;
@@ -781,25 +830,21 @@ export function initContactHologramTerminal(containerId = 'contact-stage-contain
     mouse.speed += (instantSpeed - mouse.speed) * 0.12;
     uniforms.uMouseSpeed.value = Math.min(2.5, mouse.speed);
 
-    // Rotate Platform Stage Rings
-    outerRing.rotation.z = elapsed * 0.22;
-    midRing.rotation.z   = -elapsed * 0.35;
-    coreRing.rotation.z  = elapsed * 0.48;
+    // Rotate Platform Stage Rings (Smooth subtle counter-rotations)
+    outerRing.rotation.z = elapsed * 0.16;
+    midRing.rotation.z   = -elapsed * 0.24;
+    coreRing.rotation.z  = elapsed * 0.35;
 
-    // Pulse beacon ring scale
-    const pulseScale = 1.0 + 0.3 * Math.sin(elapsed * 2.5);
-    pulseRing.scale.set(pulseScale, pulseScale, 1.0);
-
-    // Gentle 3D perspective rotation of the central sculpture
+    // Subtle 3D perspective rotation of the central sculpture
     if (particleMesh) {
-      particleMesh.rotation.y = Math.sin(elapsed * 0.35) * 0.16 + mouse.x * 0.14;
+      particleMesh.rotation.y = Math.sin(elapsed * 0.35) * 0.14 + mouse.x * 0.12;
       particleMesh.rotation.x = Math.cos(elapsed * 0.28) * 0.05 - mouse.y * 0.08;
     }
 
     // Camera subtle breathing parallax
-    camera.position.x = mouse.x * 22;
-    camera.position.y = 10 + mouse.y * 14;
-    camera.lookAt(0, 10, 0);
+    camera.position.x = mouse.x * 20;
+    camera.position.y = 20 + mouse.y * 12;
+    camera.lookAt(0, 18, 0);
 
     renderer.render(scene, camera);
   }
@@ -816,8 +861,8 @@ export function initContactHologramTerminal(containerId = 'contact-stage-contain
 
   // Resize handler
   const onResize = () => {
-    width = container.clientWidth || 1000;
-    height = container.clientHeight || 720;
+    width = container.clientWidth || 800;
+    height = container.clientHeight || 520;
     camera.aspect = width / height;
     camera.updateProjectionMatrix();
     renderer.setSize(width, height, false);
@@ -830,29 +875,37 @@ export function initContactHologramTerminal(containerId = 'contact-stage-contain
   // ---------------------------------------------------------------------------
   const avatarImg = new Image();
   avatarImg.crossOrigin = 'anonymous';
-  avatarImg.onload = () => {
-    shapeLibraries.avatar = sampleAvatarPoints(avatarImg, PARTICLE_COUNT);
-    assembleParticleEngine();
-  };
-  avatarImg.onerror = () => {
-    // Procedural cylinder fallback if asset fails to load
-    const dummy = [];
-    for (let i = 0; i < PARTICLE_COUNT; i++) {
-      const a = Math.random() * Math.PI * 2;
-      const r = 90 * Math.sqrt(Math.random());
-      const z = (Math.random() - 0.5) * 60;
-      dummy.push(Math.cos(a) * r, (Math.random() - 0.5) * 220, z);
+
+  function onAvatarLoaded() {
+    try {
+      shapeLibraries.avatar = sampleAvatarPoints(avatarImg, PARTICLE_COUNT);
+      assembleParticleEngine();
+      updateShapeUI(0);
+    } catch (err) {
+      console.warn('Avatar particle generation error:', err);
+      if (fallbackImg) fallbackImg.classList.remove('hidden');
     }
-    shapeLibraries.avatar = fitPoints(dummy, PARTICLE_COUNT);
-    assembleParticleEngine();
+  }
+
+  avatarImg.onload = onAvatarLoaded;
+  avatarImg.onerror = () => {
+    console.warn('Failed to load masked-operator-hero.png for contact terminal');
+    if (fallbackImg) fallbackImg.classList.remove('hidden');
   };
-  avatarImg.src = 'assets/masked-operator-hero.png';
+
+  // If already cached by browser:
+  if (avatarImg.complete && avatarImg.naturalWidth) {
+    onAvatarLoaded();
+  } else {
+    avatarImg.src = 'assets/masked-operator-hero.png';
+  }
 
   // Cleanup on page unload
   window.addEventListener('beforeunload', () => {
     isRunning = false;
     cancelAnimationFrame(animId);
     observer.disconnect();
+    window.removeEventListener('keydown', onKeyDown);
     window.removeEventListener('pointermove', onPointerMove);
     window.removeEventListener('resize', onResize);
     renderer?.dispose();

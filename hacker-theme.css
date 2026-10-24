@@ -755,6 +755,47 @@ header[data-purpose="site-navigation"] #mobile-menu-btn:hover {
   background: #d0ff8a !important;
 }
 
+#particle-prev-btn,
+#particle-next-btn {
+  border-radius: 9999px !important;
+  width: 48px !important;
+  height: 48px !important;
+  padding: 0 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  border: 1px solid rgba(53, 232, 154, 0.4) !important;
+  background: rgba(3, 5, 4, 0.75) !important;
+  color: #a8ff35 !important;
+  backdrop-filter: blur(8px) !important;
+  -webkit-backdrop-filter: blur(8px) !important;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  cursor: pointer !important;
+}
+
+#particle-prev-btn:hover,
+#particle-next-btn:hover {
+  border-color: #35e89a !important;
+  background: rgba(53, 232, 154, 0.2) !important;
+  color: #ffffff !important;
+  box-shadow: 0 0 25px rgba(53, 232, 154, 0.45) !important;
+  transform: scale(1.08) !important;
+}
+
+#particle-prev-btn:focus-visible,
+#particle-next-btn:focus-visible {
+  outline: 2px solid #a8ff35 !important;
+  outline-offset: 3px !important;
+}
+
+@media (max-width: 640px) {
+  #particle-prev-btn,
+  #particle-next-btn {
+    width: 42px !important;
+    height: 42px !important;
+  }
+}
+
 #contact .border-t {
   border-color: var(--line) !important;
 }
