@@ -526,14 +526,18 @@ header[data-purpose="site-navigation"] #mobile-menu-btn:hover {
 /* Project surfaces */
 #projects,
 #landing-pages,
-#services {
+#hobbies,
+#services,
+#skills {
   position: relative;
   border-top: 1px solid var(--line);
 }
 
 #projects h2,
 #landing-pages h2,
-#services h2 {
+#hobbies h2,
+#services h2,
+#skills h2 {
   color: var(--ink) !important;
   font-size: clamp(2rem, 5vw, 4.75rem) !important;
   letter-spacing: -0.065em !important;
@@ -541,7 +545,9 @@ header[data-purpose="site-navigation"] #mobile-menu-btn:hover {
 
 #projects h2::before,
 #landing-pages h2::before,
-#services h2::before {
+#hobbies h2::before,
+#services h2::before,
+#skills h2::before {
   display: inline-block;
   width: 8px;
   height: 8px;
@@ -577,14 +583,17 @@ header[data-purpose="site-navigation"] #mobile-menu-btn:hover {
   color: #b2c2b3;
 }
 
-#landing-pages > div:last-of-type {
+#landing-pages > div:last-of-type,
+#hobbies > div:last-of-type {
   border: 1px solid var(--line);
   border-radius: 14px;
   background: radial-gradient(ellipse at center, rgba(36, 104, 56, 0.11), transparent 66%);
 }
 
 #landing-pages .bg-white\/90,
-#landing-pages .bg-white\/95 {
+#landing-pages .bg-white\/95,
+#hobbies .bg-white\/90,
+#hobbies .bg-white\/95 {
   border: 1px solid var(--line-strong) !important;
   border-radius: 4px !important;
   color: var(--acid) !important;
@@ -592,7 +601,8 @@ header[data-purpose="site-navigation"] #mobile-menu-btn:hover {
   box-shadow: 0 4px 18px rgba(0, 0, 0, 0.4) !important;
 }
 
-#services > div:first-child > p {
+#services > div:first-child > p,
+#skills > div:first-child > p {
   max-width: 570px;
   margin-inline: auto;
   color: var(--muted) !important;
@@ -895,12 +905,14 @@ header[data-purpose="site-navigation"] #mobile-menu-btn:hover {
     min-height: 360px;
   }
 
-  #landing-pages > div:last-of-type {
+  #landing-pages > div:last-of-type,
+  #hobbies > div:last-of-type {
     height: min(68vh, 500px) !important;
     min-height: 420px !important;
   }
 
-  #services > div:first-child {
+  #services > div:first-child,
+  #skills > div:first-child {
     margin-bottom: 2rem !important;
   }
 
