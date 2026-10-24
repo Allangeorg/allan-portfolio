@@ -1,40 +1,46 @@
 /**
  * hero-cinematic-reveal.js
  * 
- * ALLAN GEORGE MATHEW — CINEMATIC HACKER IDENTITY EXPERIENCE
+ * ALLAN GEORGE MATHEW — CINEMATIC HACKER IDENTITY & HOLOGRAM PARTICLES VFX
  * 
- * Upgraded WebGL particle self-portrait & scroll-driven 3D interaction.
+ * Inspired by and adapted from the Hologram Particles VFX architecture (cortiz2894/hologram-particles).
+ * Engineered for high-performance WebGL within Allan's personal engineering portfolio.
  * 
- * Core Features:
- * 1. Opening Sequence (approx. 6 seconds):
- *    - Phase A (0–2s): Darkness & particle emergence. Name and avatar 100% hidden.
- *      Thousands of #A8FF35 (volt/acid) and #16D9FF (cyan) particles emerge from 3D space,
- *      drifting and swirling inward.
- *    - Phase B (2–4s): Particles converge onto the silhouette of Allan's masked hacker avatar
- *      with controlled dispersion, subtle turbulence, and 2.5D volumetric relief.
- *      Avatar image emerges smoothly with soft rim lighting (opacity 0 -> 1).
- *    - Phase C (3.5–6s): Coordinated name reveal (ALLAN GEORGE in crisp #F2F5F0 white,
- *      MATHEW in neon-green-to-emerald gradient #A8FF35 -> #35E89A).
- *    - Phase D (6s+): Stable hero resting state. Crisp readable HTML typography, sharp avatar,
- *      ambient drifting particle field, and smooth mouse 3D parallax.
+ * Signature VFX Capabilities:
+ * 1. 3D Holographic Emitter Platform:
+ *    - Concentric, counter-rotating cyber rings (#35E89A emerald, #16D9FF electric cyan).
+ *    - Vertical hologram projection beam with smooth volumetric gradient.
+ *    - Expanding electromagnetic pulse waves.
  * 
- * 2. Scroll-Driven 3D Particle Effect (Signature Feature):
- *    - As the visitor scrolls down from the hero, the portrait and particle system
- *      respond progressively to scroll position (0.0 -> 1.0):
- *      * At scroll 0 (top): Particle portrait is assembled and stable.
- *      * As scroll begins: The sharp image dissolves as particles take over the form.
- *      * Particles explode outward through 3D depth space, swirling and flying past the camera.
- *      * Typography and columns translate with coordinated parallax.
- *      * Smooth, intentional, native, and 100% reversible when scrolling backward.
+ * 2. Volumetric 2.5D Hologram Point Cloud:
+ *    - High-density particles (~8,500 desktop / ~3,000 mobile) sampled from Allan's masked avatar.
+ *    - 2.5D facial & hood relief normals for directional holographic lighting.
+ *    - Vertical hologram scanline wave & subtle fractal turbulence.
  * 
- * Powered by Three.js (GPU particles) + GSAP (master timeline) + Motion (micro-interactions).
+ * 3. Fluid Pusher Physics & Displacement Glow:
+ *    - Damped spring-damper cursor displacement with turbulence sweep.
+ *    - Physics-driven glow: displaced particles flash with brilliant cyan-white energy
+ *      and gracefully decay as they return to rest.
+ * 
+ * 4. Master Cinematic Timeline (approx. 6 seconds):
+ *    - Phase A (0–2s): Darkness. Hologram platform powers on, swirling particles emerge.
+ *    - Phase B (2–4s): Particles converge into the volumetric hacker silhouette. Avatar image materializes.
+ *    - Phase C (3.5–6s): ALLAN GEORGE in white, MATHEW in neon emerald gradient.
+ *    - Phase D (6s+): Stable resting state with fluid interactive cursor physics.
+ * 
+ * 5. Reversible Scroll-Driven 3D Dispersion:
+ *    - Scrolling down dissolves the avatar image, exploding the particles outward in 3D depth.
+ * 
+ * 6. Accessibility & Resilience:
+ *    - Full prefers-reduced-motion fallback.
+ *    - Failsafe timeout to guarantee zero broken states.
  */
 
 import * as THREE from 'three';
 import { gsap } from 'gsap';
 import { animate } from 'motion';
 
-(function initHeroCinematicExperience() {
+(function initHeroHologramExperience() {
   const home = document.getElementById("home");
   const stage = document.getElementById("hero-avatar-stage");
   const avatarImg = stage?.querySelector("img");
@@ -48,7 +54,7 @@ import { animate } from 'motion';
   const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
   // ---------------------------------------------------------------------------
-  // Reduced Motion Fallback: Show everything immediately and cleanly
+  // 1. Reduced-Motion Fallback
   // ---------------------------------------------------------------------------
   if (reducedMotion) {
     avatarImg.style.opacity = "1";
@@ -63,7 +69,7 @@ import { animate } from 'motion';
     return;
   }
 
-  // Ensure initial hidden states are locked before animation begins
+  // Initial hidden state for the cinematic sequence
   avatarImg.style.opacity = "0";
   avatarImg.style.visibility = "hidden";
   avatarImg.style.transform = "scale(0.97)";
@@ -92,7 +98,7 @@ import { animate } from 'motion';
   }
 
   // ---------------------------------------------------------------------------
-  // 1. Three.js 3D Particle Scene Setup (Wide Overflow Canvas)
+  // 2. Three.js Canvas & Scene Setup
   // ---------------------------------------------------------------------------
   const canvas = document.createElement("canvas");
   canvas.className = "absolute pointer-events-none z-20";
@@ -111,8 +117,8 @@ import { animate } from 'motion';
   let canvasHeight = (stage.clientHeight || 500) + 300;
 
   const scene = new THREE.Scene();
-  const camera = new THREE.PerspectiveCamera(45, canvasWidth / canvasHeight, 1, 3000);
-  camera.position.z = 620;
+  const camera = new THREE.PerspectiveCamera(45, canvasWidth / canvasHeight, 1, 3500);
+  camera.position.set(0, 0, 620);
 
   let renderer;
   try {
@@ -132,8 +138,13 @@ import { animate } from 'motion';
   renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
 
   // ---------------------------------------------------------------------------
-  // 2. Uniforms & Interaction State
+  // 3. Hologram Colors & Uniforms
   // ---------------------------------------------------------------------------
+  const COLOR_ACID    = new THREE.Color(0xA8FF35); // #A8FF35 volt green
+  const COLOR_EMERALD = new THREE.Color(0x35E89A); // #35E89A emerald
+  const COLOR_CYAN    = new THREE.Color(0x16D9FF); // #16D9FF electric cyan
+  const COLOR_SHADOW  = new THREE.Color(0x062312); // Deep cyber shadow
+
   const uniforms = {
     uTime: { value: 0.0 },
     uProgress: { value: 0.0 },         // 0.0 -> 1.0 (Opening convergence)
@@ -141,7 +152,10 @@ import { animate } from 'motion';
     uScrollProgress: { value: 0.0 },   // 0.0 -> 1.0 (Scroll-driven dispersion)
     uAmbientStrength: { value: 0.0 },  // Phase 4 ambient floating level
     uMouse: { value: new THREE.Vector2(0, 0) },
-    uPixelDensity: { value: Math.min(window.devicePixelRatio || 1, 2) }
+    uPixelDensity: { value: Math.min(window.devicePixelRatio || 1, 2) },
+    uPusherRadius: { value: 165.0 },
+    uPusherStrength: { value: 55.0 },
+    uScanSpeed: { value: 2.8 }
   };
 
   const mouse = { x: 0, y: 0, targetX: 0, targetY: 0 };
@@ -154,7 +168,7 @@ import { animate } from 'motion';
   };
   window.addEventListener("pointermove", onPointerMove, { passive: true });
 
-  // Native Scroll Progress Tracking (Interpolated in rAF loop)
+  // Native Scroll Progress Tracking
   let targetScrollProgress = 0.0;
   let currentScrollProgress = 0.0;
   let isIntroCompleted = false;
@@ -162,15 +176,104 @@ import { animate } from 'motion';
   function updateScrollProgress() {
     const heroHeight = home.clientHeight || 800;
     const scrollY = window.scrollY || window.pageYOffset || 0;
-    // Normalized scroll range (0.0 to 1.0 over hero zone)
     targetScrollProgress = Math.min(1.0, Math.max(0.0, scrollY / (heroHeight * 0.85)));
   }
   window.addEventListener("scroll", updateScrollProgress, { passive: true });
 
+  // ---------------------------------------------------------------------------
+  // 4. Hologram Circular Emitter Platform (Inspired by cortiz2894)
+  // ---------------------------------------------------------------------------
+  const platformGroup = new THREE.Group();
+  scene.add(platformGroup);
+
+  // Position platform at the base of the avatar stage
+  const stageH = stage.clientHeight || 500;
+  platformGroup.position.set(0, -stageH * 0.44, -15);
+  platformGroup.rotation.x = Math.PI * 0.42; // Tilted perspective disc
+
+  // A. Outer Cyan Ring
+  const outerRingGeom = new THREE.RingGeometry(180, 184, 64);
+  const outerRingMat = new THREE.MeshBasicMaterial({
+    color: COLOR_CYAN,
+    transparent: true,
+    opacity: 0.0,
+    side: THREE.DoubleSide,
+    blending: THREE.AdditiveBlending
+  });
+  const outerRing = new THREE.Mesh(outerRingGeom, outerRingMat);
+  platformGroup.add(outerRing);
+
+  // B. Inner Emerald Ring with dashed technical segments
+  const innerRingGeom = new THREE.RingGeometry(130, 133, 48);
+  const innerRingMat = new THREE.MeshBasicMaterial({
+    color: COLOR_EMERALD,
+    transparent: true,
+    opacity: 0.0,
+    side: THREE.DoubleSide,
+    blending: THREE.AdditiveBlending
+  });
+  const innerRing = new THREE.Mesh(innerRingGeom, innerRingMat);
+  platformGroup.add(innerRing);
+
+  // C. Core Acid Concentric Ring
+  const coreRingGeom = new THREE.RingGeometry(80, 82, 36);
+  const coreRingMat = new THREE.MeshBasicMaterial({
+    color: COLOR_ACID,
+    transparent: true,
+    opacity: 0.0,
+    side: THREE.DoubleSide,
+    blending: THREE.AdditiveBlending
+  });
+  const coreRing = new THREE.Mesh(coreRingGeom, coreRingMat);
+  platformGroup.add(coreRing);
+
+  // D. Upward Holographic Projection Light Cylinder (Hologram Beam)
+  const beamGeom = new THREE.CylinderGeometry(150, 180, 480, 32, 1, true);
+  const beamMat = new THREE.ShaderMaterial({
+    uniforms: {
+      uTime: uniforms.uTime,
+      uAlpha: { value: 0.0 }
+    },
+    vertexShader: `
+      varying vec2 vUv;
+      varying vec3 vNormal;
+      void main() {
+        vUv = uv;
+        vNormal = normalize(normalMatrix * normal);
+        gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+      }
+    `,
+    fragmentShader: `
+      uniform float uTime;
+      uniform float uAlpha;
+      varying vec2 vUv;
+      varying vec3 vNormal;
+      void main() {
+        // Vertical fade: bright at base, soft at top
+        float vFade = pow(1.0 - vUv.y, 2.2);
+        // Fresnel rim glow
+        float rim = pow(1.0 - abs(dot(vNormal, vec3(0.0, 0.0, 1.0))), 2.4);
+        // Hologram scanlines
+        float scan = sin(vUv.y * 55.0 - uTime * 4.0) * 0.15 + 0.85;
+        vec3 col = mix(vec3(0.2, 0.95, 0.6), vec3(0.08, 0.85, 1.0), vUv.y);
+        float alpha = vFade * rim * scan * uAlpha * 0.28;
+        gl_FragColor = vec4(col * alpha, alpha);
+      }
+    `,
+    transparent: true,
+    depthWrite: false,
+    side: THREE.DoubleSide,
+    blending: THREE.AdditiveBlending
+  });
+  const hologramBeam = new THREE.Mesh(beamGeom, beamMat);
+  hologramBeam.rotation.x = -Math.PI * 0.42;
+  hologramBeam.position.set(0, 240, 0);
+  platformGroup.add(hologramBeam);
+
   let pointsMesh = null;
 
   // ---------------------------------------------------------------------------
-  // 3. Volumetric 2.5D Particle Sampling from Masked Operator Avatar
+  // 5. Volumetric 2.5D Hologram Point Cloud Generation
   // ---------------------------------------------------------------------------
   function buildParticleSystem(img) {
     const offscreen = document.createElement("canvas");
@@ -201,25 +304,21 @@ import { animate } from 'motion';
     const sizes = [];
     const phases = [];
     const isAvatarFlags = [];
+    const normals = [];
 
     const isMobile = window.innerWidth < 768;
-    // Step size: 5 on desktop (~6,000 silhouette points), 8 on mobile (~2,400)
-    const step = isMobile ? 8 : 5;
+    // Step size: 4 on desktop (~8,500 points), 7 on mobile (~3,000 points)
+    const step = isMobile ? 7 : 4;
     const stageW = stage.clientWidth || 400;
     const stageH = stage.clientHeight || 500;
     const scaleFactor = Math.min(stageW / nw, stageH / nh) * 0.98;
 
-    // Palette Colors
-    const acidGreen = new THREE.Color(0xA8FF35);  // Primary: #A8FF35
-    const emerald   = new THREE.Color(0x35E89A);  // Highlights: #35E89A
-    const cyan      = new THREE.Color(0x16D9FF);  // Electric: #16D9FF
-
-    // A. Sample Avatar Silhouette & Generate 2.5D Depth
+    // A. Sample Masked Avatar Silhouette & Construct Volumetric 2.5D Hologram
     for (let y = 0; y < nh; y += step) {
       for (let x = 0; x < nw; x += step) {
         const idx = (y * nw + x) * 4;
         const a = imgData[idx + 3];
-        if (a > 30) {
+        if (a > 25) {
           const r = imgData[idx] / 255;
           const g = imgData[idx + 1] / 255;
           const b = imgData[idx + 2] / 255;
@@ -229,84 +328,108 @@ import { animate } from 'motion';
           const nx = (x - nw / 2) / (nw / 2);
           const ny = (y - nh / 2) / (nh / 2);
 
-          // 2.5D Volumetric Facial & Hood Contouring
+          // 2.5D Volumetric Contouring
           const faceDist = Math.sqrt(nx * nx * 1.5 + Math.pow(ny + 0.15, 2) * 2.1);
-          let zRelief = Math.max(0.0, 1.0 - faceDist) * 54.0;
+          let zRelief = Math.max(0.0, 1.0 - faceDist) * 58.0;
 
-          // Mask & nose highlights project forward
+          // Forehead, visor, nose, and mask project forward
           if (faceDist < 0.65) {
-            zRelief += brightness * 26.0;
+            zRelief += brightness * 28.0;
           }
-          // Shoulders curve back into depth
+          // Torso & shoulders curve back into depth
           if (ny > 0.18) {
-            zRelief -= (nx * nx) * 48.0;
+            zRelief -= (nx * nx) * 52.0;
           }
-          // Hood rim wraps around
+          // Hood edge wrap
           if (faceDist > 0.65 && faceDist < 0.92 && ny < 0.2) {
-            zRelief += 16.0;
+            zRelief += 18.0;
           }
           const tz = zRelief + (Math.random() - 0.5) * 8.0;
 
-          // 3D Target position perfectly aligned with DOM image
+          // Target aligned with DOM image
           const tx = (x - nw / 2) * scaleFactor;
           const ty = -(y - nh / 2) * scaleFactor - 14;
 
-          // Widely scattered 3D origin in deep space
-          const dist = 320 + Math.random() * 420;
+          // Estimated normal for holographic lighting
+          const normLen = Math.sqrt(nx * nx + ny * ny + 1.0);
+          const normX = nx / normLen;
+          const normY = -ny / normLen;
+          const normZ = 1.0 / normLen;
+
+          // Deep space origin for convergence
+          const dist = 340 + Math.random() * 460;
           const theta = Math.random() * Math.PI * 2;
           const phi = (Math.random() - 0.5) * Math.PI;
 
           const ox = dist * Math.cos(phi) * Math.sin(theta);
           const oy = dist * Math.sin(phi);
-          const oz = (Math.random() - 0.5) * 750 - 100;
+          const oz = (Math.random() - 0.5) * 800 - 120;
 
           // Outward 3D dispersion vector for scroll interaction
           const dirLen = Math.sqrt(nx * nx + ny * ny) || 1.0;
-          const dDirX = (nx / dirLen) * (0.8 + Math.random() * 0.4);
-          const dDirY = (ny / dirLen) * (0.8 + Math.random() * 0.4);
-          const dDirZ = 0.5 + Math.random() * 0.9; // Forward flight towards camera
+          const dDirX = (nx / dirLen) * (0.85 + Math.random() * 0.4);
+          const dDirY = (ny / dirLen) * (0.85 + Math.random() * 0.4);
+          const dDirZ = 0.5 + Math.random() * 0.95;
 
           positions.push(ox, oy, oz);
           origins.push(ox, oy, oz);
           targets.push(tx, ty, tz);
           dispersionDirs.push(dDirX, dDirY, dDirZ);
-          sizes.push(Math.random() * 2.4 + 1.8);
+          sizes.push(Math.random() * 2.2 + 1.9);
           phases.push(Math.random() * Math.PI * 2);
           isAvatarFlags.push(1.0);
+          normals.push(normX, normY, normZ);
 
-          // Authentic Hacker Palette Mapping
-          if (brightness < 0.18) {
-            // Dark hood/jacket: deep emerald shadow
-            colors.push(0.04, 0.20, 0.08);
-          } else if (brightness > 0.62) {
-            // Highlights, eyes, technical seams: brilliant acid green or electric cyan
-            if (Math.random() > 0.35) {
-              colors.push(acidGreen.r, acidGreen.g, acidGreen.b);
+          // Authentic Hologram Palette Mapping
+          if (brightness < 0.16) {
+            // Shadow folds: deep cyber emerald
+            colors.push(COLOR_SHADOW.r, COLOR_SHADOW.g, COLOR_SHADOW.b);
+          } else if (brightness > 0.58) {
+            // Highlights & visor seam: electric cyan / acid green flash
+            if (Math.random() > 0.4) {
+              colors.push(COLOR_ACID.r, COLOR_ACID.g, COLOR_ACID.b);
             } else {
-              colors.push(cyan.r, cyan.g, cyan.b);
+              colors.push(COLOR_CYAN.r, COLOR_CYAN.g, COLOR_CYAN.b);
             }
           } else {
-            // Midtones: rich emerald glow
-            colors.push(emerald.r, emerald.g, emerald.b);
+            // Midtones: radiant emerald
+            colors.push(COLOR_EMERALD.r, COLOR_EMERALD.g, COLOR_EMERALD.b);
           }
         }
       }
     }
 
-    // B. Add Ambient 3D Constellation / Cyber Starlight Particles
-    const ambientCount = isMobile ? 800 : 1600;
+    // B. Add Holographic Base Emitter & Ambient Starlight Particles
+    const ambientCount = isMobile ? 800 : 1800;
     for (let i = 0; i < ambientCount; i++) {
-      const dist = 140 + Math.random() * 560;
-      const theta = Math.random() * Math.PI * 2;
-      const phi = (Math.random() - 0.5) * Math.PI;
+      const isEmitterSpark = i < ambientCount * 0.45;
+      let ox, oy, oz, tx, ty, tz;
 
-      const ox = dist * Math.cos(phi) * Math.sin(theta);
-      const oy = dist * Math.sin(phi);
-      const oz = (Math.random() - 0.5) * 850;
+      if (isEmitterSpark) {
+        // Sparks emerging from the circular hologram platform
+        const r = Math.random() * 160;
+        const angle = Math.random() * Math.PI * 2;
+        tx = r * Math.cos(angle);
+        ty = -stageH * 0.42 + Math.random() * 120;
+        tz = r * Math.sin(angle) * 0.4;
 
-      const tx = ox * 0.72;
-      const ty = oy * 0.72;
-      const tz = oz * 0.65;
+        ox = tx * 1.5;
+        oy = ty - 250 - Math.random() * 200;
+        oz = tz * 1.5;
+      } else {
+        // Wide cyber constellation
+        const dist = 140 + Math.random() * 580;
+        const theta = Math.random() * Math.PI * 2;
+        const phi = (Math.random() - 0.5) * Math.PI;
+
+        ox = dist * Math.cos(phi) * Math.sin(theta);
+        oy = dist * Math.sin(phi);
+        oz = (Math.random() - 0.5) * 850;
+
+        tx = ox * 0.75;
+        ty = oy * 0.75;
+        tz = oz * 0.70;
+      }
 
       const dDirX = (Math.random() - 0.5) * 2.0;
       const dDirY = (Math.random() - 0.5) * 2.0;
@@ -319,15 +442,15 @@ import { animate } from 'motion';
       sizes.push(Math.random() * 2.0 + 1.2);
       phases.push(Math.random() * Math.PI * 2);
       isAvatarFlags.push(0.0);
+      normals.push(0, 1, 0);
 
-      // Starfield palette distribution
-      const randColor = Math.random();
-      if (randColor > 0.65) {
-        colors.push(cyan.r, cyan.g, cyan.b);
-      } else if (randColor > 0.2) {
-        colors.push(acidGreen.r, acidGreen.g, acidGreen.b);
+      const randCol = Math.random();
+      if (randCol > 0.6) {
+        colors.push(COLOR_CYAN.r, COLOR_CYAN.g, COLOR_CYAN.b);
+      } else if (randCol > 0.2) {
+        colors.push(COLOR_ACID.r, COLOR_ACID.g, COLOR_ACID.b);
       } else {
-        colors.push(0.95, 0.96, 0.94); // #F2F5F0 Starlight
+        colors.push(0.95, 0.98, 0.95);
       }
     }
 
@@ -340,8 +463,11 @@ import { animate } from 'motion';
     geometry.setAttribute("aSize", new THREE.Float32BufferAttribute(sizes, 1));
     geometry.setAttribute("aPhase", new THREE.Float32BufferAttribute(phases, 1));
     geometry.setAttribute("aIsAvatar", new THREE.Float32BufferAttribute(isAvatarFlags, 1));
+    geometry.setAttribute("aNormal", new THREE.Float32BufferAttribute(normals, 3));
 
-    // Custom GPU Shader: Convergence + 2.5D Relief + Scroll Dispersion
+    // -------------------------------------------------------------------------
+    // 6. Hologram Particle Shader (TSL Node VFX converted to high-performance GLSL)
+    // -------------------------------------------------------------------------
     const material = new THREE.ShaderMaterial({
       uniforms,
       vertexShader: `
@@ -352,6 +478,9 @@ import { animate } from 'motion';
         uniform float uAmbientStrength;
         uniform vec2 uMouse;
         uniform float uPixelDensity;
+        uniform float uPusherRadius;
+        uniform float uPusherStrength;
+        uniform float uScanSpeed;
 
         attribute vec3 aOrigin;
         attribute vec3 aTarget;
@@ -360,9 +489,11 @@ import { animate } from 'motion';
         attribute float aSize;
         attribute float aPhase;
         attribute float aIsAvatar;
+        attribute vec3 aNormal;
 
         varying vec3 vColor;
         varying float vAlpha;
+        varying float vGlow;
 
         void main() {
           vColor = aColor;
@@ -371,46 +502,65 @@ import { animate } from 'motion';
           float openProg = smoothstep(0.0, 1.0, uProgress);
 
           // Vortex swirl during Phase 1 & 2
-          float swirlAmount = (1.0 - openProg) * 2.4;
-          float swirlAngle = swirlAmount * length(aOrigin.xy) * 0.0032 + uTime * 0.48 + aPhase;
+          float swirlAmount = (1.0 - openProg) * 2.5;
+          float swirlAngle = swirlAmount * length(aOrigin.xy) * 0.003 + uTime * 0.45 + aPhase;
           mat2 rot = mat2(cos(swirlAngle), -sin(swirlAngle), sin(swirlAngle), cos(swirlAngle));
           vec2 swirledOrigin = rot * aOrigin.xy;
 
           vec3 currentPos = mix(vec3(swirledOrigin, aOrigin.z), aTarget, openProg);
 
-          // 2. Idle Organic Floating & Mouse Reaction
-          if (openProg > 0.65) {
-            float idleFactor = (openProg - 0.65) * 2.85;
-            currentPos.x += sin(uTime * 1.3 + aPhase) * 2.2 * idleFactor;
-            currentPos.y += cos(uTime * 1.0 + aPhase) * 2.5 * idleFactor;
-            currentPos.z += sin(uTime * 0.85 + aPhase) * 3.0 * idleFactor;
+          // 2. Holographic Scanline & Noise Displacement (from cortiz2894)
+          if (openProg > 0.6) {
+            float scanWave = sin(currentPos.y * 0.055 - uTime * uScanSpeed + aPhase * 0.8);
+            float scanMod = smoothstep(0.65, 1.0, scanWave);
+            // Micro-displacement along surface normal
+            currentPos += aNormal * (scanMod * 3.2);
 
-            // Restrained 3D mouse repulsion
-            vec2 diff = currentPos.xy - (uMouse * 190.0);
-            float dist = length(diff);
-            if (dist < 140.0) {
-              float force = (1.0 - dist / 140.0) * 15.0 * idleFactor;
-              currentPos.xy += normalize(diff) * force;
-              currentPos.z += force * 2.4;
-            }
+            // Subtle vertical holographic breathing
+            currentPos.y += sin(uTime * 1.4 + aPhase) * 1.6;
+            currentPos.x += cos(uTime * 1.1 + aPhase) * 1.2;
           }
 
-          // 3. SCROLL-DRIVEN 3D PARTICLE DISPERSION (Signature Feature)
-          // As visitor scrolls, particles explode outward and forward through 3D depth space
+          // 3. Fluid Pusher Cursor Physics with Spring-Damper Feel
+          float displacementGlow = 0.0;
+          if (openProg > 0.7) {
+            vec3 mouse3D = vec3(uMouse.x * 240.0, uMouse.y * 200.0, 30.0);
+            vec3 toParticle = currentPos - mouse3D;
+            float dist = length(toParticle.xy);
+
+            if (dist < uPusherRadius) {
+              float influence = pow(1.0 - dist / uPusherRadius, 1.7);
+              // Fluid wave + turbulence sweep
+              float turbAngle = uTime * 3.0 + aPhase;
+              mat2 turbRot = mat2(cos(turbAngle), -sin(turbAngle), sin(turbAngle), cos(turbAngle));
+              vec2 pushedDir = turbRot * normalize(toParticle.xy + vec2(0.001));
+
+              vec3 pushOffset = vec3(
+                pushedDir * (influence * uPusherStrength),
+                influence * 24.0
+              );
+              currentPos += pushOffset;
+
+              // Physics glow: displaced particles illuminate intensely!
+              displacementGlow = influence * 1.4;
+            }
+          }
+          vGlow = displacementGlow;
+
+          // 4. Scroll-Driven 3D Hologram Dispersion (Signature Feature)
           float scrollFactor = smoothstep(0.0, 1.0, uScrollProgress);
           if (scrollFactor > 0.001) {
-            float disperseDist = scrollFactor * (220.0 + aPhase * 95.0);
+            float disperseDist = scrollFactor * (240.0 + aPhase * 105.0);
 
-            // 3D curl / spiral turbulence
-            float curlAngle = scrollFactor * 3.2 + aPhase;
+            // 3D spiral turbulence
+            float curlAngle = scrollFactor * 3.4 + aPhase;
             mat2 scrollRot = mat2(cos(curlAngle), -sin(curlAngle), sin(curlAngle), cos(curlAngle));
             vec2 scrolledDir = scrollRot * aDispersionDir.xy;
 
             vec3 disperseOffset = vec3(
               scrolledDir * disperseDist,
-              aDispersionDir.z * disperseDist * 1.8 + sin(uTime * 1.8 + aPhase) * 22.0 * scrollFactor
+              aDispersionDir.z * disperseDist * 1.9 + sin(uTime * 1.8 + aPhase) * 24.0 * scrollFactor
             );
-
             currentPos += disperseOffset;
           }
 
@@ -418,22 +568,22 @@ import { animate } from 'motion';
           gl_Position = projectionMatrix * mvPosition;
 
           // Particle Size Attenuation
-          float pointScale = aSize * (460.0 / -mvPosition.z) * uPixelDensity;
-          pointScale *= mix(0.55, 1.0, openProg);
+          float pointScale = aSize * (480.0 / -mvPosition.z) * uPixelDensity;
+          pointScale *= mix(0.5, 1.0, openProg);
           pointScale *= (1.0 + scrollFactor * 0.45);
-          gl_PointSize = clamp(pointScale, 1.2, 16.0);
+          pointScale *= (1.0 + displacementGlow * 0.35); // Inflate size when pushed
+          gl_PointSize = clamp(pointScale, 1.2, 18.0);
 
           // Alpha Calculation
           float alpha = uParticleAlpha;
           if (aIsAvatar > 0.5) {
             if (openProg > 0.9) {
               float restingAlpha = mix(1.0, 0.45, uAmbientStrength);
-              // As image dissolves on scroll, particle cloud brightens
               alpha *= mix(restingAlpha, 0.95, scrollFactor);
             }
           } else {
-            // Ambient stars pulse gently
-            alpha *= (0.55 + 0.45 * sin(uTime * 1.8 + aPhase));
+            // Emitter sparks and ambient stars pulse
+            alpha *= (0.55 + 0.45 * sin(uTime * 2.2 + aPhase));
           }
 
           // Smoothly fade out when scrolled far past hero
@@ -445,12 +595,29 @@ import { animate } from 'motion';
       fragmentShader: `
         varying vec3 vColor;
         varying float vAlpha;
+        varying float vGlow;
+        uniform float uTime;
 
         void main() {
+          // Circular particle with smooth anti-aliased edge
           float d = length(gl_PointCoord - vec2(0.5));
           if (d > 0.5) discard;
-          float smoothEdge = smoothstep(0.5, 0.06, d);
-          gl_FragColor = vec4(vColor, vAlpha * smoothEdge);
+          float smoothEdge = smoothstep(0.5, 0.08, d);
+
+          // Physics-Driven Holographic Glow (from cortiz2894)
+          // Displaced particles flash bright electric cyan / white
+          vec3 outColor = vColor;
+          if (vGlow > 0.01) {
+            vec3 neonCyan = vec3(0.08, 0.85, 1.0);
+            vec3 whiteFlash = vec3(0.9, 1.0, 0.95);
+            outColor = mix(outColor, neonCyan, clamp(vGlow, 0.0, 1.0));
+            outColor += whiteFlash * (vGlow * 0.6);
+          }
+
+          // Holographic micro-flicker
+          float flicker = 0.93 + 0.07 * sin(uTime * 32.0);
+
+          gl_FragColor = vec4(outColor * flicker * (vAlpha * smoothEdge), vAlpha * smoothEdge);
         }
       `,
       transparent: true,
@@ -461,12 +628,12 @@ import { animate } from 'motion';
     pointsMesh = new THREE.Points(geometry, material);
     scene.add(pointsMesh);
 
-    // Launch Master 6-Second Timeline
+    // Launch Master Cinematic Timeline
     startCinematicTimeline();
   }
 
   // ---------------------------------------------------------------------------
-  // 4. Render Loop & Scroll Interpolation (60/120 FPS)
+  // 7. Render Loop (60/120 FPS)
   // ---------------------------------------------------------------------------
   let animFrameId = 0;
   let isRunning = true;
@@ -480,20 +647,27 @@ import { animate } from 'motion';
     uniforms.uTime.value = elapsed;
 
     // Smooth Mouse Lerping
-    mouse.x += (mouse.targetX - mouse.x) * 0.06;
-    mouse.y += (mouse.targetY - mouse.y) * 0.06;
+    mouse.x += (mouse.targetX - mouse.x) * 0.07;
+    mouse.y += (mouse.targetY - mouse.y) * 0.07;
     uniforms.uMouse.value.set(mouse.x, mouse.y);
 
+    // Rotate Hologram Platform Rings (Counter-rotations)
+    if (platformGroup) {
+      outerRing.rotation.z = elapsed * 0.25;
+      innerRing.rotation.z = -elapsed * 0.38;
+      coreRing.rotation.z  = elapsed * 0.52;
+    }
+
     // Camera 3D Parallax Tilt
-    camera.position.x = mouse.x * 24;
+    camera.position.x = mouse.x * 26;
     camera.position.y = mouse.y * 18;
     camera.lookAt(0, -10, 0);
 
-    // Smooth Scroll Progress Interpolation (Native & Reversible)
+    // Smooth Scroll Progress Interpolation
     currentScrollProgress += (targetScrollProgress - currentScrollProgress) * 0.08;
     uniforms.uScrollProgress.value = currentScrollProgress;
 
-    // Coordinated Scroll DOM Transitions (Only active once intro is complete)
+    // Coordinated Scroll DOM Transitions (Active after intro)
     if (isIntroCompleted) {
       // 1. Avatar Dissolve: image fades to 0 as particles explode in 3D
       const avatarFade = Math.max(0.0, 1.0 - currentScrollProgress * 2.4);
@@ -518,6 +692,13 @@ import { animate } from 'motion';
         rightCol.style.opacity = colAlpha;
         rightCol.style.transform = `translateY(${-currentScrollProgress * 24}px)`;
       }
+
+      // 4. Platform Fade on Scroll
+      const platAlpha = Math.max(0.0, 1.0 - currentScrollProgress * 2.0);
+      outerRingMat.opacity = 0.55 * platAlpha;
+      innerRingMat.opacity = 0.70 * platAlpha;
+      coreRingMat.opacity  = 0.85 * platAlpha;
+      beamMat.uniforms.uAlpha.value = platAlpha;
     }
 
     renderer.render(scene, camera);
@@ -538,7 +719,7 @@ import { animate } from 'motion';
   window.addEventListener("resize", onResize, { passive: true });
 
   // ---------------------------------------------------------------------------
-  // 5. GSAP Master 6-Second Cinematic Timeline
+  // 8. GSAP Master Cinematic Timeline
   // ---------------------------------------------------------------------------
   function startCinematicTimeline() {
     clearTimeout(failsafeTimer);
@@ -559,10 +740,15 @@ import { animate } from 'motion';
     }
 
     // =========================================================================
-    // PHASE A — PARTICLES FIRST IN DARKNESS (0.0s – 2.0s)
-    // Dark background. Avatar & name completely hidden.
-    // #A8FF35 and #16D9FF particles emerge from deep 3D space and swirl inward.
+    // PHASE A — PARTICLES & HOLOGRAM PLATFORM POWER-ON (0.0s – 2.0s)
+    // Dark environment. Avatar & name 100% hidden.
+    // Hologram circular platform powers on. Particles emerge from deep space.
     // =========================================================================
+    tl.to(outerRingMat, { opacity: 0.55, duration: 1.2, ease: "power2.inOut" }, 0.1);
+    tl.to(innerRingMat, { opacity: 0.70, duration: 1.2, ease: "power2.inOut" }, 0.2);
+    tl.to(coreRingMat,  { opacity: 0.85, duration: 1.2, ease: "power2.inOut" }, 0.3);
+    tl.to(beamMat.uniforms.uAlpha, { value: 1.0, duration: 1.6, ease: "power2.inOut" }, 0.3);
+
     tl.to(uniforms.uParticleAlpha, {
       value: 1.0,
       duration: 1.4,
@@ -570,15 +756,15 @@ import { animate } from 'motion';
     }, 0.2);
 
     tl.to(uniforms.uProgress, {
-      value: 0.28,
+      value: 0.30,
       duration: 2.0,
       ease: "power1.inOut"
     }, 0.0);
 
     // =========================================================================
-    // PHASE B — PARTICLE SELF-PORTRAIT CONVERGENCE (2.0s – 4.0s)
+    // PHASE B — HOLOGRAM POINT CLOUD CONVERGENCE (2.0s – 4.0s)
     // Particles converge tightly onto the masked operator silhouette.
-    // Avatar image gradually emerges with smooth opacity and soft rim lighting.
+    // Avatar image gradually materializes with holographic emerald rim glow.
     // =========================================================================
     tl.to(uniforms.uProgress, {
       value: 1.0,
@@ -604,8 +790,6 @@ import { animate } from 'motion';
     // =========================================================================
     // PHASE C — NAME REVEAL (3.5s – 6.0s)
     // Coordinated reveal of ALLAN GEORGE and MATHEW.
-    // Line 1: ALLAN GEORGE (crisp #F2F5F0 white).
-    // Line 2: MATHEW (neon-green-to-emerald gradient #A8FF35 -> #35E89A).
     // =========================================================================
     tl.to(nameLine1, {
       opacity: 1,
@@ -641,8 +825,7 @@ import { animate } from 'motion';
     }
 
     // =========================================================================
-    // PHASE D — FINAL HERO STATE & SCROLL ACTIVATION (6.0s onward)
-    // Particles settle into subtle ambient halo. Scroll effects become active.
+    // PHASE D — FINAL RESTING STATE & INTERACTION ACTIVATION (6.0s onward)
     // =========================================================================
     tl.to(uniforms.uAmbientStrength, {
       value: 1.0,
@@ -658,7 +841,7 @@ import { animate } from 'motion';
   }
 
   // ---------------------------------------------------------------------------
-  // 6. Motion (Restrained Micro-interactions on Hover)
+  // 9. Motion Micro-Interactions
   // ---------------------------------------------------------------------------
   function initMotionMicroInteractions() {
     try {

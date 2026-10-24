@@ -1019,34 +1019,118 @@
   <!-- END: Skills & Technical Proficiencies Section -->
 
   <!-- BEGIN: Contact / Let's Talk Footer -->
-  <footer class="w-full bg-[#0D0D0D] text-white pt-20 pb-12 mt-12" data-purpose="footer-section" id="contact">
-    <div class="max-w-[1400px] mx-auto px-6 md:px-14 flex flex-col items-center">
+  <footer class="w-full bg-[#030504] text-white pt-16 pb-12 mt-12 border-t border-[#35E89A]/15 relative overflow-hidden" data-purpose="footer-section" id="contact">
+    <!-- Background Ambient Glow -->
+    <div class="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[350px] bg-[#35E89A]/5 rounded-full blur-[120px] pointer-events-none" aria-hidden="true"></div>
+
+    <div class="max-w-[1400px] mx-auto px-6 md:px-14 flex flex-col items-center relative z-10">
       
       <!-- Metallic Callout Headline -->
-      <div class="w-full text-center py-6 md:py-10">
-        <h2 class="text-[12vw] md:text-[8rem] lg:text-[10rem] font-black uppercase leading-none tracking-tight footer-metallic-title select-none cursor-pointer" onclick="openContactModal()">
+      <div class="w-full text-center py-4 md:py-8">
+        <h2 class="text-[12vw] md:text-[8rem] lg:text-[9.5rem] font-black uppercase leading-none tracking-tight footer-metallic-title select-none cursor-pointer" onclick="openContactModal()">
           LET'S TALK
         </h2>
+        <p class="text-[11px] font-mono tracking-widest text-[#35E89A]/75 uppercase mt-3">
+          SECURE COMMUNICATIONS // REAL-TIME IDENTITY SCULPTURE TERMINAL
+        </p>
       </div>
 
-      <!-- Action Button Pills -->
-      <div class="flex flex-wrap items-center justify-center gap-3.5 mt-8 mb-20">
-        <a class="px-6 py-2.5 rounded-full border border-neutral-700 hover:border-neutral-400 text-xs font-medium tracking-wider uppercase transition text-neutral-300 hover:text-white" href="mailto:allan.george.mathew@gmail.com">
+      <!-- Hologram Terminal Monospace Telemetry Bar -->
+      <div class="w-full max-w-4xl flex flex-wrap items-center justify-between text-[11px] font-mono tracking-widest text-neutral-400 border border-[#35E89A]/20 bg-[#061009]/80 backdrop-blur-sm rounded-t-xl px-4 py-2.5 mt-4">
+        <div class="flex items-center gap-2">
+          <span class="inline-block w-2 h-2 rounded-full bg-[#A8FF35] animate-pulse"></span>
+          <span class="text-[#A8FF35] font-semibold">STATUS // ONLINE</span>
+        </div>
+        <div class="hidden sm:block text-neutral-400">
+          IDENTITY // ALLAN GEORGE MATHEW
+        </div>
+        <div class="text-[#16D9FF]">
+          <span id="holo-active-label">IDENTITY // AVATAR.SYS</span>
+        </div>
+      </div>
+
+      <!-- Real-Time 3D Holographic Terminal Stage -->
+      <div class="relative w-full max-w-4xl h-[440px] md:h-[540px] bg-[#010302] border-x border-b border-[#35E89A]/20 shadow-[0_0_60px_rgba(53,232,154,0.06)] rounded-b-xl overflow-hidden flex items-center justify-center cursor-crosshair">
+        <div id="contact-terminal-stage" class="absolute inset-0 w-full h-full"></div>
+
+        <!-- Corner Viewport HUD Accents -->
+        <div class="absolute top-3 left-3 text-[9px] font-mono text-[#35E89A]/40 pointer-events-none select-none">
+          + LAT // 12.9716° N<br>+ LON // 77.5946° E
+        </div>
+        <div class="absolute top-3 right-3 text-[9px] font-mono text-[#16D9FF]/40 pointer-events-none select-none text-right">
+          VFX // GPU_PARTICLES<br>SIMULATION // 60FPS
+        </div>
+        <div class="absolute bottom-3 left-4 text-[10px] font-mono text-neutral-500 pointer-events-none select-none flex items-center gap-2">
+          <svg class="w-3.5 h-3.5 text-[#35E89A]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M15 15l-2 5L9 9l11 4-5 2zm0 0l5 5M7.188 2.239l.777 2.897M5.136 7.965l-2.898-.777M13.95 4.05l-2.122 2.122m-5.657 5.656l-2.12 2.122" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+          <span>DRAG / HOVER CURSOR TO DISPLACE PARTICLES</span>
+        </div>
+      </div>
+
+      <!-- Interactive Particle Morphing Controls (Selectable Shapes) -->
+      <div class="w-full max-w-4xl flex flex-wrap items-center justify-center gap-2 md:gap-3 mt-6 mb-8">
+        <button class="holo-tab-btn px-4 py-2 rounded-lg border border-[#35E89A] bg-[#35E89A]/15 text-[#A8FF35] font-mono text-xs font-semibold tracking-wider uppercase transition-all duration-200 flex items-center gap-2 shadow-sm"
+                data-shape="avatar"
+                onclick="window.morphContactHologram('avatar')">
+          <span class="w-1.5 h-1.5 rounded-full bg-[#A8FF35]"></span>
+          <span>[0] AVATAR</span>
+        </button>
+        <button class="holo-tab-btn px-4 py-2 rounded-lg border border-neutral-800 bg-transparent text-neutral-400 hover:border-[#35E89A] hover:text-[#35E89A] font-mono text-xs font-semibold tracking-wider uppercase transition-all duration-200 flex items-center gap-2"
+                data-shape="github"
+                onclick="window.morphContactHologram('github')">
+          <span class="w-1.5 h-1.5 rounded-full bg-[#16D9FF]"></span>
+          <span>[1] GITHUB</span>
+        </button>
+        <button class="holo-tab-btn px-4 py-2 rounded-lg border border-neutral-800 bg-transparent text-neutral-400 hover:border-[#35E89A] hover:text-[#35E89A] font-mono text-xs font-semibold tracking-wider uppercase transition-all duration-200 flex items-center gap-2"
+                data-shape="linkedin"
+                onclick="window.morphContactHologram('linkedin')">
+          <span class="w-1.5 h-1.5 rounded-full bg-[#35E89A]"></span>
+          <span>[2] LINKEDIN</span>
+        </button>
+        <button class="holo-tab-btn px-4 py-2 rounded-lg border border-neutral-800 bg-transparent text-neutral-400 hover:border-[#35E89A] hover:text-[#35E89A] font-mono text-xs font-semibold tracking-wider uppercase transition-all duration-200 flex items-center gap-2"
+                data-shape="email"
+                onclick="window.morphContactHologram('email')">
+          <span class="w-1.5 h-1.5 rounded-full bg-[#A8FF35]"></span>
+          <span>[3] EMAIL</span>
+        </button>
+        <button class="holo-tab-btn px-4 py-2 rounded-lg border border-neutral-800 bg-transparent text-neutral-400 hover:border-[#35E89A] hover:text-[#35E89A] font-mono text-xs font-semibold tracking-wider uppercase transition-all duration-200 flex items-center gap-2"
+                data-shape="contact"
+                onclick="window.morphContactHologram('contact')">
+          <span class="w-1.5 h-1.5 rounded-full bg-[#16D9FF]"></span>
+          <span>[4] CONTACT</span>
+        </button>
+      </div>
+
+      <!-- Action Button Pills (With Real Working Links + Hover Morphing) -->
+      <div class="flex flex-wrap items-center justify-center gap-3.5 mt-2 mb-16">
+        <a class="px-6 py-2.5 rounded-full border border-neutral-700 hover:border-[#35E89A] hover:bg-[#35E89A]/10 text-xs font-medium tracking-wider uppercase transition text-neutral-300 hover:text-[#A8FF35]"
+           href="mailto:allan.george.mathew@gmail.com"
+           onmouseenter="window.morphContactHologram?.('email')"
+           onclick="window.morphContactHologram?.('email')">
           EMAIL
         </a>
-        <a class="px-6 py-2.5 rounded-full border border-neutral-700 hover:border-neutral-400 text-xs font-medium tracking-wider uppercase transition text-neutral-300 hover:text-white" href="tel:+917022509058">
+        <a class="px-6 py-2.5 rounded-full border border-neutral-700 hover:border-neutral-400 text-xs font-medium tracking-wider uppercase transition text-neutral-300 hover:text-white" 
+           href="tel:+917022509058">
           +91 70225 09058
         </a>
-        <a class="px-6 py-2.5 rounded-full border border-neutral-700 hover:border-neutral-400 text-xs font-medium tracking-wider uppercase transition text-neutral-300 hover:text-white" href="https://allanlostaadifound.web.app/" target="_blank" rel="noopener noreferrer">
+        <a class="px-6 py-2.5 rounded-full border border-neutral-700 hover:border-neutral-400 text-xs font-medium tracking-wider uppercase transition text-neutral-300 hover:text-white" 
+           href="https://allanlostaadifound.web.app/" target="_blank" rel="noopener noreferrer">
           LOST &amp; FOUND DEMO
         </a>
-        <a class="px-6 py-2.5 rounded-full border border-neutral-700 hover:border-neutral-400 text-xs font-medium tracking-wider uppercase transition text-neutral-300 hover:text-white" href="https://www.linkedin.com/in/allan-george-mathew-844225321" target="_blank" rel="noopener noreferrer">
+        <a class="px-6 py-2.5 rounded-full border border-neutral-700 hover:border-[#16D9FF] hover:bg-[#16D9FF]/10 text-xs font-medium tracking-wider uppercase transition text-neutral-300 hover:text-[#16D9FF]"
+           href="https://www.linkedin.com/in/allan-george-mathew-844225321" target="_blank" rel="noopener noreferrer"
+           onmouseenter="window.morphContactHologram?.('linkedin')"
+           onclick="window.morphContactHologram?.('linkedin')">
           LINKEDIN
         </a>
-        <a class="px-6 py-2.5 rounded-full border border-neutral-700 hover:border-neutral-400 text-xs font-medium tracking-wider uppercase transition text-neutral-300 hover:text-white" href="https://github.com/Allangeorg" target="_blank" rel="noopener noreferrer">
+        <a class="px-6 py-2.5 rounded-full border border-neutral-700 hover:border-[#A8FF35] hover:bg-[#A8FF35]/10 text-xs font-medium tracking-wider uppercase transition text-neutral-300 hover:text-[#A8FF35]"
+           href="https://github.com/Allangeorg" target="_blank" rel="noopener noreferrer"
+           onmouseenter="window.morphContactHologram?.('github')"
+           onclick="window.morphContactHologram?.('github')">
           GITHUB
         </a>
-        <button onclick="openContactModal()" class="px-7 py-2.5 rounded-full bg-white text-black hover:bg-neutral-200 text-xs font-bold tracking-wider uppercase transition transform hover:scale-105">
+        <button onclick="window.morphContactHologram?.('contact'); openContactModal();" 
+                onmouseenter="window.morphContactHologram?.('contact')"
+                class="px-7 py-2.5 rounded-full bg-white text-black hover:bg-[#A8FF35] hover:text-black text-xs font-bold tracking-wider uppercase transition transform hover:scale-105 shadow-md">
           CONTACT ME
         </button>
       </div>
@@ -1642,7 +1726,15 @@
   <script type="module" src="./scroll-expand-media.js"></script>
   <script type="module" src="./experience-section.js?v=resume-content"></script>
   <script type="module" src="./hero-3d-background.js?v=cyber-depth"></script>
-  <script type="module" src="./hero-cinematic-reveal.js?v=cinematic-v2"></script>
+  <script type="module" src="./hero-cinematic-reveal.js?v=hologram-vfx"></script>
+  <script type="module">
+    import { initContactHologramTerminal } from './contact-hologram-terminal.js?v=igloo-vfx';
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', () => initContactHologramTerminal('contact-terminal-stage'));
+    } else {
+      initContactHologramTerminal('contact-terminal-stage');
+    }
+  </script>
 </body>
 </html>
 
