@@ -14,8 +14,15 @@ export interface FlexCarouselItem {
   alt?: string;
   title?: string;
   subtitle?: string;
+  status?: string;
+  problem?: string;
   description?: string;
+  architecture?: string;
+  challenge?: string;
+  deliverables?: string[];
+  tools?: string[];
   link?: string;
+  github?: string;
 }
 
 interface PresetValues {
@@ -130,52 +137,90 @@ const photo = (id: string) => `https://images.unsplash.com/${id}?w=1200&q=80&aut
 
 export const DEFAULT_ITEMS: FlexCarouselItem[] = [
   {
-    src: 'Project Images/Cafe Website.png',
-    alt: 'Cafe Website',
-    title: 'Cafe Website',
-    subtitle: 'Editorial Coffee House Experience',
-    description: 'A full-stack cafe management system with an admin portal for orders, menu, and reservations',
-    link: 'https://mochaandmiso.web.app/'
+    src: 'assets/project-lost-found.webp',
+    alt: 'Lost and Found campus platform user interface preview',
+    title: 'Lost & Found Platform',
+    subtitle: 'Campus Web Application',
+    status: 'Completed',
+    problem: 'University students frequently misplace valuables across campus without a centralized, real-time hub to report, search, and verify claims.',
+    description: 'A campus web application where students report lost or found belongings, browse categorized listings, and coordinate item return via secure comment threads.',
+    architecture: 'React component architecture styled with Tailwind CSS, backed by Firebase Realtime Database for live synchronized listings and Firebase Auth for student verification.',
+    challenge: 'Preventing race conditions during item state transitions (Reported → Claimed → Returned) through atomic Firebase updates and optimistic UI updates.',
+    deliverables: ['Real-time lost & found item feed', 'Category-based search & filter', 'Claim discussion threads', 'Firebase real-time sync'],
+    tools: ['React', 'JavaScript (ES6+)', 'Tailwind CSS', 'Firebase Realtime DB', 'Firebase Auth'],
+    link: 'https://allanlostaadifound.web.app/',
+    github: 'https://github.com/Allangeorg'
   },
   {
-    src: 'Project Images/Design Studio.png',
-    alt: 'Design Studio',
-    title: 'Design Studio',
-    subtitle: 'Creative Agency & Brand Identity',
-    description: 'A bold design studio website built to showcase creative services, brand identity, and digital experiences',
-    link: 'https://echo-design-studio-ex.vercel.app/'
+    src: 'assets/project-canteen-ordering.webp',
+    alt: 'College canteen ordering system interface preview',
+    title: 'Campus Cravings (Canteen App)',
+    subtitle: 'Campus Ordering System',
+    status: 'Prototype / In Progress',
+    problem: 'Peak-hour cafeteria rush creates long physical lines, misplaced paper order slips, and vendor order congestion.',
+    description: 'A streamlined digital ordering concept allowing students to browse live vendor menus, apply promotional discounts, and receive unique verification coupon numbers for order pickup.',
+    architecture: 'Modular frontend state management with reactive cart calculations, timestamped order queue simulation, and vendor order-acceptance workflows.',
+    challenge: 'Persisting cart and pending order states across unexpected page reloads and browser disruptions using local storage synchronization.',
+    deliverables: ['Vendor menu & discount listings', 'Student cart & checkout flow', 'Verification coupon generation', 'Vendor order queue mock'],
+    tools: ['HTML5', 'CSS3', 'JavaScript', 'Local Storage', 'Modular UI'],
+    github: 'https://github.com/Allangeorg'
   },
   {
-    src: 'Project Images/Photographer Portfolio.png',
-    alt: 'Photographer Portfolio',
-    title: 'Photographer Portfolio',
-    subtitle: 'Editorial & Analog Photography',
-    description: 'An analog & editorial photography portfolio showcasing timeless visual stories',
-    link: 'https://julianvance.vercel.app/'
+    src: 'assets/project-realtime-chat.webp',
+    alt: 'Real-time chat application user interface preview',
+    title: 'Real-Time Chat Application',
+    subtitle: 'Messaging Web App',
+    status: 'Prototype',
+    problem: 'Enabling lightweight, real-time communication across multiple client sessions without third-party tracking or bloated frameworks.',
+    description: 'A real-time messaging application prototype featuring isolated communication rooms, user presence detection, and instant bi-directional message dispatch.',
+    architecture: 'Event-driven WebSocket architecture for bi-directional socket messaging, client-side message queue, and room routing.',
+    challenge: 'Safeguarding against Cross-Site Scripting (XSS) in broadcast messages via strict HTML sanitization, with automatic socket reconnection using exponential backoff.',
+    deliverables: ['Instant bi-directional messaging', 'Channel/room isolation', 'Sanitized chat rendering', 'Connection status handling'],
+    tools: ['JavaScript', 'WebSockets', 'HTML5', 'CSS3', 'XSS Sanitization'],
+    github: 'https://github.com/Allangeorg'
   },
   {
-    src: 'Project Images/Portfolio Design.png',
-    alt: 'Portfolio Design',
-    title: 'Portfolio Design',
-    subtitle: 'Minimalist Creative Developer Portfolio',
-    description: 'A sleek, high-performance portfolio crafted with modern typography, fluid interactions, and curated creative work.',
-    link: 'https://echooo.web.app/'
+    src: 'assets/project-personal-portfolio.webp',
+    alt: 'Allan George Mathew personal developer portfolio preview',
+    title: 'Personal Engineering Portfolio',
+    subtitle: 'High-Performance Web App',
+    status: 'Completed',
+    problem: 'Engineering candidates need a portfolio that showcases technical depth, graphics engineering, and cybersecurity skills without sacrificing performance or accessibility.',
+    description: 'A custom, futuristic developer portfolio featuring GPU particle simulation, 3D drum reel, horizontal spatial timelines, and full WCAG accessibility.',
+    architecture: 'Vanilla CSS custom design tokens, Tailwind CSS utility layer, Three.js WebGL particle engine, and ES Module component architecture.',
+    challenge: 'Achieving consistent 60+ FPS on 3D particle transformations and canvas animations while ensuring complete fallback support for prefers-reduced-motion.',
+    deliverables: ['3D Three.js particle reveal', 'WorksWheel 3D drum projection', 'Horizontal spatial timeline', 'Zero layout shift responsive UI'],
+    tools: ['Three.js', 'GSAP', 'HTML5', 'Tailwind CSS', 'ES Modules'],
+    link: 'https://allangeorgemathew.me/',
+    github: 'https://github.com/Allangeorg/allan-portfolio'
   },
   {
-    src: 'Project Images/Portfolio Website.png',
-    alt: 'Portfolio Website',
-    title: 'Portfolio Website',
-    subtitle: 'Personal Developer & Designer Portfolio',
-    description: 'A personal portfolio highlighting full-stack engineering, interactive UI components, and modern web craft.',
-    link: 'https://github.com/Allangeorg/allan-portfolio'
+    src: 'assets/project-cybersecurity-labs.webp',
+    alt: 'Cybersecurity practice labs terminal and network analysis preview',
+    title: 'TryHackMe Practice Labs',
+    subtitle: 'Hands-on Security Practice',
+    status: 'Coursework & Labs',
+    problem: 'Mastering foundational offensive and defensive security concepts in isolated, legal lab environments.',
+    description: 'Practical exercises across network reconnaissance, port scanning, web application security (SQL injection, broken authentication), and Linux server administration.',
+    architecture: 'Virtual machine lab setups interacting with vulnerable targets in controlled sandbox networks.',
+    challenge: 'Dissecting target services to identify misconfigured service banners and unpatched attack surfaces without triggering false alarms.',
+    deliverables: ['Network reconnaissance exercises', 'SQL injection & auth flaw analysis', 'Linux privileged permission audit'],
+    tools: ['TryHackMe', 'Linux CLI', 'Nmap', 'Networking Protocols', 'Bash'],
+    github: 'https://github.com/Allangeorg'
   },
   {
-    src: 'Project Images/Sen Cruzo-Client Portfolio.png',
-    alt: 'Sen Cruzo',
-    title: 'Sen Cruzo',
-    subtitle: 'Luxury Architectural & Client Portfolio',
-    description: 'A bespoke editorial portfolio designed for high-profile client presentation, featuring immersive layouts and architectural visual storytelling.',
-    link: 'https://sencruzo.web.app/'
+    src: 'assets/project-ethical-hacking.webp',
+    alt: 'Network traffic analysis and vulnerability auditing preview',
+    title: 'Network Defense & Vulnerability Labs',
+    subtitle: 'Coursework & Capstone',
+    status: 'Coursework & Guided Labs',
+    problem: 'Understanding how attackers exploit unencrypted network traffic and system vulnerabilities, and how defenders detect and remediate them.',
+    description: 'Guided coursework and capstone labs covering packet capture inspection with Wireshark, automated vulnerability scanning via OpenVAS, and penetration testing methodologies with Metasploit.',
+    architecture: 'Isolated Kali Linux virtual environment with bridged target virtual machines.',
+    challenge: 'Correlating packet captures with exploit payloads to confirm exploit success versus defensive drop rules.',
+    deliverables: ['Wireshark packet stream analysis', 'Automated CVE scanning report', 'Metasploit exploit verification'],
+    tools: ['Wireshark', 'Kali Linux', 'OpenVAS', 'Metasploit', 'Bash'],
+    github: 'https://github.com/Allangeorg'
   }
 ];
 
